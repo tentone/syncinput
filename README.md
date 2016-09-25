@@ -3,8 +3,8 @@
 ### Sync Input V1.0
 
 ### Download
- - [normal](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.js)
- - [minified](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js)
+ - [normal (10kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.js)
+ - [minified (6kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js)
 
 ### Features
  - Syncronous keyboard and mouse input
@@ -15,6 +15,40 @@
 ### To do
  - Gamepad API support
  - WebVR support (Vive controller)
+
+### Example
+
+    //Initialization
+    mouse = new Mouse();
+    keyboard = new Keyboard();
+    
+    [...]
+    
+    //Loop
+    mouse.update();
+    keyboard.update();
+    
+    console.log("Position X:" mouse.position.x + " Y:" + mouse.position.y);
+    console.log("Delta X:" mouse.delta.x + " Y:" + mouse.delta.y);
+    console.log("Scroll wheel:" mouse.wheel);
+    
+    if(mouse.buttonPressed(Mouse.LEFT))
+    {
+    	console.log("Mouse left is pressed");
+    }
+    
+    if(keyboard.keyPressed(Keyboard.W))
+    {
+    	console.log("W is pressed");
+    }
+    if(keyboard.keyJustPressed(Keyboard.W))
+    {
+    	console.log("W was just pressed");
+    }
+    if(keyboard.keyJustReleased(Keyboard.W))
+    {
+    	console.log("W was just released");
+    }
 
 ### Documentation
  - Mouse
@@ -137,38 +171,3 @@
 	- Keyboard.HOME
 	- Keyboard.INSERT
 	- Keyboard.DEL
-
-### Example
-
-    //Initialization
-    mouse = new Mouse();
-    keyboard = new Keyboard();
-    
-    [...]
-    
-    //Loop
-    mouse.update();
-    keyboard.update();
-    
-    console.log("Position X:" mouse.position.x + " Y:" + mouse.position.y);
-    console.log("Delta X:" mouse.delta.x + " Y:" + mouse.delta.y);
-    console.log("Scroll wheel:" mouse.wheel);
-    
-    if(mouse.buttonPressed(Mouse.LEFT))
-    {
-    	console.log("Mouse left is pressed");
-    }
-    
-    if(keyboard.keyPressed(Keyboard.W))
-    {
-    	console.log("W is pressed");
-    }
-    if(keyboard.keyJustPressed(Keyboard.W))
-    {
-    	console.log("W was just pressed");
-    }
-    if(keyboard.keyJustReleased(Keyboard.W))
-    {
-    	console.log("W was just released");
-    }
-
