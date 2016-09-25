@@ -11,18 +11,20 @@ function Keyboard()
 		this.keys.push(new Key());
 	}
 
+	var self = this;
+	
 	//Key down Event
 	document.onkeydown = function(event)
 	{
-		this.actions.push(event.keyCode);
-		this.actions.push(Key.KEY_DOWN);
+		self.actions.push(event.keyCode);
+		self.actions.push(Key.KEY_DOWN);
 	};
 
 	//Key up Event
 	document.onkeyup = function(event)
 	{
-		this.actions.push(event.keyCode);
-		this.actions.push(Key.KEY_UP);
+		self.actions.push(event.keyCode);
+		self.actions.push(Key.KEY_UP);
 	};
 }
 
