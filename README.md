@@ -85,7 +85,7 @@
  - Keyboard
 	Methods
 	- update
-		- Update mouse status (should be called every time after app logic update)
+		- Update keyboard status (should be called every time after app logic update)
 	- keyPressed(button)
 		- Check if key is currently pressed
 	- keyJustPressed(button)
