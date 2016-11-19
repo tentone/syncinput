@@ -4,6 +4,7 @@ function Example(){}
 
 var keyboard = null;
 var mouse = null;
+var gamepad = null;
 
 var mouse_div, delta_div;
 var keyboard_div;
@@ -12,7 +13,8 @@ Example.initialize = function(main)
 {
 	keyboard = new Keyboard();
 	mouse = new Mouse();
-
+	gamepad = new Gamepad();
+	
 	mouse_div = document.createElement("div");
 	mouse_div.style.position = "absolute";
 	mouse_div.style.textAlign = "left";

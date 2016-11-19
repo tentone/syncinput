@@ -37,7 +37,7 @@ function Mouse()
 		{
 			self._wheel = event.deltaY;
 			self._wheel_updated = true;
-		}, false);
+		});
 	}
 	else if(document.addEventListener !== undefined)
 	{
@@ -46,7 +46,7 @@ function Mouse()
 		{
 			self._wheel = event.detail * 30;
 			self._wheel_updated = true;
-		}, false);
+		});
 	}
 	else
 	{
@@ -69,13 +69,13 @@ function Mouse()
 			var touch = event.touches[0];
 			last_touch.set(touch.clientX, touch.clientY);
 			self.updateKey(Mouse.LEFT, Key.KEY_DOWN);
-		}, false);
+		});
 
 		//Touch screen released event
 		document.addEventListener("touchend", function(event)
 		{
 			self.updateKey(Mouse.LEFT, Key.KEY_UP);
-		}, false);
+		});
 
 		//Touch screen move event
 		document.addEventListener("touchmove", function(event)
@@ -110,19 +110,19 @@ function Mouse()
 			{
 				self.updatePosition(event.clientX, event.clientY, event.movementX, event.movementY);
 			}
-		}, false);
+		});
 
 		//Button pressed event
 		document.addEventListener("mousedown", function(event)
 		{
 			self.updateKey(event.which - 1, Key.KEY_DOWN);
-		}, false);
+		});
 
 		//Button released event
 		document.addEventListener("mouseup", function(event)
 		{
 			self.updateKey(event.which - 1, Key.KEY_UP);
-		}, false);
+		});
 	}
 }
 
@@ -141,12 +141,12 @@ Mouse.prototype.setCanvas = function(canvas)
 	canvas.addEventListener("mouseenter", function()
 	{
 		this.mouseInside = true;
-	}, false);
+	});
 
 	canvas.addEventListener("mouseleave", function()
 	{
 		this.mouseInside = false;
-	}, false);
+	});
 }
 
 //Check if mouse is inside attached canvas
@@ -278,5 +278,16 @@ Mouse.prototype.update = function()
 	{
 		this.delta.x = 0;
 		this.delta.y = 0;
+	}
+}
+
+//Dispose mouse object
+Mouse.prototype.dispose = function()
+{
+	//TODO <DESTROY EVENT HANDLERS>
+
+	if(this.canvas !== null)
+	{
+		//TODO <DESTROY CANVAS EVENT HANDLERS>
 	}
 }

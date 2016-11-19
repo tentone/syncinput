@@ -11,21 +11,21 @@ function Keyboard()
 		this.keys.push(new Key());
 	}
 
-	var self = this;
+	var actions = this.actions;
 	
-	//Key down Event
-	document.onkeydown = function(event)
+	//Key down
+	window.addEventListener("keydown", function(event)
 	{
-		self.actions.push(event.keyCode);
-		self.actions.push(Key.KEY_DOWN);
-	};
+		actions.push(event.keyCode);
+		actions.push(Key.KEY_DOWN);
+	});
 
-	//Key up Event
-	document.onkeyup = function(event)
+	//Key up
+	window.addEventListener("keyup", function(event)
 	{
-		self.actions.push(event.keyCode);
-		self.actions.push(Key.KEY_UP);
-	};
+		actions.push(event.keyCode);
+		actions.push(Key.KEY_UP);
+	});
 }
 
 //Update key flags syncronously
@@ -80,8 +80,13 @@ Keyboard.prototype.keyJustReleased = function(key)
 	return this.keys[key].justReleased;
 }
 
-//Some Keycodes
-Keyboard.BACKSPACE = 8;
+//Dispose keyboard object
+Keyboard.prototype.dispose = function()
+{
+	//TODO <ADD CODE HERE>
+}
+
+//Some keyboard key codes
 Keyboard.TAB = 9;
 Keyboard.ENTER = 13;
 Keyboard.SHIFT = 16;
