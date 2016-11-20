@@ -16,7 +16,7 @@ function Mouse()
 	this.delta = new Vector2(0,0);
 	this.wheel = 0;
 
-	//Calculate coordinates relative to canvas
+	//Canvas (use to calculate coordinates relative to it)
 	this.canvas = null;
 
 	//Initialize key instances
@@ -64,7 +64,7 @@ function Mouse()
 		var last_touch = new Vector2(0, 0);
 
 		//Touch screen pressed event
-		document.addEventListener("touchstart", function(event)
+		window.addEventListener("touchstart", function(event)
 		{
 			var touch = event.touches[0];
 			last_touch.set(touch.clientX, touch.clientY);
@@ -72,13 +72,13 @@ function Mouse()
 		});
 
 		//Touch screen released event
-		document.addEventListener("touchend", function(event)
+		window.addEventListener("touchend", function(event)
 		{
 			self.updateKey(Mouse.LEFT, Key.KEY_UP);
 		});
 
 		//Touch screen move event
-		document.addEventListener("touchmove", function(event)
+		window.addEventListener("touchmove", function(event)
 		{
 			var touch = event.touches[0];
 
@@ -99,7 +99,7 @@ function Mouse()
 	else
 	{
 		//Move event
-		document.addEventListener("mousemove", function(event)
+		window.addEventListener("mousemove", function(event)
 		{
 			if(self.canvas !== null)
 			{
@@ -113,13 +113,13 @@ function Mouse()
 		});
 
 		//Button pressed event
-		document.addEventListener("mousedown", function(event)
+		window.addEventListener("mousedown", function(event)
 		{
 			self.updateKey(event.which - 1, Key.KEY_DOWN);
 		});
 
 		//Button released event
-		document.addEventListener("mouseup", function(event)
+		window.addEventListener("mouseup", function(event)
 		{
 			self.updateKey(event.which - 1, Key.KEY_UP);
 		});
@@ -286,8 +286,8 @@ Mouse.prototype.dispose = function()
 {
 	//TODO <DESTROY EVENT HANDLERS>
 
-	if(this.canvas !== null)
+	/*if(this.canvas !== null)
 	{
 		//TODO <DESTROY CANVAS EVENT HANDLERS>
-	}
+	}*/
 }

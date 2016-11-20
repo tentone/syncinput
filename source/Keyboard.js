@@ -11,6 +11,7 @@ function Keyboard()
 		this.keys.push(new Key());
 	}
 
+	//Actions pointer
 	var actions = this.actions;
 	
 	//Key down
