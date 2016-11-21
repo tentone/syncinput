@@ -11,22 +11,32 @@ function Keyboard()
 		this.keys.push(new Key());
 	}
 
+	//Keyboard events
+	this.events = [];
+
 	//Actions pointer
 	var actions = this.actions;
-	
+
 	//Key down
-	window.addEventListener("keydown", function(event)
+	this.events.push([window, "keydown", function(event)
 	{
 		actions.push(event.keyCode);
 		actions.push(Key.KEY_DOWN);
-	});
+	}]);
 
 	//Key up
-	window.addEventListener("keyup", function(event)
+	this.events.push([window, "keyup", function(event)
 	{
 		actions.push(event.keyCode);
 		actions.push(Key.KEY_UP);
-	});
+	}]);
+
+	//Initialize events
+	for(var i = 0; i < this.events.length; i++)
+	{
+		var event = this.events[i];
+		event[0].addEventListener(event[1], event[2]);
+	}
 }
 
 //Update key flags syncronously
@@ -81,10 +91,14 @@ Keyboard.prototype.keyJustReleased = function(key)
 	return this.keys[key].justReleased;
 }
 
-//Dispose keyboard object
+//Dispose keyboard events
 Keyboard.prototype.dispose = function()
 {
-	//TODO <ADD CODE HERE>
+	for(var i = 0; i < this.events.length; i++)
+	{
+		var event = this.events[i];
+		event[0].removeEventListener(event[1], event[2]);
+	}
 }
 
 //Some keyboard key codes

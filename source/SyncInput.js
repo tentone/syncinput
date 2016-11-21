@@ -9,5 +9,5 @@ include("Keyboard.js");
 function SyncInput(){}
 
 SyncInput.VERSION = "SyncInput V1.1";
-SyncInput.TIMESTAMP = "201611200343";
+SyncInput.TIMESTAMP = "201611210139";
 

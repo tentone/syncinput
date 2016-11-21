@@ -13,7 +13,6 @@ document.body.appendChild(canvas);
 
 //WebGl renderer
 var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
-renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(canvas.width, canvas.height);
 
 //Scene
@@ -72,6 +71,8 @@ function update()
 	{
 		cube.rotation.y += mouse.delta.x / 200;
 	}
+
+	cube.position.z += mouse.wheel * 0.01;
 
 	//Render scene to screen
 	renderer.render(scene, camera);

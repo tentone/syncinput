@@ -65,8 +65,6 @@
 
 ### Documentation
  - Mouse
-	- update
-		- Update mouse status (should be called every time after app logic update)
 	
 	Variables
 	- position {x, y}
@@ -82,6 +80,8 @@
 	- Mouse.RIGHT
 
 	Methods
+	- update
+		- Update mouse status (should be called every time after app logic update)
 	- buttonPressed(button)
 		- Check if mouse button is pressed (touchscreen tap same as left click)
 	- buttonJustPressed(button)
@@ -96,7 +96,6 @@
 		-Set mouse lock
 
  - Keyboard
-	Methods
 	- update
 		- Update keyboard status (should be called every time after app logic update)
 	- keyPressed(button)
@@ -184,3 +183,36 @@
 	- Keyboard.HOME
 	- Keyboard.INSERT
 	- Keyboard.DEL
+
+ - Gamepad
+	- update
+		- Update gamepad status
+	- buttonPressed(button)
+		- Check if gamepad button is pressed
+	- buttonJustPressed(button)
+		- Check if gamepad button was just pressed
+	- buttonJustReleased(button)
+		- Check if gamepad button was just released
+
+	Standard Button Mapping
+	- Gamepad.LEFT
+	- Gamepad.RIGHT
+	- Gamepad.UP
+	- Gamepad.DOWN
+	- Gamepad.A
+	- Gamepad.B
+	- Gamepad.C
+	- Gamepad.D
+	- Gamepad.START
+	- Gamepad.HOME
+	- Gamepad.SELECT
+	- Gamepad.LEFT_TRIGGER_A
+	- Gamepad.LEFT_TRIGGER_B
+	- Gamepad.RIGHT_TRIGGER_A
+	- Gamepad.RIGHT_TRIGGER_B
+
+	Standard Axis
+	- Gamepad.LEFT_ANALOGUE_HOR
+	- Gamepad.LEFT_ANALOGUE_VERT
+	- Gamepad.RIGHT_ANALOGUE_HOR
+	- Gamepad.RIGHT_ANALOGUE_VERT
