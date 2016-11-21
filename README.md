@@ -3,8 +3,8 @@
 ### Sync Input V1.1
 
 ### Download
- - [normal (13kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.js)
- - [minified (8kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js)
+ - [normal (14kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.js)
+ - [minified (9kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js)
 
 ### Changelog
  - V1.0
@@ -13,7 +13,6 @@
   - Support for Gamepad (Using the Gamepad API)
   - Moved all events to the window object
   - Added dispose method
-  - Support for multi pointers (multi-touch)
 
 ### Features
  - Syncronous keyboard and mouse input
@@ -27,6 +26,7 @@
  - Usually events fire faster than your render code there is no need to repeat logic code multiple times without need
 
 ### To do
+ - Support for multi pointers (multi-touch)
  - WebVR HDM input support
 
 ### Example

@@ -4,6 +4,11 @@ function Gamepad()
 {
 	var index = Gamepad.gamepads.length;
 
+	this.vendor = -1;
+	this.product = -1;
+
+	this.connected = true;
+
 	this.setGamepad(navigator.getGamepads()[(index !== undefined) ? index : 0]);
 
 	Gamepad.gamepads.push(this);
@@ -11,15 +16,21 @@ function Gamepad()
 
 Gamepad.prototype.setGamepad = function(gamepad)
 {	
+	console.log(gamepad);
+
 	if(gamepad !== undefined)
 	{
 		this.index = gamepad.index;
-		this.buttons = [];
 
+		//Create and initialize buttons
+		this.buttons = [];
 		for(var i = 0; i < gamepad.buttons.length; i++)
 		{
 			this.buttons.push(new Key());
 		}
+
+		//Try to get the device vendor and product id
+		this.setVendorProduct(gamepad);
 	}
 	else
 	{
@@ -28,10 +39,42 @@ Gamepad.prototype.setGamepad = function(gamepad)
 	}
 }
 
+//Set vendor and product id
+Gamepad.prototype.setVendorProduct = function(gamepad)
+{
+	//Chrome
+	try
+	{
+		var temp = gamepad.id.split(":");
+
+		this.vendor = temp[1].split(" ")[1];
+		this.product = temp[2].replace(" ", "").replace(")", "");
+
+		return;
+	}
+	catch(e){}
+
+	//Firefox
+	try
+	{
+		var temp = gamepad.id.split("-");
+
+		this.vendor = temp[0];
+		this.product = temp[1];
+
+		return;
+	}
+	catch(e){}
+
+	//Edge (Only Xbox controllers)
+	//TODO <ADD CODE HERE>
+}
+
 //Update key flags
 Gamepad.prototype.update = function()
 {
 	var gamepad = navigator.getGamepads()[this.index];
+
 	if(gamepad !== undefined)
 	{
 		for(var i = 0; i < this.buttons.length; i++)
@@ -39,6 +82,20 @@ Gamepad.prototype.update = function()
 			this.buttons[i].update(gamepad.buttons[i].pressed ? Key.KEY_DOWN : Key.KEY_UP);
 		}
 	}
+}
+
+//Get analog button value [0...1]
+Gamepad.prototype.getAnalogueButton = function(button)
+{
+	//TODO <ADD CODE HERE>
+	return 0;
+}
+
+//Get axis value [-1...1]
+Gamepad.prototype.getAxis = function(axis)
+{
+	//TODO <ADD CODE HERE>
+	return 0;
 }
 
 //Check if a button is pressed
@@ -84,7 +141,6 @@ Gamepad.startListener = function()
 {
 	window.addEventListener("gamepadconnected", function(event)
 	{
-		console.log("connected", event);
 		var gamepad = event.gamepad;
 
 		for(var i = 0; i < Gamepad.gamepads.length; i++)
@@ -92,16 +148,11 @@ Gamepad.startListener = function()
 			if(Gamepad.gamepads[i].index === gamepad.index)
 			{
 				Gamepad.gamepads[i].setGamepad(gamepad);
-
 			}
 		}
 	});
 
-	window.addEventListener("gamepaddisconnected", function(event)
-	{
-		console.log("disonnected", event);
-		//TODO <CHECK IF THE GAMEPAD DISCONNECTED IS IN USE>
-	});
+	//window.addEventListener("gamepaddisconnected", function(event){});
 }
 
 Gamepad.startListener();
