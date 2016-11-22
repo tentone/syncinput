@@ -1,32 +1,32 @@
 "use strict";
 
-function Mouse()
+SyncInput.Mouse = function()
 {
 	//Raw data
 	this._keys = [];
-	this._position = new Vector2(0, 0);
+	this._position = new SyncInput.Vector2(0, 0);
 	this._position_updated = false;
-	this._delta = new Vector2(0, 0);
+	this._delta = new SyncInput.Vector2(0, 0);
 	this._wheel = 0;
 	this._wheel_updated = false;
 
 	//Position, delta, and scroll speed
 	this.keys = [];
-	this.position = new Vector2(0,0);
-	this.delta = new Vector2(0,0);
+	this.position = new SyncInput.Vector2(0,0);
+	this.delta = new SyncInput.Vector2(0,0);
 	this.wheel = 0;
 
 	//Canvas (use to calculate coordinates relative to it)
 	this.canvas = null;
 	
-	//Mouse events
+	//Events
 	this.events = [];
 
 	//Initialize key instances
 	for(var i = 0; i < 3; i++)
 	{
-		this._keys.push(new Key());
-		this.keys.push(new Key());
+		this._keys.push(new SyncInput.Key());
+		this.keys.push(new SyncInput.Key());
 	}
 
 	//Self pointer
@@ -64,20 +64,20 @@ function Mouse()
 	if("ontouchstart" in window || navigator.msMaxTouchPoints > 0)
 	{
 		//Auxiliar variables to calculate touch delta
-		var last_touch = new Vector2(0, 0);
+		var last_touch = new SyncInput.Vector2(0, 0);
 
 		//Touch screen pressed event
 		this.events.push([window, "touchstart", function(event)
 		{
 			var touch = event.touches[0];
 			last_touch.set(touch.clientX, touch.clientY);
-			self.updateKey(Mouse.LEFT, Key.KEY_DOWN);
+			self.updateKey(SyncInput.Mouse.LEFT, SyncInput.Key.KEY_DOWN);
 		}]);
 
 		//Touch screen released event
 		this.events.push([window, "touchend", function(event)
 		{
-			self.updateKey(Mouse.LEFT, Key.KEY_UP);
+			self.updateKey(SyncInput.Mouse.LEFT, SyncInput.Key.KEY_UP);
 		}]);
 
 		//Touch screen move event
@@ -118,13 +118,13 @@ function Mouse()
 		//Button pressed event
 		this.events.push([window, "mousedown", function(event)
 		{
-			self.updateKey(event.which - 1, Key.KEY_DOWN);
+			self.updateKey(event.which - 1, SyncInput.Key.KEY_DOWN);
 		}]);
 
 		//Button released event
 		this.events.push([window, "mouseup", function(event)
 		{
-			self.updateKey(event.which - 1, Key.KEY_UP);
+			self.updateKey(event.which - 1, SyncInput.Key.KEY_UP);
 		}]);
 	}
 
@@ -136,13 +136,13 @@ function Mouse()
 	}
 }
 
-//Mouse Buttons
-Mouse.LEFT = 0;
-Mouse.MIDDLE = 1;
-Mouse.RIGHT = 2;
+//SyncInput.Mouse Buttons
+SyncInput.Mouse.LEFT = 0;
+SyncInput.Mouse.MIDDLE = 1;
+SyncInput.Mouse.RIGHT = 2;
 
 //Canvas to be used for relative coordinates calculation
-Mouse.prototype.setCanvas = function(canvas)
+SyncInput.Mouse.prototype.setCanvas = function(canvas)
 {
 	this.canvas = canvas;
 
@@ -160,7 +160,7 @@ Mouse.prototype.setCanvas = function(canvas)
 }
 
 //Check if mouse is inside attached canvas
-Mouse.prototype.insideCanvas = function()
+SyncInput.Mouse.prototype.insideCanvas = function()
 {
 	if(this.canvas === null)
 	{
@@ -171,7 +171,7 @@ Mouse.prototype.insideCanvas = function()
 }
 
 //Set if mouse locked
-Mouse.prototype.setLock = function(value)
+SyncInput.Mouse.prototype.setLock = function(value)
 {
 	if(this.canvas !== null)
 	{
@@ -208,26 +208,26 @@ Mouse.prototype.setLock = function(value)
 	}
 }
 
-//Check if Mouse button is pressed
-Mouse.prototype.buttonPressed = function(button)
+//Check if mouse button is pressed
+SyncInput.Mouse.prototype.buttonPressed = function(button)
 {
 	return this.keys[button].isPressed;
 }
 
 //Check if a mouse button was just pressed
-Mouse.prototype.buttonJustPressed = function(button)
+SyncInput.Mouse.prototype.buttonJustPressed = function(button)
 {
 	return this.keys[button].justPressed;
 }
 
 //Check if a mouse button was just released
-Mouse.prototype.buttonJustReleased = function(button)
+SyncInput.Mouse.prototype.buttonJustReleased = function(button)
 {
 	return this.keys[button].justReleased;
 }
 
-//Update Mouse Position
-Mouse.prototype.updatePosition = function(x, y, x_diff, y_diff)
+//Update mouse Position
+SyncInput.Mouse.prototype.updatePosition = function(x, y, x_diff, y_diff)
 {
 	this._position.set(x, y);
 	this._delta.x += x_diff;
@@ -235,8 +235,8 @@ Mouse.prototype.updatePosition = function(x, y, x_diff, y_diff)
 	this._position_updated = true;
 }
 
-//Update Mouse Key
-Mouse.prototype.updateKey = function(button, action)
+//Update mouse Key
+SyncInput.Mouse.prototype.updateKey = function(button, action)
 {
 	if(button > -1)
 	{
@@ -244,8 +244,8 @@ Mouse.prototype.updateKey = function(button, action)
 	}
 }
 
-//Update Mouse State (Calculate position diff)
-Mouse.prototype.update = function()
+//Update mouse State (Calculate position diff)
+SyncInput.Mouse.prototype.update = function()
 {
 	//Update mouse keys state
 	for(var i = 0; i < this._keys.length; i++)
@@ -292,7 +292,7 @@ Mouse.prototype.update = function()
 }
 
 //Dispose mouse object
-Mouse.prototype.dispose = function()
+SyncInput.Mouse.prototype.dispose = function()
 {
 	for(var i = 0; i < this.events.length; i++)
 	{

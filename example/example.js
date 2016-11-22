@@ -1,5 +1,10 @@
 "use strict";
 
+//Import modules
+var Keyboard = SyncInput.Keyboard;
+var Mouse = SyncInput.Mouse;
+var Gamepad = SyncInput.Gamepad;
+
 function Example(){}
 
 var keyboard = null;
@@ -14,7 +19,7 @@ Example.initialize = function(main)
 {
 	keyboard = new Keyboard();
 	mouse = new Mouse();
-	//gamepad = new Gamepad();
+	gamepad = new Gamepad();
 	
 	mouse_div = document.createElement("div");
 	mouse_div.style.position = "absolute";

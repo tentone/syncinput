@@ -1,6 +1,6 @@
 "use strict";
 
-function Key()
+SyncInput.Key = function()
 {
 	this.isPressed = false;
 	this.justPressed = false;
@@ -8,17 +8,17 @@ function Key()
 }
 
 //Action List
-Key.KEY_DOWN = -1;
-Key.KEY_UP = 1;
-Key.KEY_RESET = 0;
+SyncInput.Key.KEY_DOWN = -1;
+SyncInput.Key.KEY_UP = 1;
+SyncInput.Key.KEY_RESET = 0;
 
-//Update Key status based new state
-Key.prototype.update = function(action)
+//Update key status based new state
+SyncInput.Key.prototype.update = function(action)
 {
 	this.justPressed = false;
 	this.justReleased = false;
 
-	if(action === Key.KEY_DOWN)
+	if(action === SyncInput.Key.KEY_DOWN)
 	{
 		if(!this.isPressed)
 		{
@@ -26,7 +26,7 @@ Key.prototype.update = function(action)
 		}
 		this.isPressed = true;
 	}
-	else if(action === Key.KEY_UP)
+	else if(action === SyncInput.Key.KEY_UP)
 	{
 		if(this.isPressed)
 		{
@@ -34,7 +34,7 @@ Key.prototype.update = function(action)
 		}
 		this.isPressed = false;
 	}
-	else if(action === Key.KEY_RESET)
+	else if(action === SyncInput.Key.KEY_RESET)
 	{
 		this.justReleased = false;
 		this.justPressed = false;
@@ -42,7 +42,7 @@ Key.prototype.update = function(action)
 }
 
 //Set key status
-Key.prototype.set = function(just_pressed, is_pressed, just_released)
+SyncInput.Key.prototype.set = function(just_pressed, is_pressed, just_released)
 {
 	this.justPressed = just_pressed;
 	this.isPressed = is_pressed;
@@ -50,7 +50,7 @@ Key.prototype.set = function(just_pressed, is_pressed, just_released)
 }
 
 //Reset key to default values
-Key.prototype.reset = function()
+SyncInput.Key.prototype.reset = function()
 {
 	this.justPressed = false;
 	this.isPressed = false;
