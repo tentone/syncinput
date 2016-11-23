@@ -3,8 +3,8 @@
 ### Sync Input V1.1
 
 ### Download
- - [normal (14kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.js)
- - [minified (9kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js)
+<!--- - [normal (14kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.js) -->
+ - [minified (10kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js)
 
 ### Changelog
  - V1.0
