@@ -1,10 +1,5 @@
 "use strict";
 
-//Import modules
-var Keyboard = SyncInput.Keyboard;
-var Mouse = SyncInput.Mouse;
-var Gamepad = SyncInput.Gamepad;
-
 //Create canvas element
 var canvas = document.createElement("canvas");
 canvas.width = window.innerWidth;

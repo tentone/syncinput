@@ -2,5 +2,5 @@
 
 function SyncInput(){}
 
-SyncInput.VERSION = "SyncInput V1.1";
-SyncInput.TIMESTAMP = "201611221254";
+VERSION = "SyncInput V1.1";
+TIMESTAMP = "201611230132";

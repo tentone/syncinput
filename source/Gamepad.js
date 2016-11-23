@@ -1,33 +1,26 @@
 "use strict";
 
-SyncInput.Gamepad = function()
+function Gamepad()
 {
-	var index = SyncInput.Gamepad.gamepads.length;
+	this.setGamepad(navigator.getGamepads()[Gamepad.gamepads.length]);
 
-	this.buttons = null;
-	this.index = -1;
-
-	this.vendor = -1;
-	this.product = -1;
-	this.connected = false;
-
-	this.setGamepad(navigator.getGamepads()[(index !== undefined) ? index : 0]);
-
-	SyncInput.Gamepad.gamepads.push(this);
+	Gamepad.gamepads.push(this);
 }
 
 //Set gamepad
-SyncInput.Gamepad.prototype.setGamepad = function(gamepad)
+Gamepad.prototype.setGamepad = function(gamepad)
 {	
 	if(gamepad !== undefined)
 	{
+		//Store gamepad and its index
 		this.index = gamepad.index;
+		this.gamepad = gamepad;
 
 		//Create and initialize buttons
 		this.buttons = [];
 		for(var i = 0; i < gamepad.buttons.length; i++)
 		{
-			this.buttons.push(new SyncInput.Key());
+			this.buttons.push(new Key());
 		}
 
 		//Try to get the device vendor and product id
@@ -37,18 +30,23 @@ SyncInput.Gamepad.prototype.setGamepad = function(gamepad)
 	else
 	{
 		console.warn("SyncInput: No Gamepad found");
-
-		this.vendor = -1;
-		this.product = -1;
-		this.connected = false;
-
-		this.index = -1;
-		this.buttons = [];
+		this.disconnect();
 	}
 }
 
+//Disconnect from gamepad
+Gamepad.prototype.disconnect = function()
+{
+	this.vendor = -1;
+	this.product = -1;
+	this.connected = false;
+
+	this.gamepad = null;
+	this.buttons = [];
+}
+
 //Set vendor and product id
-SyncInput.Gamepad.prototype.setProductVendor = function(gamepad)
+Gamepad.prototype.setProductVendor = function(gamepad)
 {
 	//Chrome
 	try
@@ -73,121 +71,133 @@ SyncInput.Gamepad.prototype.setProductVendor = function(gamepad)
 		return;
 	}
 	catch(e){}
-
-	//Edge
-	//TODO <ADD CODE HERE>
 }
 
 //Update key flags
-SyncInput.Gamepad.prototype.update = function()
+Gamepad.prototype.update = function()
 {
-	var gamepad = navigator.getGamepads()[this.index];
+	this.gamepad = navigator.getGamepads()[this.index];
 
-	if(gamepad !== undefined)
+	if(this.gamepad !== undefined)
 	{
 		for(var i = 0; i < this.buttons.length; i++)
 		{
-			this.buttons[i].update(gamepad.buttons[i].pressed ? Key.KEY_DOWN : Key.KEY_UP);
+			this.buttons[i].update(this.gamepad.buttons[i].pressed ? Key.DOWN : Key.UP);
 		}
 	}
 }
 
 //Get analog button value [0...1]
-SyncInput.Gamepad.prototype.getAnalogueButton = function(button)
+Gamepad.prototype.getAnalogueButton = function(button)
 {
-	//TODO <ADD CODE HERE>
-	return 0;
+	return (button > this.buttons.length || button < 0) ? 0 : this.gamepad.buttons[button].value;
 }
 
 //Get axis value [-1...1]
-SyncInput.Gamepad.prototype.getAxis = function(axis)
+Gamepad.prototype.getAxis = function(axis)
 {
-	//TODO <ADD CODE HERE>
-	return 0;
+	return (axis > this.gamepad.axes.length || axis < 0) ? 0 : this.gamepad.axes[button].value;
 }
 
 //Check if a button is pressed
-SyncInput.Gamepad.prototype.buttonPressed = function(button)
+Gamepad.prototype.buttonPressed = function(button)
 {
-	return (button > this.buttons.length) ? false : this.buttons[button].isPressed;
+	return (button > this.buttons.length) ? false : this.buttons[button].pressed;
 }
 
 //Check if a button was just pressed
-SyncInput.Gamepad.prototype.buttonJustPressed = function(button)
+Gamepad.prototype.buttonJustPressed = function(button)
 {
-	return (button > this.buttons.length) ? false : this.buttons[button].justPressed;
+	return (button > this.buttons.length || button < 0) ? false : this.buttons[button].just_pressed;
 }
 
 //Check if a button was just released
-SyncInput.Gamepad.prototype.buttonJustReleased = function(button)
+Gamepad.prototype.buttonJustReleased = function(button)
 {
-	return (button > this.buttons.length) ? false : this.buttons[button].justReleased;
+	return (button > this.buttons.length || button < 0) ? false : this.buttons[button].just_released;
 }
 
-//Dispose gamepad
-SyncInput.Gamepad.prototype.dispose = function()
+//Dispose gamepad (remove from gamepads list)
+Gamepad.prototype.dispose = function()
 {
-	var index = SyncInput.Gamepad.gamepads.indexOf(this);
+	var index = Gamepad.gamepads.indexOf(this);
 	
 	if(index !== -1)
 	{
-		SyncInput.Gamepad.gamepads.splice(index, 1);
+		Gamepad.gamepads.splice(index, 1);
 	}
 }
 
 //Keep track of every gamepad object to disconnect and reconnect them on the fly
-SyncInput.Gamepad.gamepads = [];
+Gamepad.gamepads = [];
 
 //Get all available gamepads
-SyncInput.Gamepad.getGamepads = function()
+Gamepad.getGamepads = function()
 {
 	return navigator.getGamepads();
 }
 
 //Create and start gamepad listener
-SyncInput.Gamepad.startListener = function()
+Gamepad.startListener = function()
 {
+	//Gamepad connected
 	window.addEventListener("gamepadconnected", function(event)
 	{
 		var gamepad = event.gamepad;
 
-		for(var i = 0; i < SyncInput.Gamepad.gamepads.length; i++)
+		//console.warn("SyncInput: Gamepad " + gamepad.id + " connected");
+
+		for(var i = 0; i < Gamepad.gamepads.length; i++)
 		{
-			if(SyncInput.Gamepad.gamepads[i].index === gamepad.index)
+			if(Gamepad.gamepads[i].index === gamepad.index)
 			{
-				SyncInput.Gamepad.gamepads[i].setGamepad(gamepad);
+				Gamepad.gamepads[i].setGamepad(gamepad);
 			}
 		}
 	});
 
-	//window.addEventListener("gamepaddisconnected", function(event){});
+	//Gamepad disconnected
+	window.addEventListener("gamepaddisconnected", function(event)
+	{
+		var gamepad = event.gamepad;
+
+		console.warn("SyncInput: Gamepad " + gamepad.id + " disconnected");
+
+		for(var i = 0; i < Gamepad.gamepads.length; i++)
+		{
+			if(Gamepad.gamepads[i].index === gamepad.index)
+			{
+				Gamepad.gamepads[i].disconnect();
+			}
+		}
+	});
 }
 
-SyncInput.Gamepad.startListener();
+Gamepad.startListener();
 
 //Standart button mapping
-SyncInput.Gamepad.LEFT = 14;
-SyncInput.Gamepad.RIGHT = 15;
-SyncInput.Gamepad.DOWN = 13
-SyncInput.Gamepad.UP = 12;
+Gamepad.LEFT = 14;
+Gamepad.RIGHT = 15;
+Gamepad.DOWN = 13
+Gamepad.UP = 12;
 
-SyncInput.Gamepad.SELECT = 8;
-SyncInput.Gamepad.START = 9;
-SyncInput.Gamepad.HOME = 16;
+Gamepad.SELECT = 8;
+Gamepad.START = 9;
+Gamepad.HOME = 16;
 
-SyncInput.Gamepad.LEFT_TRIGGER_A = 4;
-SyncInput.Gamepad.LEFT_TRIGGER_B = 6;
+Gamepad.LEFT_TRIGGER_A = 4;
+Gamepad.LEFT_TRIGGER_B = 6;
 
-SyncInput.Gamepad.RIGHT_TRIGGER_A = 5;
-SyncInput.Gamepad.RIGHT_TRIGGER_B = 7;
+Gamepad.RIGHT_TRIGGER_A = 5;
+Gamepad.RIGHT_TRIGGER_B = 7;
 
-SyncInput.Gamepad.A = 0;
-SyncInput.Gamepad.B = 1;
-SyncInput.Gamepad.C = 2;
-SyncInput.Gamepad.D = 3;
+Gamepad.A = 0;
+Gamepad.B = 1;
+Gamepad.C = 2;
+Gamepad.D = 3;
 
 //Standard axis
-SyncInput.Gamepad.LEFT_ANALOGUE_HOR = 0;
-SyncInput.Gamepad.LEFT_ANALOGUE_VERT = 1;
-SyncInput.Gamepad.RIGHT_ANALOGUE_HOR = 2;
-SyncInput.Gamepad.RIGHT_ANALOGUE_VERT = 3;
+Gamepad.LEFT_ANALOGUE_HOR = 0;
+Gamepad.LEFT_ANALOGUE_VERT = 1;
+Gamepad.RIGHT_ANALOGUE_HOR = 2;
+Gamepad.RIGHT_ANALOGUE_VERT = 3;
