@@ -9,12 +9,14 @@ function Mouse()
 	this._delta = new Vector2(0, 0);
 	this._wheel = 0;
 	this._wheel_updated = false;
+	this._double_clicked = false;
 
 	//Position, delta, and scroll speed
 	this.keys = [];
 	this.position = new Vector2(0,0);
 	this.delta = new Vector2(0,0);
 	this.wheel = 0;
+	this.double_clicked = false;
 
 	//Canvas (use to calculate coordinates relative to it)
 	this.canvas = null;
@@ -128,6 +130,12 @@ function Mouse()
 		}]);
 	}
 
+	//Mouse double click
+	this.events.push([window, "dblclick", function(event)
+	{
+		self._double_clicked = true;
+	}]);
+
 	//Initialize events
 	for(var i = 0; i < this.events.length; i++)
 	{
@@ -214,6 +222,12 @@ Mouse.prototype.buttonPressed = function(button)
 	return this.keys[button].pressed;
 }
 
+//Check if Mouse button was double clicked
+Mouse.prototype.buttonDoubleClicked = function()
+{
+	return this.double_clicked;
+}
+
 //Check if a mouse button was just pressed
 Mouse.prototype.buttonJustPressed = function(button)
 {
@@ -270,6 +284,17 @@ Mouse.prototype.update = function()
 	else
 	{
 		this.wheel = 0;
+	}
+
+	//Update mouse double click
+	if(this._double_clicked)
+	{
+		this.double_clicked = true;
+		this._double_clicked = false;
+	}
+	else
+	{
+		this.double_clicked = false;
 	}
 
 	//Update mouse Position if needed

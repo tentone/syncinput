@@ -72,6 +72,11 @@ function update()
 		cube.rotation.y += mouse.delta.x / 200;
 	}
 
+	if(mouse.buttonDoubleClicked())
+	{
+		cube.material.color.set(Math.ceil(Math.random()*0xFFFFFF));
+	}
+
 	cube.position.z += mouse.wheel * 0.01;
 
 	//Render scene to screen

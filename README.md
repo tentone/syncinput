@@ -6,6 +6,10 @@
 <!--- - [normal (14kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.js) -->
  - [minified (9kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js)
 
+### Example
+ - syncinput/example/three.html
+ - Keyboard arrows or d-pad to move the cube, mouse to rotate the cube, double click to change color
+
 ### Changelog
  - V1.0
   - First release
