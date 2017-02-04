@@ -3,8 +3,8 @@
 function Key()
 {
 	this.pressed = false;
-	this.just_pressed = false;
-	this.just_released = false;
+	this.justPressed = false;
+	this.justReleased = false;
 }
 
 //Action List
@@ -15,14 +15,14 @@ Key.RESET = 0;
 //Update key status based new state
 Key.prototype.update = function(action)
 {
-	this.just_pressed = false;
-	this.just_released = false;
+	this.justPressed = false;
+	this.justReleased = false;
 
 	if(action === Key.DOWN)
 	{
 		if(!this.pressed)
 		{
-			this.just_pressed = true;
+			this.justPressed = true;
 		}
 		this.pressed = true;
 	}
@@ -30,29 +30,29 @@ Key.prototype.update = function(action)
 	{
 		if(this.pressed)
 		{
-			this.just_released = true;
+			this.justReleased = true;
 		}
 		this.pressed = false;
 	}
 	else if(action === Key.RESET)
 	{
-		this.just_released = false;
-		this.just_pressed = false;
+		this.justReleased = false;
+		this.justPressed = false;
 	}
 }
 
 //Set key status
-Key.prototype.set = function(just_pressed, pressed, just_released)
+Key.prototype.set = function(justPressed, pressed, justReleased)
 {
 	this.pressed = pressed;
-	this.just_pressed = just_pressed;
-	this.just_released = just_released;
+	this.justPressed = justPressed;
+	this.justReleased = justReleased;
 }
 
 //Reset key to default values
 Key.prototype.reset = function()
 {
 	this.pressed = false;
-	this.just_pressed = false;
-	this.just_released = false;
+	this.justPressed = false;
+	this.justReleased = false;
 }

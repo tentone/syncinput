@@ -51,7 +51,7 @@ Keyboard.prototype.update = function()
 
 		this.keys[key].update(action);
 
-		if(this.keys[key].just_released || this.keys[key].just_pressed)
+		if(this.keys[key].justReleased || this.keys[key].justPressed)
 		{
 			this.actions.push(key);
 			this.actions.push(Key.RESET);
@@ -82,13 +82,13 @@ Keyboard.prototype.keyPressed = function(key)
 //Check is a key as just pressed
 Keyboard.prototype.keyJustPressed = function(key)
 {
-	return this.keys[key].just_pressed;
+	return this.keys[key].justPressed;
 }
 
 //Check if a key was just released
 Keyboard.prototype.keyJustReleased = function(key)
 {
-	return this.keys[key].just_released;
+	return this.keys[key].justReleased;
 }
 
 //Dispose keyboard events

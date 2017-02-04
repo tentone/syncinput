@@ -108,13 +108,13 @@ Gamepad.prototype.buttonPressed = function(button)
 //Check if a button was just pressed
 Gamepad.prototype.buttonJustPressed = function(button)
 {
-	return (button > this.buttons.length || button < 0) ? false : this.buttons[button].just_pressed;
+	return (button > this.buttons.length || button < 0) ? false : this.buttons[button].justPressed;
 }
 
 //Check if a button was just released
 Gamepad.prototype.buttonJustReleased = function(button)
 {
-	return (button > this.buttons.length || button < 0) ? false : this.buttons[button].just_released;
+	return (button > this.buttons.length || button < 0) ? false : this.buttons[button].justReleased;
 }
 
 //Dispose gamepad (remove from gamepads list)
