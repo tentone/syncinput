@@ -1,43 +1,36 @@
-![alt tag](https://raw.githubusercontent.com/tentone/syncinput/master/docs/logo.png)
+![alt tag](https://raw.githubusercontent.com/tentone/syncinput/master/readme/logo.png)
 
-### Sync Input V1.1
+[![GitHub version](https://badge.fury.io/gh/tentone%2Fsyncinput.svg)](https://badge.fury.io/gh/tentone%2Fsyncinput)[![npm version](https://badge.fury.io/js/syncinput.svg)](https://badge.fury.io/js/syncinput)
+
+- Synchronous keyboard, mouse and gamepad input for fixed step applications.
+  - Browser events fire faster than your application logic/render code.
+  - This library prevents usage of complex logic or repeated code execution in these scenarios.
+- Access input from devices at the same speed for your application without the need to process out of sync browser callbacks.
+- Multi browser support, compatible with mobile devices and and touchscreen events.
+
+
 
 ### Download
-<!--- - [normal (14kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.js) -->
- - [minified (9kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js)
+ - For direct usage in the browser get the [minified (9kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js) version or as a module [module (28kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.module.js).
+ - Get from NPM using ` npm install syncinput --save-prod`
+
+
 
 ### Example
-- syncinput/example/three.html
-- Keyboard arrows or d-pad to move the cube, mouse to rotate the cube, double click to change color
 
-### Changelog
-- V1.0
-  - First release
-- V1.1
-  - Support for Gamepad (Using the Gamepad API)
-  - Moved all events to the window object
-  - Added dispose method
+- Example of simple app with three.js
+  - <https://tentone.github.io/syncinput/example/>
+  - Keyboard arrows or d-pad to move the cube, mouse to rotate the cube, double click to change color
+- Here is a small code example showing the basic functionality of the library.
 
-### Features
-- Syncronous keyboard and mouse input
-- Mouse delta and scroll wheel
-- Multi browser support
-- Compatible with mobile and touchscreen
-
-### Why?
-- Usually people use input events to update app logic
-- Using events its not easy to keep logic and draw in sync
-- Usually events fire faster than your render code there is no need to repeat logic code multiple times without need
-
-### Example
 ```javascript
 //Initialization
-mouse = new Mouse();
-keyboard = new Keyboard();
+mouse = new SyncInput.Mouse();
+keyboard = new SyncInput.Keyboard();
 
 [...]
 
-//Loop
+//Inside of the logic/rendering loop
 mouse.update();
 keyboard.update();
 
@@ -45,180 +38,79 @@ console.log("Position X:" mouse.position.x + " Y:" + mouse.position.y);
 console.log("Delta X:" mouse.delta.x + " Y:" + mouse.delta.y);
 console.log("Scroll wheel:" mouse.wheel);
 
-if(mouse.buttonPressed(Mouse.LEFT))
+if(mouse.buttonPressed(mouse.LEFT))
 {
 	console.log("Mouse left is pressed");
 }
 
-if(keyboard.keyPressed(Keyboard.W))
+if(keyboard.keyPressed(keyboard.W))
 {
 	console.log("W is pressed");
 }
-if(keyboard.keyJustPressed(Keyboard.W))
+if(keyboard.keyJustPressed(keyboard.W))
 {
 	console.log("W was just pressed");
 }
-if(keyboard.keyJustReleased(Keyboard.W))
+if(keyboard.keyJustReleased(keyboard.W))
 {
 	console.log("W was just released");
 }
 ```
 
-### Todo
-- Support for multi pointers (multi-touch)
-- WebVR HDM input support
-- Accelerometer and gyro support
+
 
 ### Documentation
-- Mouse
-	
-	Variables
-	- position {x, y}
-		- Actual mouse position
-	- delta {x, y}
-		- Mouse delta since last time update() was called
-	- wheel
-		- Mouse wheel value
 
-	Buttons
-	- Mouse.LEFT
-	- Mouse.MIDDLE
-	- Mouse.RIGHT
+- Detailed API docs available on the docs folder of the project.
 
-	Methods
-	- update
-		- Update mouse status (should be called every time after app logic update)
-	- buttonPressed(button)
-		- Check if mouse button is pressed (touchscreen tap same as left click)
-	- buttonJustPressed(button)
-		- Check if mouse button was just pressed
-	- buttonJustReleased(button)
-		- Check if mouse button was just released
-	- setCanvas(canvas)
-		- Attach canvas to mouse object for position coordinated to be calculated relatively
-	- insideCanvas()
-		- Check if mouse is inside attached canvas
-	- setLock(value)
-		-Set mouse lock
+  
 
-- Keyboard
-	- update
-		- Update keyboard status (should be called every time after app logic update)
-	- keyPressed(button)
-		- Check if key is currently pressed
-	- keyJustPressed(button)
-		- Check if key was just pressed
-	- keyJustReleased(button)
-		- Check if key was just released
-	- reset
-		- Reset all keys
+##### Mouse
 
-	Arrow keys
-	- Keyboard.LEFT
-	- Keyboard.RIGHT
-	- Keyboard.UP
-	- Keyboard.DOWN
+- `position {x, y}` -Actual mouse position
+- `delta {x, y}` - Mouse delta since last time update() was called
+- `wheel` - Mouse wheel value
 
-	Numbers
-	- Keyboard.NUM0
-	- Keyboard.NUM1
-	- Keyboard.NUM2
-	- Keyboard.NUM3
-	- Keyboard.NUM4
-	- Keyboard.NUM5
-	- Keyboard.NUM6
-	- Keyboard.NUM7
-	- Keyboard.NUM8
-	- Keyboard.NUM9
+- `update()` - Update mouse status (should be called every time after app logic update)
+- `buttonPressed(button)` - Check if mouse button is pressed (touchscreen tap same as left click)
+- `buttonJustPressed(button)` - Check if mouse button was just pressed
+- `buttonJustReleased(button)` - Check if mouse button was just released
+- `setCanvas(canvas)` - Attach canvas to mouse object for position coordinated to be calculated relatively to the canvas.
+- `insideCanvas()` - Check if mouse is inside attached canvas
+- `setLock(value)` - Set mouse lock on/off.
 
-	Chars
-	- Keyboard.A
-	- Keyboard.B
-	- Keyboard.C
-	- Keyboard.D
-	- Keyboard.E
-	- Keyboard.F
-	- Keyboard.G
-	- Keyboard.H
-	- Keyboard.I
-	- Keyboard.J
-	- Keyboard.K
-	- Keyboard.L
-	- Keyboard.M
-	- Keyboard.N
-	- Keyboard.O
-	- Keyboard.P
-	- Keyboard.Q
-	- Keyboard.R
-	- Keyboard.S
-	- Keyboard.T
-	- Keyboard.U
-	- Keyboard.V
-	- Keyboard.W
-	- Keyboard.X
-	- Keyboard.Y
-	- Keyboard.Z
+##### Keyboard
 
-	Function keys
-	- Keyboard.F1
-	- Keyboard.F2
-	- Keyboard.F3
-	- Keyboard.F4
-	- Keyboard.F5
-	- Keyboard.F6
-	- Keyboard.F7
-	- Keyboard.F8
-	- Keyboard.F9
-	- Keyboard.F10
-	- Keyboard.F11
-	- Keyboard.F12
+- `update()` - Update keyboard status (should be called every time after app logic update)
+- `keyPressed(button)` - Check if key is currently pressed
+- `keyJustPressed(button)` - Check if key was just pressed
+- `keyJustReleased(button)` - Check if key was just released
+- `reset()` - Reset all keys
 
-	Others
-	- Keyboard.BACKSPACE
-	- Keyboard.TAB
-	- Keyboard.ENTER
-	- Keyboard.SHIFT
-	- Keyboard.CTRL
-	- Keyboard.ALT
-	- Keyboard.CAPS_LOCK
-	- Keyboard.ESC
-	- Keyboard.SPACEBAR
-	- Keyboard.PAGE_UP
-	- Keyboard.PAGE_DOWN
-	- Keyboard.END
-	- Keyboard.HOME
-	- Keyboard.INSERT
-	- Keyboard.DEL
+##### Gamepad
 
-- Gamepad
-	- update
-		- Update gamepad status
-	- buttonPressed(button)
-		- Check if gamepad button is pressed
-	- buttonJustPressed(button)
-		- Check if gamepad button was just pressed
-	- buttonJustReleased(button)
-		- Check if gamepad button was just released
+- `update()` - Update gamepad status
+- `buttonPressed(button)` - Check if gamepad button is pressed
+- `buttonJustPressed(button)` - Check if gamepad button was just pressed
+- `buttonJustReleased(button)` - Check if gamepad button was just released
 
-	Standard Button Mapping
-	- Gamepad.LEFT
-	- Gamepad.RIGHT
-	- Gamepad.UP
-	- Gamepad.DOWN
-	- Gamepad.A
-	- Gamepad.B
-	- Gamepad.C
-	- Gamepad.D
-	- Gamepad.START
-	- Gamepad.HOME
-	- Gamepad.SELECT
-	- Gamepad.LEFT_TRIGGER_A
-	- Gamepad.LEFT_TRIGGER_B
-	- Gamepad.RIGHT_TRIGGER_A
-	- Gamepad.RIGHT_TRIGGER_B
 
-	Standard Axis
-	- Gamepad.LEFT_ANALOGUE_HOR
-	- Gamepad.LEFT_ANALOGUE_VERT
-	- Gamepad.RIGHT_ANALOGUE_HOR
-	- Gamepad.RIGHT_ANALOGUE_VERT
+
+### Changelog
+
+##### V1.2
+
+- Published on NPM.
+- Added API documentation.
+- Support for double click detection on all mouse buttons.
+
+##### V1.1
+
+- Support for Gamepad (Using the Gamepad API)
+- Moved all events to the window object
+- Added dispose method
+
+##### V1.0
+
+- First release
+
