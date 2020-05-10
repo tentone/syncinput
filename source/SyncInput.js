@@ -1,5 +1,3 @@
-"use strict";
-
 var VERSION = "V1.2";
 
 export {VERSION}

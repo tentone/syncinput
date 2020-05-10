@@ -1,5 +1,3 @@
-"use strict";
-
 function Vector2(x, y)
 {
 	this.x = (x !== undefined) ? x : 0;

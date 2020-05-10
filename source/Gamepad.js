@@ -1,4 +1,4 @@
-"use strict";
+import {Key} from "./Key";
 
 /**
  * Gamepad provides basic support for gamepads.

@@ -1,4 +1,4 @@
-"use strict";
+import {Key} from "./Key";
 
 /**
  * Keyboard instance for input in sync with the running application, internally stores the key transitions provided by the browser.

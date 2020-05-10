@@ -1,4 +1,117 @@
 /**
+ * Key is used by Keyboard, Mouse, etc, to represent a key state.
+ *
+ * @class Key
+ * @module Input
+*/
+function Key()
+{
+	/**
+	 * Indicates if this key is currently pressed.
+	 * @property pressed
+	 * @default false
+	 * @type {boolean}
+	 */
+	this.pressed = false;
+
+	/**
+	 * Indicates if this key was just pressed.
+	 * @property justPressed
+	 * @default false
+	 * @type {boolean}
+	 */
+	this.justPressed = false;
+	
+	/**
+	 * Indicates if this key was just released.
+	 * @property justReleased
+	 * @default false
+	 * @type {boolean}
+	 */
+	this.justReleased = false;
+}
+
+/**
+ * Down
+ * @attribute DOWN
+ * @type {number}
+ */
+Key.DOWN = -1;
+
+/**
+ * Up
+ * @attribute UP
+ * @type {number}
+ */
+Key.UP = 1;
+
+/**
+ * Reset
+ * @attribute RESET
+ * @type {number}
+ */
+Key.RESET = 0;
+
+Key.prototype.constructor = Key;
+
+/**
+ * Update Key status based on new key state.
+ * 
+ * @method update
+ */
+Key.prototype.update = function(action)
+{
+	this.justPressed = false;
+	this.justReleased = false;
+
+	if(action === Key.DOWN)
+	{
+		if(this.pressed === false)
+		{
+			this.justPressed = true;
+		}
+		this.pressed = true;
+	}
+	else if(action === Key.UP)
+	{
+		if(this.pressed)
+		{
+			this.justReleased = true;
+		}
+		this.pressed = false;
+	}
+	else if(action === Key.RESET)
+	{
+		this.justReleased = false;
+		this.justPressed = false;
+	}
+};
+
+/**
+ * Set this key attributes manually.
+ * 
+ * @method set
+ */
+Key.prototype.set = function(justPressed, pressed, justReleased)
+{
+	this.justPressed = justPressed;
+	this.pressed = pressed;
+	this.justReleased = justReleased;
+};
+
+/**
+ * Reset key to default values.
+ * 
+ * @method reset
+*/
+Key.prototype.reset = function()
+{
+	this.justPressed = false;
+	this.pressed = false;
+	this.justReleased = false;
+};
+
+/**
  * Gamepad provides basic support for gamepads.
  *
  * Some gamepads require a button press to being detected.
@@ -415,119 +528,6 @@ Gamepad.RIGHT_ANALOGUE_HOR = 2;
 Gamepad.RIGHT_ANALOGUE_VERT = 3;
 
 /**
- * Key is used by Keyboard, Mouse, etc, to represent a key state.
- *
- * @class Key
- * @module Input
-*/
-function Key$1()
-{
-	/**
-	 * Indicates if this key is currently pressed.
-	 * @property pressed
-	 * @default false
-	 * @type {boolean}
-	 */
-	this.pressed = false;
-
-	/**
-	 * Indicates if this key was just pressed.
-	 * @property justPressed
-	 * @default false
-	 * @type {boolean}
-	 */
-	this.justPressed = false;
-	
-	/**
-	 * Indicates if this key was just released.
-	 * @property justReleased
-	 * @default false
-	 * @type {boolean}
-	 */
-	this.justReleased = false;
-}
-
-/**
- * Down
- * @attribute DOWN
- * @type {number}
- */
-Key$1.DOWN = -1;
-
-/**
- * Up
- * @attribute UP
- * @type {number}
- */
-Key$1.UP = 1;
-
-/**
- * Reset
- * @attribute RESET
- * @type {number}
- */
-Key$1.RESET = 0;
-
-Key$1.prototype.constructor = Key$1;
-
-/**
- * Update Key status based on new key state.
- * 
- * @method update
- */
-Key$1.prototype.update = function(action)
-{
-	this.justPressed = false;
-	this.justReleased = false;
-
-	if(action === Key$1.DOWN)
-	{
-		if(this.pressed === false)
-		{
-			this.justPressed = true;
-		}
-		this.pressed = true;
-	}
-	else if(action === Key$1.UP)
-	{
-		if(this.pressed)
-		{
-			this.justReleased = true;
-		}
-		this.pressed = false;
-	}
-	else if(action === Key$1.RESET)
-	{
-		this.justReleased = false;
-		this.justPressed = false;
-	}
-};
-
-/**
- * Set this key attributes manually.
- * 
- * @method set
- */
-Key$1.prototype.set = function(justPressed, pressed, justReleased)
-{
-	this.justPressed = justPressed;
-	this.pressed = pressed;
-	this.justReleased = justReleased;
-};
-
-/**
- * Reset key to default values.
- * 
- * @method reset
-*/
-Key$1.prototype.reset = function()
-{
-	this.justPressed = false;
-	this.pressed = false;
-	this.justReleased = false;
-};
-
-/**
  * Keyboard instance for input in sync with the running application, internally stores the key transitions provided by the browser.
  * 
  * Allow to detect every key press, release event in sync with the app frame update.
@@ -556,6 +556,8 @@ function Keyboard()
 	 * @type {Array}
 	 */
 	this.actions = [];
+
+	this.events = [];
 
 	var self = this;
 	var actions = this.actions;
@@ -670,7 +672,11 @@ Keyboard.keyJustReleased = function(key)
  */
 Keyboard.create = function()
 {
-	this.events.create();
+	for(var i = 0; i < this.events.length; i++)
+	{
+		var event = this.events[i];
+		event[0].addEventListener(event[1], event[2]);
+	}
 };
 
 /**
@@ -680,7 +686,11 @@ Keyboard.create = function()
  */
 Keyboard.dispose = function()
 {
-	this.events.destroy();
+	for(var i = 0; i < this.events.length; i++)
+	{
+		var event = this.events[i];
+		event[0].removeEventListener(event[1], event[2]);
+	}
 };
 
 /**
@@ -1145,6 +1155,18 @@ Keyboard.F11 = 122;
  */
 Keyboard.F12 = 123;
 
+function Vector2(x, y)
+{
+	this.x = (x !== undefined) ? x : 0;
+	this.y = (y !== undefined) ? y : 0;
+}
+
+Vector2.prototype.set = function(x, y)
+{
+	this.x = x;
+	this.y = y;
+};
+
 /**
  * Mouse instance for sync input the mouse should be updated everytime before.
  *
@@ -1162,7 +1184,7 @@ function Mouse()
 	this._delta = new Vector2(0, 0);
 	this._wheel = 0;
 	this._wheelUpdated = false;
-	this._doubleClicked = false;
+	this._doubleClicked = new Array(5);
 
 	/**
 	 * Array with mouse buttons status.
@@ -1178,7 +1200,7 @@ function Mouse()
 	 * @type {Vector2}
 	 * @property position
 	 */
-	this.position = new THREE.Vector2(0, 0);
+	this.position = new Vector2(0, 0);
 
 	/**
 	 * Mouse movement (coordinates in window space).
@@ -1186,7 +1208,7 @@ function Mouse()
 	 * @type {Vector2}
 	 * @property delta
 	 */
-	this.delta = new THREE.Vector2(0, 0);
+	this.delta = new Vector2(0, 0);
 
 	/**
 	 * Mouse scroll wheel movement.
@@ -1613,18 +1635,6 @@ Mouse.prototype.dispose = function()
 	}
 };
 
-function Vector2$1(x, y)
-{
-	this.x = (x !== undefined) ? x : 0;
-	this.y = (y !== undefined) ? y : 0;
-}
-
-Vector2$1.prototype.set = function(x, y)
-{
-	this.x = x;
-	this.y = y;
-};
-
 var VERSION = "V1.2";
 
-export { Gamepad, Key$1 as Key, Keyboard, Mouse, VERSION, Vector2$1 as Vector2 };
+export { Gamepad, Key, Keyboard, Mouse, VERSION, Vector2 };

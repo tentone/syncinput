@@ -1,4 +1,5 @@
-"use strict";
+import {Vector2} from "./Vector2";
+import {Key} from "./Key";
 
 /**
  * Mouse instance for sync input the mouse should be updated everytime before.
@@ -17,7 +18,7 @@ function Mouse()
 	this._delta = new Vector2(0, 0);
 	this._wheel = 0;
 	this._wheelUpdated = false;
-	this._doubleClicked = false;
+	this._doubleClicked = new Array(5);
 
 	/**
 	 * Array with mouse buttons status.
@@ -33,7 +34,7 @@ function Mouse()
 	 * @type {Vector2}
 	 * @property position
 	 */
-	this.position = new THREE.Vector2(0, 0);
+	this.position = new Vector2(0, 0);
 
 	/**
 	 * Mouse movement (coordinates in window space).
@@ -41,7 +42,7 @@ function Mouse()
 	 * @type {Vector2}
 	 * @property delta
 	 */
-	this.delta = new THREE.Vector2(0, 0);
+	this.delta = new Vector2(0, 0);
 
 	/**
 	 * Mouse scroll wheel movement.
