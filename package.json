@@ -2,20 +2,30 @@
   "name": "syncinput",
   "version": "1.2.0",
   "description": "![alt tag](https://raw.githubusercontent.com/tentone/syncinput/master/docs/logo.png)",
-  "main": "index.js",
+  "main": "build/syncinput.min.js",
   "directories": {
     "doc": "docs",
     "example": "example"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tentone/syncinput.git"
   },
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "build": "rollup -c && npm run uglify",
+    "docs": "jsdoc -d docs -r source",
+    "uglify": "uglifyjs --compress --mangle --output build/syncinput.min.js -- build/syncinput.js",
+    "pub": "npm run build && npm run docs && npm publish --access public ."
+  },
+  "author": "Tentone",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "jsdoc": "^3.5.0",
+    "rollup": "^1.0.0",
+    "rollup-plugin-strip": "^1.2.1",
+    "uglify-js": "^3.4.9"
+  },
   "bugs": {
     "url": "https://github.com/tentone/syncinput/issues"
   },
