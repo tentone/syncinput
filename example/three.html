@@ -42,9 +42,9 @@
 			scene.add(cube);
 
 			//Create keyboard and mouse input objects
-			var keyboard = new Keyboard();
-			var mouse = new Mouse();
-			var gamepad = new Gamepad();
+			var keyboard = new SyncInput.Keyboard();
+			var mouse = new SyncInput.Mouse();
+			var gamepad = new SyncInput.Gamepad();
 
 			//Call update loop
 			update();
