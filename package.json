@@ -1,6 +1,6 @@
 {
   "name": "syncinput",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "![alt tag](https://raw.githubusercontent.com/tentone/syncinput/master/docs/logo.png)",
   "main": "build/syncinput.min.js",
   "directories": {

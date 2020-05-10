@@ -3,7 +3,6 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"/>
 	</head>
-	
 	<body onresize="resize();" style="overflow:hidden;">
 		<script type="text/javascript" src="../build/syncinput.min.js"></script>
 		<script type="text/javascript" src="lib/three.min.js"></script>
@@ -54,33 +53,33 @@
 			{
 				requestAnimationFrame(update);
 
-				/*keyboard.update();
+				keyboard.update();
 				mouse.update();
-				gamepad.update();*/
+				gamepad.update();
 
-				if(keyboard.keyPressed(Keyboard.LEFT) || gamepad.buttonPressed(Gamepad.LEFT))
+				if(keyboard.keyPressed(keyboard.LEFT) || gamepad.buttonPressed(gamepad.LEFT))
 				{
 					cube.position.x -= 0.1;
 				}
-				if(keyboard.keyPressed(Keyboard.RIGHT) || gamepad.buttonPressed(Gamepad.RIGHT))
+				if(keyboard.keyPressed(keyboard.RIGHT) || gamepad.buttonPressed(gamepad.RIGHT))
 				{
 					cube.position.x += 0.1;
 				}
-				if(keyboard.keyPressed(Keyboard.UP) || gamepad.buttonPressed(Gamepad.UP))
+				if(keyboard.keyPressed(keyboard.UP) || gamepad.buttonPressed(gamepad.UP))
 				{
 					cube.position.y += 0.1;
 				}
-				if(keyboard.keyPressed(Keyboard.DOWN) || gamepad.buttonPressed(Gamepad.DOWN))
+				if(keyboard.keyPressed(keyboard.DOWN) || gamepad.buttonPressed(gamepad.DOWN))
 				{
 					cube.position.y -= 0.1;
 				}
 
-				if(mouse.buttonPressed(Mouse.LEFT))
+				if(mouse.buttonPressed(mouse.LEFT))
 				{
 					cube.rotation.y += mouse.delta.x / 200;
 				}
 
-				if(mouse.buttonDoubleClicked())
+				if(mouse.buttonDoubleClicked(mouse.LEFT))
 				{
 					cube.material.color.set(Math.ceil(Math.random()*0xFFFFFF));
 				}
