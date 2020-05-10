@@ -1,5 +1,13 @@
 "use strict";
 
+/**
+ * Mouse instance for sync input the mouse should be updated everytime before.
+ *
+ * Automatically calculates the diff of position between frames.
+ * 
+ * @class Mouse
+ * @module Input
+ */
 function Mouse()
 {
 	//Raw data
@@ -11,12 +19,45 @@ function Mouse()
 	this._wheelUpdated = false;
 	this._doubleClicked = false;
 
-	//Position, delta, and scroll speed
-	this.keys = [];
-	this.position = new Vector2(0,0);
-	this.delta = new Vector2(0,0);
+	/**
+	 * Array with mouse buttons status.
+	 *
+	 * @type {array}
+	 * @property keys
+	 */
+	this.keys = new Array(5);
+
+	/**
+	 * Mouse position inside of the window (coordinates in window space).
+	 *
+	 * @type {Vector2}
+	 * @property position
+	 */
+	this.position = new THREE.Vector2(0, 0);
+
+	/**
+	 * Mouse movement (coordinates in window space).
+	 *
+	 * @type {Vector2}
+	 * @property delta
+	 */
+	this.delta = new THREE.Vector2(0, 0);
+
+	/**
+	 * Mouse scroll wheel movement.
+	 *
+	 * @type {number}
+	 * @property wheel
+	 */
 	this.wheel = 0;
-	this.doubleClicked = false;
+	
+	/**
+	 * Indicates a button of the mouse was double clicked.
+	 *
+	 * @type {Array}
+	 * @property doubleClicked
+	 */
+	this.doubleClicked = new Array(5);
 
 	//Canvas (use to calculate coordinates relative to it)
 	this.canvas = null;
@@ -27,8 +68,10 @@ function Mouse()
 	//Initialize key instances
 	for(var i = 0; i < 3; i++)
 	{
-		this._keys.push(new Key());
-		this.keys.push(new Key());
+		this._doubleClicked[i] = false;
+		this.doubleClicked[i] = false;
+		this._keys[i] = new Key();
+		this.keys[i] = new Key();
 	}
 
 	//Self pointer
@@ -78,6 +121,12 @@ function Mouse()
 
 		//Touch screen released event
 		this.events.push([window, "touchend", function(event)
+		{
+			self.updateKey(Mouse.LEFT, Key.UP);
+		}]);
+
+		// Touch cancel event
+		this.events.push([window, "touchcancel", function(event)
 		{
 			self.updateKey(Mouse.LEFT, Key.UP);
 		}]);
@@ -133,7 +182,7 @@ function Mouse()
 	//Mouse double click
 	this.events.push([window, "dblclick", function(event)
 	{
-		self._doubleClicked = true;
+		self._doubleClicked[event.which - 1] = true;
 	}]);
 
 	//Initialize events
@@ -144,12 +193,56 @@ function Mouse()
 	}
 }
 
-//Mouse Buttons
+Mouse.prototype = Mouse;
+Mouse.prototype.constructor = Mouse;
+
+
+/**
+ * Left mouse button.
+ *
+ * @attribute LEFT
+ * @type {number}
+ */
 Mouse.LEFT = 0;
+
+/**
+ * Middle mouse button.
+ *
+ * @attribute MIDDLE
+ * @type {number}
+ */
 Mouse.MIDDLE = 1;
+
+/**
+ * Right mouse button.
+ *
+ * @attribute RIGHT
+ * @type {number}
+ */
 Mouse.RIGHT = 2;
 
-//Canvas to be used for relative coordinates calculation
+/**
+ * Back mouse navigation button.
+ *
+ * @attribute BACK
+ * @type {number}
+ */
+Mouse.BACK = 3;
+
+/**
+ * Forward mouse navigation button.
+ *
+ * @attribute FORWARD
+ * @type {number}
+ */
+Mouse.FORWARD = 4;
+
+/**
+ * Element to be used for coordinates calculation relative to that canvas.
+ * 
+ * @method setCanvas
+ * @param {Element} canvas Canvas to be attached to the Mouse instance
+ */
 Mouse.prototype.setCanvas = function(canvas)
 {
 	this.canvas = canvas;
@@ -167,7 +260,12 @@ Mouse.prototype.setCanvas = function(canvas)
 	});
 }
 
-//Check if mouse is inside attached canvas
+/**
+ * Check if mouse is inside attached canvas (updated async).
+ * 
+ * @method insideCanvas
+ * @return {boolean} True if mouse is currently inside the canvas
+ */
 Mouse.prototype.insideCanvas = function()
 {
 	if(this.canvas === null)
@@ -178,37 +276,35 @@ Mouse.prototype.insideCanvas = function()
 	return this.canvas.mouseInside;
 }
 
-//Set if mouse locked
+/**
+ * Set mouse lock, if true mouse lock will be request, if false the mouse will be released.
+ * 
+ * @method setLock
+ * @param {boolean} value If true pointer lock will be requested for the canvas attached to the Mouse instance
+ */
 Mouse.prototype.setLock = function(value)
 {
 	if(this.canvas !== null)
 	{
 		if(value)
 		{
-			if(this.canvas.requestPointerLock)
+			this.canvas.requestPointerLock = this.canvas.requestPointerLock || this.canvas.mozRequestPointerLock || this.canvas.webkitRequestPointerLock;
+			if(this.canvas.requestPointerLock !== undefined)
 			{
 				this.canvas.requestPointerLock();
-			}
-			else if(this.canvas.mozRequestPointerLock)
-			{
-				this.canvas.mozRequestPointerLock();
-			}
-			else if(this.canvas.webkitRequestPointerLock)
-			{
-				this.canvas.webkitRequestPointerLock();
 			}
 		}
 		else
 		{
-			if(document.exitPointerLock)
+			if(document.exitPointerLock !== undefined)
 			{
 				document.exitPointerLock();
 			}
-			else if(document.mozExitPointerLock)
+			else if(document.mozExitPointerLock !== undefined)
 			{
 				document.mozExitPointerLock();
 			}
-			else if(document.webkitExitPointerLock)
+			else if(document.webkitExitPointerLock !== undefined)
 			{
 				document.webkitExitPointerLock();
 			}
@@ -216,31 +312,63 @@ Mouse.prototype.setLock = function(value)
 	}
 }
 
-//Check if mouse button is pressed
+/**
+ * Check if mouse button is currently pressed.
+ * 
+ * @method buttonPressed
+ * @param {number} button Button to check status of
+ * @return {boolean} True if button is currently pressed
+ */
 Mouse.prototype.buttonPressed = function(button)
 {
 	return this.keys[button].pressed;
 }
 
-//Check if Mouse button was double clicked
+/**
+ * Check if Mouse button was double clicked.
+ * 
+ * @method buttonDoubleClicked
+ * @param {number} button Button to check status of
+ * @return {boolean} True if some mouse button was just double clicked
+ */
 Mouse.prototype.buttonDoubleClicked = function()
 {
 	return this.doubleClicked;
 }
 
-//Check if a mouse button was just pressed
+/**
+ * Check if a mouse button was just pressed.
+ * 
+ * @method buttonJustPressed
+ * @param {number} button Button to check status of
+ * @return {boolean} True if button was just pressed
+ */
 Mouse.prototype.buttonJustPressed = function(button)
 {
 	return this.keys[button].justPressed;
 }
 
-//Check if a mouse button was just released
+/**
+ * Check if a mouse button was just released.
+ * 
+ * @method buttonJustReleased
+ * @param {number} button Button to check status of
+ * @return {boolean} True if button was just released
+ */
 Mouse.prototype.buttonJustReleased = function(button)
 {
 	return this.keys[button].justReleased;
 }
 
-//Update mouse Position
+/**
+ * Update mouse position.
+ * 
+ * @method updatePosition
+ * @param {number} x
+ * @param {number} y
+ * @param {number} xDiff
+ * @param {number} yDiff
+ */
 Mouse.prototype.updatePosition = function(x, y, xDiff, yDiff)
 {
 	this._position.set(x, y);
@@ -249,7 +377,13 @@ Mouse.prototype.updatePosition = function(x, y, xDiff, yDiff)
 	this._positionUpdated = true;
 }
 
-//Update mouse Key
+/**
+ * Update a mouse button.
+ *
+ * @method updateKey
+ * @param {number} button
+ * @param {number} action
+ */
 Mouse.prototype.updateKey = function(button, action)
 {
 	if(button > -1)
@@ -258,7 +392,11 @@ Mouse.prototype.updateKey = function(button, action)
 	}
 }
 
-//Update mouse State (Calculate position diff)
+/**
+ * Update mouse buttons state, position, wheel and delta synchronously.
+ * 
+ * @method update
+ */
 Mouse.prototype.update = function()
 {
 	//Update mouse keys state
@@ -316,7 +454,11 @@ Mouse.prototype.update = function()
 	}
 }
 
-//Dispose mouse object
+/**
+ * Dispose mouse events.
+ * 
+ * @method dispose
+ */
 Mouse.prototype.dispose = function()
 {
 	for(var i = 0; i < this.events.length; i++)
@@ -325,3 +467,5 @@ Mouse.prototype.dispose = function()
 		event[0].removeEventListener(event[1], event[2]);
 	}
 }
+
+export {Mouse};
