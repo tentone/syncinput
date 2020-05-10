@@ -10,15 +10,44 @@ import {Key} from "./Key";
  * For more information about the Gamepad API state take look at the W3C Gamepad API page https:// www.w3.org/TR/gamepad/.
  * 
  * @class Gamepad
- * @module Input
+ * @constructor
  */
 function Gamepad()
 {
+	/**
+	 * Vendor code of the gamepad device.
+	 *
+	 * @attribute vendor
+	 * @type {number}
+	 */
 	this.vendor = -1;
+
+	/**
+	 * Product code of the gamepad device.
+	 *
+	 * @attribute product
+	 * @type {number}
+	 */
 	this.product = -1;
+
+	/**
+	 * Connected state of the gamepad.
+	 *
+	 * @attribute connected
+	 * @type {boolean}
+	 */
 	this.connected = false;
 	
 	this.gamepad = null;
+
+	/**
+	 * Gamepad buttons with their associated state.
+	 *
+	 * Should be different for every gamepad.
+	 *
+	 * @attribute buttons
+	 * @type {Array}
+	 */
 	this.buttons = [];
 
 	var gamepads = navigator.getGamepads();
@@ -33,7 +62,7 @@ function Gamepad()
 	
 	if(this.gamepad === null)
 	{
-		throw new Error("No gamepad found");
+		console.error("No gamepad found");
 	}
 }
 

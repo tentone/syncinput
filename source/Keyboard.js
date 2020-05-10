@@ -6,7 +6,7 @@ import {Key} from "./Key";
  * Allow to detect every key press, release event in sync with the app frame update.
  * 
  * @class Keyboard
- * @module Input
+ * @constructor
  */
 function Keyboard()
 {

@@ -7,7 +7,7 @@ import {Key} from "./Key";
  * Automatically calculates the diff of position between frames.
  * 
  * @class Mouse
- * @module Input
+ * @constructor
  */
 function Mouse()
 {

@@ -14,11 +14,13 @@ export default {
 		{
 			format: "umd",
 			name: "SyncInput",
+			sourceMap: true,
 			file: "build/syncinput.js",
 			indent: "\t"
 		},
 		{
 			format: "es",
+			sourcemap: true,
 			file: "build/syncinput.module.js",
 			indent: "\t"
 		}

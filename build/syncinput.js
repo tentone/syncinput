@@ -127,7 +127,7 @@
 	 * For more information about the Gamepad API state take look at the W3C Gamepad API page https:// www.w3.org/TR/gamepad/.
 	 * 
 	 * @class Gamepad
-	 * @module Input
+	 * @constructor
 	 */
 	function Gamepad()
 	{
@@ -150,7 +150,7 @@
 		
 		if(this.gamepad === null)
 		{
-			throw new Error("No gamepad found");
+			console.error("No gamepad found");
 		}
 	}
 
@@ -539,7 +539,7 @@
 	 * Allow to detect every key press, release event in sync with the app frame update.
 	 * 
 	 * @class Keyboard
-	 * @module Input
+	 * @constructor
 	 */
 	function Keyboard()
 	{
@@ -1161,12 +1161,29 @@
 	 */
 	Keyboard.F12 = 123;
 
+	/**
+	 * Vector 2 represents pairs of X and Y values. Use to represent all bidimensional variables.
+	 *
+	 * Mouse position, acceleration use this object type.
+	 *
+	 * @class Vector2
+	 * @constructor
+	 * @param {number} x X coordinate.
+	 * @param {number} x Y coordinate.
+	 */
 	function Vector2(x, y)
 	{
 		this.x = (x !== undefined) ? x : 0;
 		this.y = (y !== undefined) ? y : 0;
 	}
 
+	/**
+	 * Set the value of the vector.
+	 *
+	 * @method set
+	 * @param {number} x X coordinate.
+	 * @param {number} x Y coordinate.
+	 */
 	Vector2.prototype.set = function(x, y)
 	{
 		this.x = x;
@@ -1179,7 +1196,7 @@
 	 * Automatically calculates the diff of position between frames.
 	 * 
 	 * @class Mouse
-	 * @module Input
+	 * @constructor
 	 */
 	function Mouse()
 	{
