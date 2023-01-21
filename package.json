@@ -12,21 +12,20 @@
     "url": "git+https://github.com/tentone/syncinput.git"
   },
   "scripts": {
+    "start": "",
+    "build": "",
     "serve": "http-server . -p 8080 --cors -o",
     "build": "rollup -c && npm run uglify",
     "docs": "jsdoc -d docs -r source",
-    "uglify": "uglifyjs --compress --mangle --output build/syncinput.min.js -- build/syncinput.js",
     "pub": "npm run build && npm run docs && npm publish --access public ."
   },
   "author": "Tentone",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
-    "http-server": "0.12.3",
-    "jsdoc": "^3.5.0",
-    "rollup": "^1.0.0",
-    "rollup-plugin-strip": "^1.2.1",
-    "uglify-js": "^3.4.9"
+    "jsdoc": "4.0.0",
+    "typescript": "4.9.4",
+    "uglify-js": "3.17.4",
+    "esbuild": "0.17.3"
   },
   "bugs": {
     "url": "https://github.com/tentone/syncinput/issues"
