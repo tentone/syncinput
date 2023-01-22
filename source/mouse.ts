@@ -1,5 +1,5 @@
-import {Vector2} from 'three';
-import {EventManager} from '../../../../utils/event-manager';
+import {Vector2} from './vector2';
+import {EventManager} from './event-manager';
 import {Button} from './button';
 
 /**
@@ -33,25 +33,17 @@ export class Mouse {
 	 */
 	public static FORWARD = 4;
 
-	public tempKeys: Button[] = new Array(5);
-
-	public tempPosition: Vector2 = new Vector2(0, 0);
-
 	/**
 	 * Indicates if the mouse position changed mid-frames.
 	 */
 	public positionUpdated: boolean = false;
-
-	public tempWheel: number = 0;
-
-	public tempDelta: Vector2 = new Vector2(0, 0);
 
 	/**
 	 * Indicates if the wheel position changed mid-frames.
 	 */
 	public wheelUpdated: boolean = false;
 
-	public tempDoubleClicked: boolean = false;
+	private tempDoubleClicked: boolean = false;
 
 	/**
 	 * Array with mouse buttons status.
@@ -88,7 +80,19 @@ export class Mouse {
 	 */
 	public canvas: HTMLCanvasElement = null;
 
+	/**
+	 * Event manager used to manage the mouse events.
+	 */
 	public events: EventManager = null;
+
+	private tempWheel: number = 0;
+
+	private tempDelta: Vector2 = new Vector2(0, 0);
+
+	private tempKeys: Button[] = new Array(5);
+
+	private tempPosition: Vector2 = new Vector2(0, 0);
+
 
 	public constructor(element?: HTMLElement) {
 

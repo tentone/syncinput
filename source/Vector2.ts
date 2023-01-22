@@ -8,23 +8,39 @@
  * @param {number} x X coordinate.
  * @param {number} x Y coordinate.
  */
-function Vector2(x, y)
+export class Vector2
 {
-	this.x = (x !== undefined) ? x : 0;
-	this.y = (y !== undefined) ? y : 0;
+	/**
+	 * X component of the vector.
+	 */
+	public x: number; 
+
+	/**
+	 * Y component of the vector.
+	 */
+	public y: number;
+
+	/**
+	 * Constructor for a new Vector2 object.
+	 *
+	 * @param {number} x X coordinate.
+	 * @param {number} x Y coordinate.
+	 */
+	constructor(x: number = 0, y: number = 0) {
+ 		this.x = x;
+		this.y = y;
+	}
+
+	/**
+	 * Set the value of the vector.
+	 *
+	 * @param {number} x X coordinate.
+	 * @param {number} x Y coordinate.
+	 */
+	public set(x: number, y: number): void
+	{
+		this.x = x;
+		this.y = y;
+	}
 }
 
-/**
- * Set the value of the vector.
- *
- * @method set
- * @param {number} x X coordinate.
- * @param {number} x Y coordinate.
- */
-Vector2.prototype.set = function(x, y)
-{
-	this.x = x;
-	this.y = y;
-}
-
-export {Vector2};

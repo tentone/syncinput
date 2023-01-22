@@ -1,5 +1,5 @@
-import {Vector2} from 'three';
-import {EventManager} from '../../../../utils/event-manager';
+import {Vector2} from './vector2';
+import {EventManager} from './event-manager';
 
 /**
  * The current state of each touch point handler.

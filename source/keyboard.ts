@@ -1,4 +1,4 @@
-import {EventManager} from '../../../../utils/event-manager';
+import {EventManager} from './event-manager';
 import {Button} from './button';
 
 /**
@@ -102,6 +102,8 @@ export class Keyboard {
 
 	/**
 	 * Check if a key is pressed.
+	 * 
+	 * @param key - Which key to check.
 	 */
 	public keyPressed(key: number): boolean {
 		return this.keys[key].pressed;
@@ -109,6 +111,8 @@ export class Keyboard {
 
 	/**
 	 * Check is a key as just pressed.
+	 * 
+	 * @param key - Which key to check.
 	 */
 	public keyJustPressed(key: number): boolean {
 		return this.keys[key].justPressed;
@@ -116,6 +120,8 @@ export class Keyboard {
 
 	/**
 	 * Check if a key was just released.
+	 * 
+	 * @param key - Which key to check.
 	 */
 	public keyJustReleased(key: number): boolean {
 		return this.keys[key].justReleased;

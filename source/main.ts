@@ -1,9 +1,8 @@
-var VERSION = "V1.2";
 
-export {VERSION}
-
-export {Gamepad} from "./gamepad.ts";
-export {Key} from "./key.ts";
-export {Keyboard} from "./keyboard.ts";
-export {Mouse} from "./mouse.ts";
-export {Vector2} from "./vector2.ts";
+export {Gamepad} from "./gamepad";
+export {Keys} from "./keys";
+export {Keyboard} from "./keyboard";
+export {Mouse} from "./mouse";
+export {Vector2} from "./vector2";
+export {Touch} from "./touch"
+export {Button} from "./button"

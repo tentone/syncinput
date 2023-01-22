@@ -3,11 +3,10 @@
 [![GitHub version](https://badge.fury.io/gh/tentone%2Fsyncinput.svg)](https://badge.fury.io/gh/tentone%2Fsyncinput)[![npm version](https://badge.fury.io/js/syncinput.svg)](https://badge.fury.io/js/syncinput)
 
 - Synchronous keyboard, mouse and gamepad input for fixed step applications.
-  - Browser events fire faster than your application logic/render code.
-  - This library prevents usage of complex logic or repeated code execution in these scenarios.
-- Access input from devices at the same speed for your application without the need to process out of sync browser callbacks.
-- Multi browser support, compatible with mobile devices and and touchscreen events.
-
+- Browser events fire at a different rate than your application logic/render code.- This library allow to access input state for variable frame rate scenarios.
+- Skip the need to process out of sync browser callbacks.
+- Multi-browser support, compatible with mobile devices and and touchscreen events.
+- Currently supports input from: Mouse, Keyboard, Gamepad, Touchscreen
 
 
 ### Download
@@ -59,13 +58,12 @@ if(keyboard.keyJustReleased(keyboard.W))
 
 
 
-### Documentation
+## Documentation
 
 - Detailed API docs available on the docs folder of the project.
-
   
 
-##### Mouse
+### Mouse
 
 - `position {x, y}` -Actual mouse position
 - `delta {x, y}` - Mouse delta since last time update() was called
@@ -79,7 +77,7 @@ if(keyboard.keyJustReleased(keyboard.W))
 - `insideCanvas()` - Check if mouse is inside attached canvas
 - `setLock(value)` - Set mouse lock on/off.
 
-##### Keyboard
+### Keyboard
 
 - `update()` - Update keyboard status (should be called every time after app logic update)
 - `keyPressed(button)` - Check if key is currently pressed
@@ -87,30 +85,9 @@ if(keyboard.keyJustReleased(keyboard.W))
 - `keyJustReleased(button)` - Check if key was just released
 - `reset()` - Reset all keys
 
-##### Gamepad
+### Gamepad
 
 - `update()` - Update gamepad status
 - `buttonPressed(button)` - Check if gamepad button is pressed
 - `buttonJustPressed(button)` - Check if gamepad button was just pressed
 - `buttonJustReleased(button)` - Check if gamepad button was just released
-
-
-
-### Changelog
-
-##### V1.2
-
-- Published on NPM.
-- Added API documentation.
-- Support for double click detection on all mouse buttons.
-
-##### V1.1
-
-- Support for Gamepad (Using the Gamepad API)
-- Moved all events to the window object
-- Added dispose method
-
-##### V1.0
-
-- First release
-
