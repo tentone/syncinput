@@ -66,10 +66,9 @@ export class Gamepad
 	 *
 	 * Can be used to override the gamepad attached to this object and enable multiple gamepad support.
 	 * 
-	 * @param {Object} Browser gamepad object.
-	 * @method setGamepad
+	 * @param gamepad - Browser gamepad object.
 	 */
-	public setGamepad(gamepad): any
+	public setGamepad(gamepad: any): any
 	{	
 		if(gamepad !== undefined && gamepad !== null)
 		{
@@ -97,10 +96,8 @@ export class Gamepad
 
 	/**
 	 * Disconnect this gamepad object.
-	 * 
-	 * @method disconnect
 	 */
-	public disconnect = function()
+	public disconnect(): void
 	{
 		this.vendor = -1;
 		this.product = -1;
@@ -114,9 +111,9 @@ export class Gamepad
 	 * Get vendor id and product id for the connected gamepad.
 	 *
 	 * @method setProductVendor
-	 * @param {Object} gamepad Gamepad object.
+	 * @param gamepad - Gamepad object.
 	 */
-	public setProductVendor = function(gamepad)
+	public setProductVendor(gamepad: any): void
 	{
 		// Chrome
 		try
@@ -147,10 +144,8 @@ export class Gamepad
 	 * Update the gamepad state.
 	 *
 	 * Should be called every frame before checking the buttons values.
-	 * 
-	 * @method update
 	 */
-	public update = function(delta)
+	public update(delta: number): void
 	{
 		this.gamepad = navigator.getGamepads()[this.index];
 
@@ -168,11 +163,10 @@ export class Gamepad
 	 *
 	 * If the button is not analog enabled it will return 0 if button is not pressed or 1 if the button is pressed.
 	 *
-	 * @method getAnalogueButton
-	 * @param {number} button Button to get analogue value from.
-	 * @return {number} Value between 0 and 1 depending how hard the button is pressed.
+	 * @param button - Button to get analogue value from.
+	 * @return Value between 0 and 1 depending how hard the button is pressed.
 	 */
-	public getAnalogueButton = function(button)
+	public getAnalogueButton(button: number): number
 	{
 		return (button > this.buttons.length || button < 0) ? 0 : this.gamepad.buttons[button].value;
 	};
@@ -180,23 +174,21 @@ export class Gamepad
 	/**
 	 * Get axis value between -1 and 1 depending on the direction.
 	 *
-	 * @method getAxis
-	 * @param {number} Axis to get value from.
-	 * @return {number} Value between -1 and 1 depending on the axis direction
+	 * @param axis - Axis to get value from.
+	 * @return Value between -1 and 1 depending on the axis direction
 	 */
-	public getAxis = function(axis)
+	public getAxis(axis: number): number
 	{
 		return (axis > this.gamepad.axes.length || axis < 0) ? 0 : this.gamepad.axes[axis];
 	};
 
 	/**
 	 * Check if a button exists in the connected Gamepad.
-	 * 
-	 * @method buttonExists
-	 * @param {number} button Button to check status of
-	 * @return {boolean} True if button exists in the connected gamepad.
+	 *
+	 * @param button - Button to check status of
+	 * @return True if button exists in the connected gamepad.
 	 */
-	public buttonExists = function(button)
+	public buttonExists(button: number): boolean
 	{
 		return button >= 0 && button < this.buttons.length;
 	};
@@ -205,10 +197,10 @@ export class Gamepad
 	 * Check if gamepad button is currently pressed.
 	 * 
 	 * @method buttonPressed
-	 * @param {number} button Button to check status of
-	 * @return {boolean} True if button is currently pressed
+	 * @param button - Button to check status of
+	 * @return True if button is currently pressed
 	 */
-	public buttonPressed = function(button)
+	public buttonPressed(button: number): boolean
 	{
 		return this.buttons[button] ? this.buttons[button].pressed : false;
 	};
@@ -217,10 +209,10 @@ export class Gamepad
 	 * Check if a gamepad button was just pressed.
 	 * 
 	 * @method buttonJustPressed
-	 * @param {number} button Button to check status of
-	 * @return {boolean} True if button was just pressed
+	 * @param button - Button to check status of
+	 * @return True if button was just pressed
 	 */
-	public buttonJustPressed = function(button)
+	public buttonJustPressed(button: number): boolean
 	{
 		return this.buttons[button] ? this.buttons[button].justPressed : false;
 	};
@@ -229,10 +221,10 @@ export class Gamepad
 	 * Check if a gamepad button was just released.
 	 * 
 	 * @method buttonJustReleased
-	 * @param {number} button Button to check status of
-	 * @return {boolean} True if button was just released
+	 * @param button - Button to check status of
+	 * @return True if button was just released
 	 */
-	public buttonJustReleased = function(button)
+	public buttonJustReleased(button: number): boolean
 	{
 		return this.buttons[button] ? this.buttons[button].justReleased : false;
 	};

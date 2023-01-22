@@ -113,20 +113,20 @@ export class Mouse {
 		// @ts-ignore
 		if (window.onmousewheel !== undefined) {
 			// Chrome, edge
-			this.events.add(this.domElement, 'mousewheel', function(event) {
+			this.events.add(this.domElement, 'mousewheel', function(event: WheelEvent) {
 				self.tempWheel = event.deltaY;
 				self.wheelUpdated = true;
 				event.preventDefault();
 			});
 		} else if (window.addEventListener !== undefined) {
 			// Firefox
-			this.events.add(this.domElement, 'DOMMouseScroll', function(event) {
+			this.events.add(this.domElement, 'DOMMouseScroll', function(event: MouseEvent) {
 				self.tempWheel = event.detail * 30;
 				self.wheelUpdated = true;
 				event.preventDefault();
 			});
 		} else {
-			this.events.add(this.domElement, 'wheel', function(event) {
+			this.events.add(this.domElement, 'wheel', function(event: WheelEvent) {
 				self.tempWheel = event.deltaY;
 				self.wheelUpdated = true;
 				event.preventDefault();
@@ -140,7 +140,7 @@ export class Mouse {
 			const lastTouch = new Vector2(0, 0);
 
 			// Touch start event
-			this.events.add(this.domElement, 'touchstart', function(event) {
+			this.events.add(this.domElement, 'touchstart', function(event: TouchEvent) {
 				const touch = event.touches[0];
 
 				self.updatePosition(touch.screenX, touch.screenY, 0, 0);
@@ -150,17 +150,17 @@ export class Mouse {
 			});
 
 			// Touch end event
-			this.events.add(this.domElement, 'touchend', function(event) {
+			this.events.add(this.domElement, 'touchend', function(event: TouchEvent) {
 				self.updateKey(Mouse.LEFT, Button.UP);
 			});
 
 			// Touch cancel event
-			this.events.add(this.domElement, 'touchcancel', function(event) {
+			this.events.add(this.domElement, 'touchcancel', function(event: TouchEvent) {
 				self.updateKey(Mouse.LEFT, Button.UP);
 			});
 
 			// Touch move event
-			this.events.add(document.body, 'touchmove', function(event) {
+			this.events.add(document.body, 'touchmove', function(event: TouchEvent) {
 				const touch = event.touches[0];
 
 				self.updatePosition(touch.screenX, touch.screenY, touch.screenX - lastTouch.x, touch.screenY - lastTouch.y);
@@ -170,31 +170,31 @@ export class Mouse {
 		}
 
 		// Move
-		this.events.add(this.domElement, 'mousemove', function(event) {
+		this.events.add(this.domElement, 'mousemove', function(event: MouseEvent) {
 			self.updatePosition(event.offsetX, event.offsetY, event.movementX, event.movementY);
 		});
 
 		// Button pressed
-		this.events.add(this.domElement, 'mousedown', function(event) {
+		this.events.add(this.domElement, 'mousedown', function(event: MouseEvent) {
 			self.updateKey(event.which - 1, Button.DOWN);
 		});
 
 		// Button released
-		this.events.add(this.domElement, 'mouseup', function(event) {
+		this.events.add(this.domElement, 'mouseup', function(event: MouseEvent) {
 			self.updateKey(event.which - 1, Button.UP);
 		});
 
-		this.events.add(this.domElement, 'mouseleave', function(event) {
+		this.events.add(this.domElement, 'mouseleave', function(event: MouseEvent) {
 			self.updateKey(event.which - 1, Button.UP);
 		});
 
 		// Drag start
-		this.events.add(this.domElement, 'dragstart', function(event) {
+		this.events.add(this.domElement, 'dragstart', function(event: MouseEvent) {
 			self.updateKey(event.which - 1, Button.UP);
 		});
 
 		// Mouse double click
-		this.events.add(this.domElement, 'dblclick', function(event) {
+		this.events.add(this.domElement, 'dblclick', function(event: Event) {
 			self.tempDoubleClicked = true;
 		});
 
@@ -209,11 +209,13 @@ export class Mouse {
 
 		canvas.mouseInside = false;
 
-		canvas.addEventListener('mouseenter', function() {
+		canvas.addEventListener('mouseenter', function(event: MouseEvent) {
+			// @ts-ignore
 			this.mouseInside = true;
 		});
 
-		canvas.addEventListener('mouseleave', function() {
+		canvas.addEventListener('mouseleave', function(event: MouseEvent) {
+			// @ts-ignore
 			this.mouseInside = false;
 		});
 	}

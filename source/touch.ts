@@ -75,11 +75,11 @@ export class Touch {
 			const lastTouch = new Vector2(0, 0);
 
 			// Touch start event
-			this.events.add(this.domElement, 'touchstart', (event) => {
+			this.events.add(this.domElement, 'touchstart', (event: TouchEvent) => {
 				// TODO <REMOVE THIS>
 				console.log('EQS: Touch start event', event);
 				
-				for (let i = 0; i < event.touches; i++) {
+				for (let i = 0; i < event.touches.length; i++) {
 					const touch = event.touches[i];
 
 					// self.updatePosition(touch.screenX, touch.screenY, 0, 0);
@@ -90,7 +90,7 @@ export class Touch {
 			});
 
 			// Touch end event
-			this.events.add(this.domElement, 'touchend', (event) => {
+			this.events.add(this.domElement, 'touchend', (event: TouchEvent) => {
 				// TODO <REMOVE THIS>
 				console.log('EQS: Touch end event', event);
 				
@@ -98,7 +98,7 @@ export class Touch {
 			});
 
 			// Touch cancel event
-			this.events.add(this.domElement, 'touchcancel', (event) => {
+			this.events.add(this.domElement, 'touchcancel', (event: TouchEvent) => {
 
 				// TODO <REMOVE THIS>
 				console.log('EQS: Touch cancel event', event);
@@ -107,12 +107,12 @@ export class Touch {
 			});
 
 			// Touch move event
-			this.events.add(document.body, 'touchmove', (event) => {
+			this.events.add(document.body, 'touchmove', (event: TouchEvent) => {
 
 				// TODO <REMOVE THIS>
 				console.log('EQS: Touch move event', event);
 
-				for (let i = 0; i < event.touches; i++) {
+				for (let i = 0; i < event.touches.length; i++) {
 					const touch = event.touches[i];
 
 					// self.updatePosition(touch.screenX, touch.screenY, touch.screenX - lastTouch.x, touch.screenY - lastTouch.y);
