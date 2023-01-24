@@ -34,8 +34,10 @@ export class Button {
 
 	/**
 	 * Update Key status based on new key state.
+	 * 
+	 * @param action - Button action to apply.
 	 */
-	public update(action): void {
+	public update(action: number): void {
 		this.justPressed = false;
 		this.justReleased = false;
 
@@ -57,8 +59,12 @@ export class Button {
 
 	/**
 	 * Set this key attributes manually.
+	 * 
+	 * @param justPressed - Indicate if the button was just pressed.
+	 * @param pressed - Indicate if the button is pressed.
+	 * @param justReleased - Indicate if the button was just released.
 	 */
-	public set(justPressed, pressed, justReleased): void {
+	public set(justPressed: boolean, pressed: boolean, justReleased: boolean): void {
 		this.justPressed = justPressed;
 		this.pressed = pressed;
 		this.justReleased = justReleased;

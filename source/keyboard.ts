@@ -48,19 +48,19 @@ export class Keyboard {
 		const self = this;
 
 		// Key down
-		this.events.add(this.domElement, 'keydown', function(event) {
+		this.events.add(this.domElement, 'keydown', function(event: KeyboardEvent) {
 			actions.push(event.keyCode);
 			actions.push(Button.DOWN);
 		});
 
 		// Key up
-		this.events.add(this.domElement, 'keyup', function(event) {
+		this.events.add(this.domElement, 'keyup', function(event: KeyboardEvent) {
 			actions.push(event.keyCode);
 			actions.push(Button.UP);
 		});
 
 		// Reset
-		this.events.add(this.domElement, 'focus', function(event) {
+		this.events.add(this.domElement, 'focus', function(event: Event) {
 			self.reset();
 		});
 

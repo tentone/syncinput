@@ -2,20 +2,22 @@ import path from 'path';
 
 export default {
     entry: './source/main.ts',
+    mode: 'production',
+    devtool: 'inline-source-map',
     output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'build'),
+        filename: 'syncinput.js',
+        path: path.resolve('./build'),
     },
     module: {
         rules: [
-            {
-                test: /\.tsx?$/,
-                loader: 'esbuild-loader',
-                options: {
-                    loader: 'ts',
-                    target: 'es2015'
-                }
-            }
-        ]
-    }
+          {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+          },
+        ],
+      },
+      resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+      },
 };
