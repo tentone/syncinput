@@ -1,6 +1,6 @@
 import {Vector2} from './vector2';
 import {EventManager} from './event-manager';
-import {Button} from './button';
+import {Button, ButtonAction} from './button';
 
 /**
  * Mouse instance for input in sync with the running 3D application.
@@ -144,19 +144,19 @@ export class Mouse {
 				const touch = event.touches[0];
 
 				self.updatePosition(touch.screenX, touch.screenY, 0, 0);
-				self.updateKey(Mouse.LEFT, Button.DOWN);
+				self.updateKey(Mouse.LEFT, ButtonAction.DOWN);
 
 				lastTouch.set(touch.screenX, touch.screenY);
 			});
 
 			// Touch end event
 			this.events.add(this.domElement, 'touchend', function(event: TouchEvent) {
-				self.updateKey(Mouse.LEFT, Button.UP);
+				self.updateKey(Mouse.LEFT, ButtonAction.UP);
 			});
 
 			// Touch cancel event
 			this.events.add(this.domElement, 'touchcancel', function(event: TouchEvent) {
-				self.updateKey(Mouse.LEFT, Button.UP);
+				self.updateKey(Mouse.LEFT, ButtonAction.UP);
 			});
 
 			// Touch move event
@@ -176,21 +176,21 @@ export class Mouse {
 
 		// Button pressed
 		this.events.add(this.domElement, 'mousedown', function(event: MouseEvent) {
-			self.updateKey(event.which - 1, Button.DOWN);
+			self.updateKey(event.which - 1, ButtonAction.DOWN);
 		});
 
 		// Button released
 		this.events.add(this.domElement, 'mouseup', function(event: MouseEvent) {
-			self.updateKey(event.which - 1, Button.UP);
+			self.updateKey(event.which - 1, ButtonAction.UP);
 		});
 
 		this.events.add(this.domElement, 'mouseleave', function(event: MouseEvent) {
-			self.updateKey(event.which - 1, Button.UP);
+			self.updateKey(event.which - 1, ButtonAction.UP);
 		});
 
 		// Drag start
 		this.events.add(this.domElement, 'dragstart', function(event: MouseEvent) {
-			self.updateKey(event.which - 1, Button.UP);
+			self.updateKey(event.which - 1, ButtonAction.UP);
 		});
 
 		// Mouse double click

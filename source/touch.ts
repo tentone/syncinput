@@ -5,9 +5,24 @@ import {EventManager} from './event-manager';
  * The current state of each touch point handler.
  */
 export enum TouchPointState {
+	/**
+	 * Touch point inactive.
+	 */
 	NONE = -1,
+
+	/**
+	 * Touch point is currently pressed.
+	 */
 	PRESSED = 1,
+
+	/**
+	 * Touch point was just pressed.
+	 */
 	JUST_PRESSED = 2,
+
+	/**
+	 * Touch point was just released.
+	 */
 	JUST_RELEASED = 3,
 }
 
@@ -130,28 +145,32 @@ export class Touch {
 	 * Check if touch button is currently pressed.
 	 */
 	public touchPressed(idx: number): boolean {
-		return false; // this.keys[idx].pressed;
+		return this.touch[idx].state !== TouchPointState.NONE;
 	}
 
 	/**
 	 * Check if a touch button was just pressed.
 	 */
 	public touchJustPressed(idx: number): boolean {
-		return false; // this.keys[idx].justPressed;
+		return this.touch[idx].state === TouchPointState.JUST_PRESSED;
 	}
 
 	/**
 	 * Check if a touch button was just released.
 	 */
 	public touchJustReleased(idx: number): boolean {
-		return false; // this.keys[idx].justReleased;
+		return this.touch[idx].state === TouchPointState.JUST_RELEASED;
 	}
 
 	/**
 	 * Update touch input state, position and delta synchronously.
 	 */
-	public update(): void {
+	public update(idx: number): void {
+		if(!this.touch[idx]) {
+			this.touch[idx] = new TouchPoint();
+		}
 
+		// TODO <ADD CODE HERE>
 	}
 
 	/**

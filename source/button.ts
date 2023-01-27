@@ -1,7 +1,8 @@
+
 /**
- * Key is used by Keyboard and Mouse, to represent a key state.
+ * Stored possible actions for buttons.
  */
-export class Button {
+export class ButtonAction {
 	/**
 	 * Down
 	 */
@@ -16,7 +17,12 @@ export class Button {
 	 * Reset
 	 */
 	public static RESET = 0;
+}
 
+/**
+ * Key is used by Keyboard and Mouse, to represent a key state.
+ */
+export class Button {
 	/**
 	 * Indicates if this key is currently pressed.
 	 */
@@ -41,17 +47,17 @@ export class Button {
 		this.justPressed = false;
 		this.justReleased = false;
 
-		if (action === Button.DOWN) {
+		if (action === ButtonAction.DOWN) {
 			if (this.pressed === false) {
 				this.justPressed = true;
 			}
 			this.pressed = true;
-		} else if (action === Button.UP) {
+		} else if (action === ButtonAction.UP) {
 			if (this.pressed) {
 				this.justReleased = true;
 			}
 			this.pressed = false;
-		} else if (action === Button.RESET) {
+		} else if (action === ButtonAction.RESET) {
 			this.justReleased = false;
 			this.justPressed = false;
 		}

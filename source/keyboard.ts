@@ -1,5 +1,5 @@
 import {EventManager} from './event-manager';
-import {Button} from './button';
+import {Button, ButtonAction} from './button';
 
 /**
  * Keyboard instance for input in sync with the running 3D application.
@@ -50,13 +50,13 @@ export class Keyboard {
 		// Key down
 		this.events.add(this.domElement, 'keydown', function(event: KeyboardEvent) {
 			actions.push(event.keyCode);
-			actions.push(Button.DOWN);
+			actions.push(ButtonAction.DOWN);
 		});
 
 		// Key up
 		this.events.add(this.domElement, 'keyup', function(event: KeyboardEvent) {
 			actions.push(event.keyCode);
-			actions.push(Button.UP);
+			actions.push(ButtonAction.UP);
 		});
 
 		// Reset
@@ -82,7 +82,7 @@ export class Keyboard {
 
 			if (this.keys[key].justReleased || this.keys[key].justPressed) {
 				this.actions.push(key);
-				this.actions.push(Button.RESET);
+				this.actions.push(ButtonAction.RESET);
 				end += 2;
 			}
 		}
