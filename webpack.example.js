@@ -12,7 +12,7 @@ export default {
 		compress: true,
 		port: 5000,
 	},
-    module: {
+	module: {
 		rules: [{
 			test: /\.tsx?$/,
 			use: 'ts-loader',
