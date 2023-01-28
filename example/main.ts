@@ -1,4 +1,4 @@
-import { Keyboard, Mouse, Gamepad, Keys } from "../source/main";
+import { Keyboard, Mouse, Gamepad, Keys, Touch } from "../source/main";
 
 // Create canvas element
 var canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -17,6 +17,7 @@ document.body.onresize = function()
 var keyboard = new Keyboard();
 var mouse = new Mouse();
 var gamepad = new Gamepad();
+var touch = new Touch();
 
 //Call update loop
 update();
@@ -31,6 +32,7 @@ function update()
     keyboard.update();
     mouse.update();
     gamepad.update(0);
+    touch.updatePoint();
 
     if(keyboard.keyPressed(Keys.LEFT) || gamepad.buttonPressed(Gamepad.LEFT))
     {

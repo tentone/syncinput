@@ -23,6 +23,33 @@ export class TouchPoint extends Button {
 }
 
 /**
+ * Stores temporary data of the touch point.
+ * 
+ * Temporary data is accumlated of calls between frames.
+ */
+class TouchPointTempData {
+	/**
+	 * Indicates if the touch point is currently pressed.
+	 */
+	public pressed: boolean = false;
+
+	/**
+	 * Current position of the touch point.
+	 */
+	public position: Vector2 = new Vector2();
+
+	/**
+	 * Last position of the point in the previous frame.
+	 */
+	public lastPosition: Vector2 = new Vector2();
+
+	/**
+	 * Pressure of the touch point.
+	 */
+	public pressure: number = null;
+}
+
+/**
  * Touch handler input is used to handle touch events.
  *
  * Each touch point
@@ -34,14 +61,14 @@ export class Touch {
 	public touch: TouchPoint[] = [];
 
 	/**
+	 * Touch point temporary information stored between frames.
+	 */
+	private temp: TouchPoint[] = [];
+
+	/**
 	 * DOM element where to attach the touch events.
 	 */
 	public domElement: HTMLElement | Window = null;
-
-	/**
-	 * Canvas attached to this touch instance used to calculate position and delta in canvas space coordinates.
-	 */
-	public canvas: HTMLCanvasElement = null;
 
 	/**
 	 * Event manager used for the touch inputs.
@@ -57,28 +84,24 @@ export class Touch {
 		// Touchscreen input events
 		// @ts-ignore
 		if ('ontouchstart' in window) {
-			// Auxiliary variables to calculate touch delta
-			const lastTouch = new Vector2(0, 0);
 
 			// Touch start event
 			this.events.add(this.domElement, 'touchstart', (event: TouchEvent) => {
 				// TODO <REMOVE THIS>
-				console.log('EQS: Touch start event', event);
+				console.log('SyncInput: Touch start event', event);
 				
 				for (let i = 0; i < event.touches.length; i++) {
 					const touch = event.touches[i];
-
+					
 					// self.updatePosition(touch.screenX, touch.screenY, 0, 0);
 					// self.updateKey(Touch.LEFT, Key.DOWN);
-
-					lastTouch.set(touch.screenX, touch.screenY);
 				}
 			});
 
 			// Touch end event
 			this.events.add(this.domElement, 'touchend', (event: TouchEvent) => {
 				// TODO <REMOVE THIS>
-				console.log('EQS: Touch end event', event);
+				console.log('SyncInput: Touch end event', event);
 				
 				// self.updateKey(Touch.LEFT, Key.UP);
 			});
@@ -87,7 +110,7 @@ export class Touch {
 			this.events.add(this.domElement, 'touchcancel', (event: TouchEvent) => {
 
 				// TODO <REMOVE THIS>
-				console.log('EQS: Touch cancel event', event);
+				console.log('SyncInput: Touch cancel event', event);
 
 				// self.updateKey(Touch.LEFT, Key.UP);
 			});
@@ -96,7 +119,7 @@ export class Touch {
 			this.events.add(document.body, 'touchmove', (event: TouchEvent) => {
 
 				// TODO <REMOVE THIS>
-				console.log('EQS: Touch move event', event);
+				console.log('SyncInput: Touch move event', event);
 
 				for (let i = 0; i < event.touches.length; i++) {
 					const touch = event.touches[i];
@@ -110,6 +133,26 @@ export class Touch {
 		}
 
 		this.events.create();
+	}
+
+	/**
+	 * Update touch input state, position and delta synchronously.
+	 */
+	public updatePoint(idx: number, action: number, pressure: number = 0): void {
+		if(!this.touch[idx]) {
+			this.touch[idx] = new TouchPoint();
+		}
+
+		this.touch[idx].update(action);
+		this.touch[idx].pressure = pressure;
+		// TODO <ADD CODE HERE>
+	}
+
+	/**
+	 * Update the touch handler, should be called every frame before reading values.
+	 */
+	public update() {
+
 	}
 
 	/**
@@ -133,18 +176,7 @@ export class Touch {
 		return this.touch[idx].justReleased;
 	}
 
-	/**
-	 * Update touch input state, position and delta synchronously.
-	 */
-	public update(idx: number, action: number, pressure: number = 0): void {
-		if(!this.touch[idx]) {
-			this.touch[idx] = new TouchPoint();
-		}
 
-		this.touch[idx].update(action);
-		this.touch[idx].pressure = pressure;
-		// TODO <ADD CODE HERE>
-	}
 
 	/**
 	 * Dispose touch events.

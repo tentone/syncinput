@@ -3,11 +3,9 @@ import {EventManager} from './event-manager';
 import {Button, ButtonAction} from './button';
 
 /**
- * Mouse instance for input in sync with the running 3D application.
- *
- * The mouse object provided by scripts is automatically updated by the runtime handler.
+ * Contains the list of mouse buttons available.
  */
-export class Mouse {
+export class MouseButton {
 	/**
 	 * Left mouse button.
 	 */
@@ -32,7 +30,14 @@ export class Mouse {
 	 * Forward mouse navigation button.
 	 */
 	public static FORWARD = 4;
+}
 
+/**
+ * Mouse instance for input in sync with the running 3D application.
+ *
+ * The mouse object provided by scripts is automatically updated by the runtime handler.
+ */
+export class Mouse {
 	/**
 	 * Indicates if the mouse position changed mid-frames.
 	 */
@@ -42,8 +47,6 @@ export class Mouse {
 	 * Indicates if the wheel position changed mid-frames.
 	 */
 	public wheelUpdated: boolean = false;
-
-	private tempDoubleClicked: boolean = false;
 
 	/**
 	 * Array with mouse buttons status.
@@ -85,6 +88,8 @@ export class Mouse {
 	 */
 	public events: EventManager = null;
 
+	private tempDoubleClicked: boolean = false;
+
 	private tempWheel: number = 0;
 
 	private tempDelta: Vector2 = new Vector2(0, 0);
@@ -93,7 +98,11 @@ export class Mouse {
 
 	private tempPosition: Vector2 = new Vector2(0, 0);
 
-
+	/**
+	 * Constructor for the mouse handler.
+	 * 
+	 * @param element - Optional HTML element to attach the mouse tracking events. By default the "window" object is used.
+	 */
 	public constructor(element?: HTMLElement) {
 
 		this.domElement = element !== undefined ? element : window;
@@ -144,19 +153,19 @@ export class Mouse {
 				const touch = event.touches[0];
 
 				self.updatePosition(touch.screenX, touch.screenY, 0, 0);
-				self.updateKey(Mouse.LEFT, ButtonAction.DOWN);
+				self.updateKey(MouseButton.LEFT, ButtonAction.DOWN);
 
 				lastTouch.set(touch.screenX, touch.screenY);
 			});
 
 			// Touch end event
 			this.events.add(this.domElement, 'touchend', function(event: TouchEvent) {
-				self.updateKey(Mouse.LEFT, ButtonAction.UP);
+				self.updateKey(MouseButton.LEFT, ButtonAction.UP);
 			});
 
 			// Touch cancel event
 			this.events.add(this.domElement, 'touchcancel', function(event: TouchEvent) {
-				self.updateKey(Mouse.LEFT, ButtonAction.UP);
+				self.updateKey(MouseButton.LEFT, ButtonAction.UP);
 			});
 
 			// Touch move event

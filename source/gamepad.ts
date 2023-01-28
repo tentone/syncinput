@@ -1,17 +1,11 @@
 import {Button, ButtonAction} from "./button";
 
 /**
- * Gamepad provides basic support for gamepads.
- *
- * Some gamepads require a button press to being detected.
+ * Gamepad buttons contains a list of possible buttons.
  * 
- * Gamepad implementation across browsers is still fragmented, every browser implements it a bit differently, so test it on every target before deploying an application using it.
- *
- * For more information about the Gamepad API state take look at the W3C Gamepad API page https://www.w3.org/TR/gamepad/.
+ * Gamepads might contains more buttons that the ones declared in this list.
  */
-export class Gamepad
-{
-	
+export class GamepadButtons {
 
 	/**
 	 * Gamepad LEFT button.
@@ -215,7 +209,19 @@ export class Gamepad
 	 * @attribute RIGHT_ANALOGUE_VERT
 	 */
 	public static RIGHT_ANALOGUE_VERT = 3;
+}
 
+/**
+ * Gamepad provides basic support for gamepads.
+ *
+ * Some gamepads require a button press to being detected.
+ * 
+ * Gamepad implementation across browsers is still fragmented, every browser implements it a bit differently, so test it on every target before deploying an application using it.
+ *
+ * For more information about the Gamepad API state take look at the W3C Gamepad API page https://www.w3.org/TR/gamepad/.
+ */
+export class Gamepad
+{
 	/**
 	 * Vendor code of the gamepad device.
 	 */
@@ -262,12 +268,12 @@ export class Gamepad
 		
 		if(this.gamepad === null)
 		{
-			console.error("No gamepad found");
+			console.error("SyncInput: No gamepad found");
 		}
 	}
 
 	/**
-	 * Set which gamepad should be used by this Gamepad instance.
+	 * Set which gamepad should be used by this gamepad instance.
 	 *
 	 * Can be used to override the gamepad attached to this object and enable multiple gamepad support.
 	 * 
@@ -275,7 +281,7 @@ export class Gamepad
 	 */
 	public setGamepad(gamepad: any): any
 	{	
-		if(gamepad !== undefined && gamepad !== null)
+		if(gamepad)
 		{
 			// Store gamepad and its index
 			this.index = gamepad.index;
@@ -350,7 +356,7 @@ export class Gamepad
 	 *
 	 * Should be called every frame before checking the buttons values.
 	 */
-	public update(delta: number): void
+	public update(): void
 	{
 		this.gamepad = navigator.getGamepads()[this.index];
 
