@@ -1,15 +1,11 @@
 import { Keyboard, Mouse, Gamepad, Keys } from "../source/main";
 
 // Create canvas element
-var canvas = document.createElement("canvas");
+var canvas = document.getElementById("canvas") as HTMLCanvasElement;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-canvas.style.position = "absolute";
-canvas.style.width = "100%";
-canvas.style.height = "100%";
-canvas.style.top = "0px";
-canvas.style.left = "0px";
-document.body.appendChild(canvas);
+
+var fps = document.getElementById("fps") as HTMLCanvasElement;
 
 document.body.onresize = function()
 {
@@ -25,6 +21,8 @@ var gamepad = new Gamepad();
 //Call update loop
 update();
 
+var t = performance.now();
+
 //Logic update and render loop
 function update()
 {
@@ -36,28 +34,34 @@ function update()
 
     if(keyboard.keyPressed(Keys.LEFT) || gamepad.buttonPressed(Gamepad.LEFT))
     {
-        // cube.position.x -= 0.1;
+        console.log('derp')
     }
     if(keyboard.keyPressed(Keys.RIGHT) || gamepad.buttonPressed(Gamepad.RIGHT))
     {
-        // cube.position.x += 0.1;
     }
     if(keyboard.keyPressed(Keys.UP) || gamepad.buttonPressed(Gamepad.UP))
     {
-        // cube.position.y += 0.1;
+
     }
     if(keyboard.keyPressed(Keys.DOWN) || gamepad.buttonPressed(Gamepad.DOWN))
     {
-       //  cube.position.y -= 0.1;
+
     }
 
     if(mouse.buttonPressed(Mouse.LEFT))
     {
-       //  cube.rotation.y += mouse.delta.x / 200;
+
     }
 
     if(mouse.buttonDoubleClicked())
     {
-       //  cube.material.color.set(Math.ceil(Math.random()*0xFFFFFF));
+
     }
+
+    // Update peformance metrics
+    const now = performance.now();
+    const delta = now - t;
+    t = now;
+
+    fps.innerText =  Math.round(1000 / delta) + ' fps';
 }
