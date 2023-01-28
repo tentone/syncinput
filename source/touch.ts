@@ -1,40 +1,11 @@
 import {Vector2} from './vector2';
 import {EventManager} from './event-manager';
-
-/**
- * The current state of each touch point handler.
- */
-export enum TouchPointState {
-	/**
-	 * Touch point inactive.
-	 */
-	NONE = -1,
-
-	/**
-	 * Touch point is currently pressed.
-	 */
-	PRESSED = 1,
-
-	/**
-	 * Touch point was just pressed.
-	 */
-	JUST_PRESSED = 2,
-
-	/**
-	 * Touch point was just released.
-	 */
-	JUST_RELEASED = 3,
-}
+import { Button } from './button';
 
 /**
  * Touch point represents a point in the screen.
  */
-export class TouchPoint {
-	/**
-	 * State of the point
-	 */
-	public state: TouchPointState = TouchPointState.NONE;
-
+export class TouchPoint extends Button {
 	/**
 	 * Position of the touch point.
 	 */
@@ -145,31 +116,33 @@ export class Touch {
 	 * Check if touch button is currently pressed.
 	 */
 	public touchPressed(idx: number): boolean {
-		return this.touch[idx].state !== TouchPointState.NONE;
+		return this.touch[idx].pressed
 	}
 
 	/**
 	 * Check if a touch button was just pressed.
 	 */
 	public touchJustPressed(idx: number): boolean {
-		return this.touch[idx].state === TouchPointState.JUST_PRESSED;
+		return this.touch[idx].justPressed;
 	}
 
 	/**
 	 * Check if a touch button was just released.
 	 */
 	public touchJustReleased(idx: number): boolean {
-		return this.touch[idx].state === TouchPointState.JUST_RELEASED;
+		return this.touch[idx].justReleased;
 	}
 
 	/**
 	 * Update touch input state, position and delta synchronously.
 	 */
-	public update(idx: number): void {
+	public update(idx: number, action: number, pressure: number = 0): void {
 		if(!this.touch[idx]) {
 			this.touch[idx] = new TouchPoint();
 		}
 
+		this.touch[idx].update(action);
+		this.touch[idx].pressure = pressure;
 		// TODO <ADD CODE HERE>
 	}
 

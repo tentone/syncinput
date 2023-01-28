@@ -1,4 +1,5 @@
 import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
 	context: path.resolve('./example'),
@@ -21,5 +22,6 @@ export default {
 	},
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],
-	}
+	},
+	plugins: [new HtmlWebpackPlugin()]
 };

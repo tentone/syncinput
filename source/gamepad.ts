@@ -1,4 +1,4 @@
-import {Button} from "./button";
+import {Button, ButtonAction} from "./button";
 
 /**
  * Gamepad provides basic support for gamepads.
@@ -358,7 +358,7 @@ export class Gamepad
 		{
 			for(var i = 0; i < this.buttons.length; i++)
 			{
-				this.buttons[i].update(this.gamepad.buttons[i].pressed ? Button.DOWN : Button.UP);
+				this.buttons[i].update(this.gamepad.buttons[i].pressed ? ButtonAction.DOWN : ButtonAction.UP);
 			}
 		}
 	};
