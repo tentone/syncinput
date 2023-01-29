@@ -33,9 +33,7 @@ export class MouseButton {
 }
 
 /**
- * Mouse instance for input in sync with the running 3D application.
- *
- * The mouse object provided by scripts is automatically updated by the runtime handler.
+ * Mouse instance for input in sync with the running application.
  */
 export class Mouse {
 	/**
