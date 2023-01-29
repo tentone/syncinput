@@ -105,7 +105,7 @@ export class Mouse {
 	 */
 	public constructor(element?: HTMLElement) {
 
-		this.domElement = element !== undefined ? element : window;
+		this.domElement = element ? element : window;
 
 		this.events = new EventManager();
 
@@ -115,13 +115,16 @@ export class Mouse {
 			this.keys[i] = new Button();
 		}
 
-
+		this.createEvents();
+		this.events.create();
 	}
 
 	/**
 	 * Create mouse handler events.
+	 * 
+	 * Events created are managed by the event manager instance.
 	 */
-	public initialize() {
+	public createEvents() {
 		// Self pointer
 		const self = this;
 
@@ -214,7 +217,7 @@ export class Mouse {
 			self.tempDoubleClicked = true;
 		});
 
-		this.events.create();
+
 	}
 
 

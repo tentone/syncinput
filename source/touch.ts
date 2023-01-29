@@ -1,6 +1,6 @@
 import {Vector2} from './vector2';
 import {EventManager} from './event-manager';
-import { Button } from './button';
+import {Button, ButtonAction} from './button';
 
 /**
  * Touch point represents a point in the screen.
@@ -17,9 +17,29 @@ export class TouchPoint extends Button {
 	public delta: Vector2 = new Vector2();
 
 	/**
-	 * Pressure of the touch point.
+	 * Radius of the touch point.
+	 * 
+	 * Defines an approximation of the touch area between the user and screen.
+	 * 
+	 * The orientation of the ellipse is defined by the "rotation" property.
 	 */
-	public pressure: number = null;
+	public radius: Vector2 = new Vector2();
+
+	/**
+	 * Pressure of the touch point. This value is between 0 and 1.
+	 * 
+	 * Only available on some devices.
+	 */
+	public force: number = 0;
+
+	/**
+	 * Rotation angle of the touch point in degrees, between 0 and 90.
+	 * 
+	 * Togheter with the radius of the touch point defines an ellipse that approximates the size and shape of the area of contact between the user and the screen.
+	 * 
+	 * Only available on some devices.
+	 */
+	public rotation: number = 0;
 }
 
 /**
@@ -41,12 +61,27 @@ class TouchPointTempData {
 	/**
 	 * Last position of the point in the previous frame.
 	 */
-	public lastPosition: Vector2 = new Vector2();
+	public last: Vector2 = new Vector2();
 
 	/**
 	 * Pressure of the touch point.
 	 */
-	public pressure: number = null;
+	public force: number = 0;
+
+	/**
+	 * Radius of the touch point.
+	 */
+	public radius: Vector2 = new Vector2();
+
+	/**
+	 * Rotation angle of the touch point.
+	 */
+	public rotation: number = 0;
+
+	/**
+	 * Indicates if the point was updated since the last frame.
+	 */
+	public updated: boolean = false;
 }
 
 /**
@@ -80,72 +115,70 @@ export class Touch {
 		this.domElement = element !== undefined ? element : window;
 
 		this.events = new EventManager();
-
-		// Touchscreen input events
-		// @ts-ignore
-		if ('ontouchstart' in window) {
-
-			// Touch start event
-			this.events.add(this.domElement, 'touchstart', (event: TouchEvent) => {
-				// TODO <REMOVE THIS>
-				console.log('SyncInput: Touch start event', event);
-				
-				for (let i = 0; i < event.touches.length; i++) {
-					const touch = event.touches[i];
-					
-					// self.updatePosition(touch.screenX, touch.screenY, 0, 0);
-					// self.updateKey(Touch.LEFT, Key.DOWN);
-				}
-			});
-
-			// Touch end event
-			this.events.add(this.domElement, 'touchend', (event: TouchEvent) => {
-				// TODO <REMOVE THIS>
-				console.log('SyncInput: Touch end event', event);
-				
-				// self.updateKey(Touch.LEFT, Key.UP);
-			});
-
-			// Touch cancel event
-			this.events.add(this.domElement, 'touchcancel', (event: TouchEvent) => {
-
-				// TODO <REMOVE THIS>
-				console.log('SyncInput: Touch cancel event', event);
-
-				// self.updateKey(Touch.LEFT, Key.UP);
-			});
-
-			// Touch move event
-			this.events.add(document.body, 'touchmove', (event: TouchEvent) => {
-
-				// TODO <REMOVE THIS>
-				console.log('SyncInput: Touch move event', event);
-
-				for (let i = 0; i < event.touches.length; i++) {
-					const touch = event.touches[i];
-
-					// self.updatePosition(touch.screenX, touch.screenY, touch.screenX - lastTouch.x, touch.screenY - lastTouch.y);
-
-					
-				}
-
-			});
-		}
-
+		this.createEvents();
 		this.events.create();
 	}
 
 	/**
-	 * Update touch input state, position and delta synchronously.
+	 * Create touch handler events.
+	 * 
+	 * Events created are managed by the event manager instance.
 	 */
-	public updatePoint(idx: number, action: number, pressure: number = 0): void {
-		if(!this.temp[idx]) {
-			this.temp[idx] = new TouchPointTempData();
+	public createEvents(): void {
+		// Touch start event
+		this.events.add(this.domElement, 'touchstart', (event: TouchEvent) => {
+			for (let i = 0; i < event.changedTouches.length; i++) {
+				const touch = event.changedTouches[i];
+				this.updatePoint(touch.identifier, ButtonAction.DOWN, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(touch.radiusX, touch.radiusY));
+			}
+		});
+
+		// Touch end event
+		this.events.add(this.domElement, 'touchend', (event: TouchEvent) => {			
+			for (let i = 0; i < event.changedTouches.length; i++) {
+				const touch = event.changedTouches[i];
+				this.updatePoint(touch.identifier, ButtonAction.UP, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(touch.radiusX, touch.radiusY));
+			}
+		});
+
+		// Touch cancel event
+		this.events.add(this.domElement, 'touchcancel', (event: TouchEvent) => {
+			for (let i = 0; i < event.changedTouches.length; i++) {
+				const touch = event.changedTouches[i];
+				this.updatePoint(touch.identifier, ButtonAction.UP, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(0, 0));
+			}
+		});
+
+		// Touch move event
+		this.events.add(document.body, 'touchmove', (event: TouchEvent) => {
+			for (let i = 0; i < event.changedTouches.length; i++) {
+				const touch = event.changedTouches[i];
+				this.updatePoint(touch.identifier, ButtonAction.DOWN, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(touch.radiusX, touch.radiusY));
+			}
+		});
+	}
+
+	/**
+	 * Update touch input state, position and delta synchronously.
+	 * 
+	 * @param id - Identifier of the point to be updated.
+	 * @param action - Action applied to the point.
+	 * @param pressure - Touch pressure of the point.
+	 * @param rotation - Rotation of the point.
+	 */
+	public updatePoint(id: number, action: number, pressure: number, rotation: number, position: Vector2, radius: Vector2): void {
+		// Create temp point
+		if(!this.temp[id]) {
+			this.temp[id] = new TouchPointTempData();
 		}
 
-		this.touch[idx].update(action);
-		this.touch[idx].pressure = pressure;
-		// TODO <ADD CODE HERE>
+		// Set values
+		this.temp[id].force = pressure;
+		this.temp[id].rotation = rotation;
+		this.temp[id].position.copy(position);
+		this.temp[id].radius.copy(radius);
+		this.temp[id].pressed = action === ButtonAction.DOWN;
+		this.temp[id].updated = true;
 	}
 
 	/**
@@ -153,11 +186,23 @@ export class Touch {
 	 */
 	public update() {
 		for (let i = 0; i < this.temp.length; i++) {
-			if(!this.touch[i]) {
-				this.touch[i] = new TouchPoint();
+			if (this.temp[i].updated) {
+				// Create touch point
+				if(!this.touch[i]) {
+					this.touch[i] = new TouchPoint();
+				}
+				
+				// Update touch point
+				this.touch[i].force = this.temp[i].force;
+				this.touch[i].rotation = this.temp[i].rotation;
+				this.touch[i].radius.copy(this.temp[i].radius);
+				this.touch[i].position.copy(this.temp[i].position);
+				this.touch[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
+
+				// Update temp
+				this.temp[i].last.copy(this.temp[i].position);
+				this.temp[i].updated = false;
 			}
-			
-			
 		}
 	}
 
@@ -181,8 +226,6 @@ export class Touch {
 	public touchJustReleased(idx: number): boolean {
 		return this.touch[idx].justReleased;
 	}
-
-
 
 	/**
 	 * Dispose touch events.

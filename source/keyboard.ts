@@ -43,6 +43,17 @@ export class Keyboard {
 		// Events
 		this.events = new EventManager();
 
+		this.createEvents();
+
+		// Initialize events
+		this.events.create();
+	}
+
+	/**
+	 * Create the required key press events.
+	 */
+	public createEvents(): void {
+		
 		// Actions pointer
 		const actions = this.actions;
 		const self = this;
@@ -63,9 +74,6 @@ export class Keyboard {
 		this.events.add(this.domElement, 'focus', function(event: Event) {
 			self.reset();
 		});
-
-		// Initialize events
-		this.events.create();
 	}
 
 	/**
