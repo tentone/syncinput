@@ -48,7 +48,7 @@ export class Button {
 		this.justReleased = false;
 
 		if (action === ButtonAction.DOWN) {
-			if (this.pressed === false) {
+			if (!this.pressed) {
 				this.justPressed = true;
 			}
 			this.pressed = true;

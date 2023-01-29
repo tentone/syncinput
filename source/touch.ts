@@ -51,7 +51,7 @@ class TouchPointTempData {
 	/**
 	 * Indicates if the touch point is currently pressed.
 	 */
-	public pressed: boolean = false;
+	public action: number = ButtonAction.UP;
 
 	/**
 	 * Current position of the touch point.
@@ -77,11 +77,6 @@ class TouchPointTempData {
 	 * Rotation angle of the touch point.
 	 */
 	public rotation: number = 0;
-
-	/**
-	 * Indicates if the point was updated since the last frame.
-	 */
-	public updated: boolean = false;
 }
 
 /**
@@ -111,9 +106,11 @@ export class Touch {
 	public events: EventManager = null;
 
 	public constructor(element?: HTMLElement) {
-
 		this.domElement = element !== undefined ? element : window;
 
+		this.touch = new Array(10).fill(null).map(() => {return new TouchPoint();});
+		this.temp = new Array(10).fill(null).map(() => {return new TouchPointTempData();});
+		
 		this.events = new EventManager();
 		this.createEvents();
 		this.events.create();
@@ -134,7 +131,7 @@ export class Touch {
 		});
 
 		// Touch end event
-		this.events.add(this.domElement, 'touchend', (event: TouchEvent) => {			
+		this.events.add(this.domElement, 'touchend', (event: TouchEvent) => {	
 			for (let i = 0; i < event.changedTouches.length; i++) {
 				const touch = event.changedTouches[i];
 				this.updatePoint(touch.identifier, ButtonAction.UP, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(touch.radiusX, touch.radiusY));
@@ -167,18 +164,11 @@ export class Touch {
 	 * @param rotation - Rotation of the point.
 	 */
 	public updatePoint(id: number, action: number, pressure: number, rotation: number, position: Vector2, radius: Vector2): void {
-		// Create temp point
-		if(!this.temp[id]) {
-			this.temp[id] = new TouchPointTempData();
-		}
-
-		// Set values
 		this.temp[id].force = pressure;
 		this.temp[id].rotation = rotation;
 		this.temp[id].position.copy(position);
 		this.temp[id].radius.copy(radius);
-		this.temp[id].pressed = action === ButtonAction.DOWN;
-		this.temp[id].updated = true;
+		this.temp[id].action = action;
 	}
 
 	/**
@@ -186,23 +176,16 @@ export class Touch {
 	 */
 	public update() {
 		for (let i = 0; i < this.temp.length; i++) {
-			if (this.temp[i].updated) {
-				// Create touch point
-				if(!this.touch[i]) {
-					this.touch[i] = new TouchPoint();
-				}
-				
-				// Update touch point
-				this.touch[i].force = this.temp[i].force;
-				this.touch[i].rotation = this.temp[i].rotation;
-				this.touch[i].radius.copy(this.temp[i].radius);
-				this.touch[i].position.copy(this.temp[i].position);
-				this.touch[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
+			// Update touch point
+			this.touch[i].force = this.temp[i].force;
+			this.touch[i].rotation = this.temp[i].rotation;
+			this.touch[i].radius.copy(this.temp[i].radius);
+			this.touch[i].position.copy(this.temp[i].position);
+			this.touch[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
+			this.touch[i].update(this.temp[i].action);
 
-				// Update temp
-				this.temp[i].last.copy(this.temp[i].position);
-				this.temp[i].updated = false;
-			}
+			// Update temp
+			this.temp[i].last.copy(this.temp[i].position);
 		}
 	}
 
@@ -210,7 +193,7 @@ export class Touch {
 	 * Check if touch button is currently pressed.
 	 */
 	public touchPressed(idx: number): boolean {
-		return this.touch[idx].pressed
+		return this.touch[idx].pressed;
 	}
 
 	/**
