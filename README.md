@@ -7,7 +7,7 @@
 - Skip the need to process out of sync browser callbacks.
 - Multi-browser support, compatible with mobile devices and and touchscreen events.
 - Currently supports input from: Mouse, Keyboard, Gamepad, Touchscreen
-
+- Detailed API docs available on the docs folder of the project.
 
 ### Download
  - For direct usage in the browser get the [minified (9kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js) version or as a module [module (28kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.module.js).
@@ -17,15 +17,12 @@
 
 ### Example
 
-- Example of simple app with three.js
-  - <https://tentone.github.io/syncinput/example/>
-  - Keyboard arrows or d-pad to move the cube, mouse to rotate the cube, double click to change color
 - Here is a small code example showing the basic functionality of the library.
 
 ```javascript
 //Initialization
-mouse = new SyncInput.Mouse();
-keyboard = new SyncInput.Keyboard();
+mouse = new Mouse();
+keyboard = new Keyboard();
 
 [...]
 
@@ -55,13 +52,6 @@ if(keyboard.keyJustReleased(keyboard.W))
 	console.log("W was just released");
 }
 ```
-
-
-
-## Documentation
-
-- Detailed API docs available on the docs folder of the project.
-  
 
 ### Mouse
 

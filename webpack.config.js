@@ -3,7 +3,6 @@ import path from 'path';
 export default {
 	entry: './source/main.ts',
 	mode: 'production',
-	devtool: 'inline-source-map',
 	output: {
 		filename: 'syncinput.js',
 		path: path.resolve('./build'),
