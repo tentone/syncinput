@@ -5,7 +5,7 @@ import {Button, ButtonAction} from "./button";
  * 
  * Gamepads might contains more buttons that the ones declared in this list.
  */
-export class GamepadButtons {
+export class GamepadButton {
 
 	/**
 	 * Gamepad LEFT button.

@@ -115,6 +115,13 @@ export class Mouse {
 			this.keys[i] = new Button();
 		}
 
+
+	}
+
+	/**
+	 * Create mouse handler events.
+	 */
+	public initialize() {
 		// Self pointer
 		const self = this;
 
@@ -210,12 +217,14 @@ export class Mouse {
 		this.events.create();
 	}
 
+
 	/**
 	 * Canvas to be used for coordinates calculation relative to that canvas.
 	 */
-	public setCanvas(canvas: any): void {
+	public setCanvas(canvas: HTMLCanvasElement): void {
 		this.canvas = canvas;
 
+		// @ts-ignore
 		canvas.mouseInside = false;
 
 		canvas.addEventListener('mouseenter', function(event: MouseEvent) {
@@ -243,6 +252,12 @@ export class Mouse {
 
 	/**
 	 * Set mouse lock state.
+	 * 
+	 * When the mouse gets locked into a element is can no longer move around.
+	 * 
+	 * Usefull for games and application that require delta mouse movement (e.g. FPS camera)
+	 * 
+	 * @param value - Define if the lock should be active or disable.
 	 */
 	public setLock(value: boolean): void {
 		if (this.canvas !== null) {
@@ -290,6 +305,8 @@ export class Mouse {
 
 	/**
 	 * Check if a mouse button was just pressed.
+	 * 
+	 * @param button - Button to check the state of.
 	 */
 	public buttonJustPressed(button: number): boolean {
 		return this.keys[button].justPressed;
@@ -297,6 +314,8 @@ export class Mouse {
 
 	/**
 	 * Check if a mouse button was just released.
+	 * 
+	 * @param button - Button to check the state of.
 	 */
 	public buttonJustReleased(button: number): boolean {
 		return this.keys[button].justReleased;
@@ -323,6 +342,8 @@ export class Mouse {
 
 	/**
 	 * Update mouse buttons state, position, wheel and delta synchronously.
+	 * 
+	 * Should be called every frame before reading values from the mouse.
 	 */
 	public update(): void {
 		// Update mouse keys state

@@ -1,4 +1,4 @@
-import { Keyboard, Mouse, Gamepad, Keys, Touch } from "../source/main";
+import { Keyboard, Mouse, Gamepad, Keys, Touch, GamepadButton, MouseButton } from "../source/main";
 
 // Create canvas element
 var canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -31,26 +31,26 @@ function update()
 
     keyboard.update();
     mouse.update();
-    gamepad.update(0);
-    touch.updatePoint();
+    gamepad.update();
+    touch.update();
 
-    if(keyboard.keyPressed(Keys.LEFT) || gamepad.buttonPressed(Gamepad.LEFT))
+    if(keyboard.keyPressed(Keys.LEFT) || gamepad.buttonPressed(GamepadButton.LEFT))
     {
         console.log('derp')
     }
-    if(keyboard.keyPressed(Keys.RIGHT) || gamepad.buttonPressed(Gamepad.RIGHT))
+    if(keyboard.keyPressed(Keys.RIGHT) || gamepad.buttonPressed(GamepadButton.RIGHT))
     {
     }
-    if(keyboard.keyPressed(Keys.UP) || gamepad.buttonPressed(Gamepad.UP))
-    {
-
-    }
-    if(keyboard.keyPressed(Keys.DOWN) || gamepad.buttonPressed(Gamepad.DOWN))
+    if(keyboard.keyPressed(Keys.UP) || gamepad.buttonPressed(GamepadButton.UP))
     {
 
     }
+    if(keyboard.keyPressed(Keys.DOWN) || gamepad.buttonPressed(GamepadButton.DOWN))
+    {
 
-    if(mouse.buttonPressed(Mouse.LEFT))
+    }
+
+    if(mouse.buttonPressed(MouseButton.LEFT))
     {
 
     }

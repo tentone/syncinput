@@ -63,7 +63,7 @@ export class Touch {
 	/**
 	 * Touch point temporary information stored between frames.
 	 */
-	private temp: TouchPoint[] = [];
+	private temp: TouchPointTempData[] = [];
 
 	/**
 	 * DOM element where to attach the touch events.
@@ -126,7 +126,7 @@ export class Touch {
 
 					// self.updatePosition(touch.screenX, touch.screenY, touch.screenX - lastTouch.x, touch.screenY - lastTouch.y);
 
-					lastTouch.set(touch.screenX, touch.screenY);
+					
 				}
 
 			});
@@ -139,8 +139,8 @@ export class Touch {
 	 * Update touch input state, position and delta synchronously.
 	 */
 	public updatePoint(idx: number, action: number, pressure: number = 0): void {
-		if(!this.touch[idx]) {
-			this.touch[idx] = new TouchPoint();
+		if(!this.temp[idx]) {
+			this.temp[idx] = new TouchPointTempData();
 		}
 
 		this.touch[idx].update(action);
@@ -152,7 +152,13 @@ export class Touch {
 	 * Update the touch handler, should be called every frame before reading values.
 	 */
 	public update() {
-
+		for (let i = 0; i < this.temp.length; i++) {
+			if(!this.touch[i]) {
+				this.touch[i] = new TouchPoint();
+			}
+			
+			
+		}
 	}
 
 	/**
