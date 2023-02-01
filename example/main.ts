@@ -53,20 +53,11 @@ function update()
     if (touch.touchJustPressed(0)) {
         console.log('Just pressed 0');
     }
-    if (touch.touchJustPressed(1)) {
-        console.log('Just pressed 1');
-    }
-
     if (touch.touchPressed(0)) {
         console.log('Pressed 0');
     }
-
     if (touch.touchJustReleased(0)) {
         console.log('Just released 0');
-    }
-
-    if (touch.touchJustReleased(1)) {
-        console.log('Just released 1');
     }
 
 
