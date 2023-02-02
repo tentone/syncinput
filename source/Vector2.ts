@@ -47,5 +47,27 @@ export class Vector2
 	{
 		this.set(vec.x, vec.y);
 	}
+
+	/**
+	 * Add the value of another vector to this vector.
+	 *
+	 * @param vec - Another vector.
+	 */
+	public add(vec: Vector2): void
+	{
+		this.x = vec.x;
+		this.y = vec.y;
+	}
+
+	/**
+	 * Div the value of this vector by a scalar.
+	 *
+	 * @param scalar - Scalar value.
+	 */
+	public divScalar(scalar: number): void
+	{
+		this.x /= scalar;
+		this.y /= scalar;
+	}
 }
 

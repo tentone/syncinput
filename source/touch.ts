@@ -190,7 +190,40 @@ export class Touch {
 	}
 
 	/**
+	 * Check for multi touch pan movement.
+	 * 
+	 * Return null if there are no point available to calculate the movement.
+	 * 
+	 * @param points - Number of points to check for pan.
+	 * @returns the position and delta of the pan group.
+	 */
+	public pan(fingers: number): {position: Vector2, delta: Vector2} {
+		let position = new Vector2();
+		let delta = new Vector2();
+		let found = 0;
+
+		for (let i = 0; i < this.touch.length; i++) {
+			if (this.touch[i].pressed) {
+				position.add(this.touch[i].position);
+				delta.add(this.touch[i].delta);
+				found++;
+			}
+
+			if (found === fingers) {
+				position.divScalar(fingers);
+				delta.divScalar(fingers);
+				return {position: position, delta: delta};
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Check if touch button is currently pressed.
+	 * 
+	 * @param idx - Index of the touch point.
+	 * @returns True if the point is currently pressed. 
 	 */
 	public touchPressed(idx: number): boolean {
 		return this.touch[idx].pressed;
@@ -198,6 +231,9 @@ export class Touch {
 
 	/**
 	 * Check if a touch button was just pressed.
+	 * 
+	 * @param idx - Index of the touch point.
+	 * @returns True if the point has just been pressed. 
 	 */
 	public touchJustPressed(idx: number): boolean {
 		return this.touch[idx].justPressed;
@@ -205,6 +241,9 @@ export class Touch {
 
 	/**
 	 * Check if a touch button was just released.
+	 * 
+	 * @param idx - Index of the touch point.
+	 * @returns True if the point has just released. 
 	 */
 	public touchJustReleased(idx: number): boolean {
 		return this.touch[idx].justReleased;
