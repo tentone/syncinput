@@ -17,6 +17,11 @@ export class TouchPoint extends Button {
 	public delta: Vector2 = new Vector2();
 
 	/**
+	 * First point touched when movement begins.
+	 */
+	public first: Vector2 = new Vector2();
+
+	/**
 	 * Radius of the touch point.
 	 * 
 	 * Defines an approximation of the touch area between the user and screen.
@@ -52,6 +57,11 @@ class TouchPointTempData {
 	 * Indicates if the touch point is currently pressed.
 	 */
 	public action: number = ButtonAction.UP;
+
+	/**
+	 * First point touched when movement begins.
+	 */
+	public first: Vector2 = new Vector2();
 
 	/**
 	 * Current position of the touch point.
@@ -126,7 +136,10 @@ export class Touch {
 		this.events.add(this.domElement, 'touchstart', (event: TouchEvent) => {
 			for (let i = 0; i < event.changedTouches.length; i++) {
 				const touch = event.changedTouches[i];
-				this.updatePoint(touch.identifier, ButtonAction.DOWN, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(touch.radiusX, touch.radiusY));
+				const point = new Vector2(touch.screenX, touch.screenY);
+
+				this.temp[touch.identifier].first.copy(point);
+				this.updatePoint(touch.identifier, ButtonAction.DOWN, touch.force, touch.rotationAngle, point, new Vector2(touch.radiusX, touch.radiusY));
 			}
 		});
 
@@ -134,6 +147,7 @@ export class Touch {
 		this.events.add(this.domElement, 'touchend', (event: TouchEvent) => {	
 			for (let i = 0; i < event.changedTouches.length; i++) {
 				const touch = event.changedTouches[i];
+
 				this.updatePoint(touch.identifier, ButtonAction.UP, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(touch.radiusX, touch.radiusY));
 			}
 		});
@@ -142,6 +156,7 @@ export class Touch {
 		this.events.add(this.domElement, 'touchcancel', (event: TouchEvent) => {
 			for (let i = 0; i < event.changedTouches.length; i++) {
 				const touch = event.changedTouches[i];
+				
 				this.updatePoint(touch.identifier, ButtonAction.UP, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(0, 0));
 			}
 		});
@@ -184,6 +199,10 @@ export class Touch {
 			this.touch[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
 			this.touch[i].update(this.temp[i].action);
 
+			if (this.touch[i].justPressed) {
+				this.touch[i].first.copy(this.temp[i].first);
+			}
+
 			// Update temp
 			this.temp[i].last.copy(this.temp[i].position);
 		}
@@ -200,6 +219,8 @@ export class Touch {
 	public pan(fingers: number): {position: Vector2, delta: Vector2} {
 		let position = new Vector2();
 		let delta = new Vector2();
+
+		// How many touch points found
 		let found = 0;
 
 		for (let i = 0; i < this.touch.length; i++) {
@@ -215,6 +236,29 @@ export class Touch {
 				return {position: position, delta: delta};
 			}
 		}
+
+		return null;
+	}
+
+	/**
+	 * Pinch to zoom actions.
+	 * 
+	 * @returns The two finger pinch values.
+	 */
+	public pinchZoom(): {delta: number} {
+		const points: TouchPoint[] = [];
+
+		for (let i = 0; i < this.touch.length; i++) {
+			if (this.touch[i].pressed) {
+				points.push(this.touch[i]);
+				if (points.length === 2) {
+					break;
+				}
+			}
+		}
+
+		// TODO ADD CODE HERE
+		// points[0].delta
 
 		return null;
 	}

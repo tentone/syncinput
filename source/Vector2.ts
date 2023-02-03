@@ -69,5 +69,14 @@ export class Vector2
 		this.x /= scalar;
 		this.y /= scalar;
 	}
+
+	/**
+	 * Distance to another vector.
+	 * 
+	 * @param vec - Another vector to calculate distance. 
+	 */
+	public dist(vec: Vector2): number {
+		return Math.sqrt(Math.pow(this.x - vec.x, 2) + Math.pow(this.y - vec.y, 2));
+	}
 }
 
