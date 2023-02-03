@@ -2,7 +2,7 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
-	context: path.resolve('./example'),
+	context: path.resolve('./examples'),
 	entry: './main.ts',
 	output: {
 		filename: 'example.bundle.js',

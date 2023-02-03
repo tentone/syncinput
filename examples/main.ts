@@ -1,11 +1,11 @@
 import { Keyboard, Mouse, Gamepad, Keys, Touch, GamepadButton, MouseButton } from "../source/main";
 
 // Create canvas element
-var canvas = document.getElementById("canvas") as HTMLCanvasElement;
+const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var fps = document.getElementById("fps") as HTMLCanvasElement;
+const fps = document.getElementById("fps") as HTMLCanvasElement;
 
 document.body.onresize = function()
 {
@@ -14,25 +14,48 @@ document.body.onresize = function()
 };
 
 // Create keyboard and mouse input objects
-var keyboard = new Keyboard();
-var mouse = new Mouse();
-var gamepad = new Gamepad();
-var touch = new Touch();
+const keyboard = new Keyboard();
+const mouse = new Mouse();
+const gamepad = new Gamepad();
+const touch = new Touch();
 
-//Call update loop
-update();
+let t = performance.now();
 
-var t = performance.now();
+// Frame rate control
+let deviceRefreshRate: boolean = true;
+let refreshRate: number = 60;
 
 //Logic update and render loop
-function update()
+function loop()
 {
-    requestAnimationFrame(update);
+    // Update peformance metrics
+    const now = performance.now();
+    const delta = now - t;
+    t = now;
+    
+    // Display FPS
+    fps.innerText =  Math.round(1000 / delta) + ' fps';
 
+    // Update input handlers
     keyboard.update();
     mouse.update();
     gamepad.update();
     touch.update();
+
+    // Logic and render
+    update();
+    render();
+
+    // Next frame
+    if (deviceRefreshRate) {
+        requestAnimationFrame(loop);
+    } else {
+        setTimeout(loop, 1000 / refreshRate);
+    }
+
+}
+
+function update() {
 
     if(keyboard.keyPressed(Keys.LEFT) || gamepad.buttonPressed(GamepadButton.LEFT))
     {
@@ -71,18 +94,20 @@ function update()
 
     }
 
-    if(touch.pan(2)) {
-        console.log('Touch pan 2', touch.pan(2));
+    let tpt = touch.pan(2);
+    if(tpt) {
+        console.log('Touch pan 2', tpt);
     }
 
-    if(touch.pan(3)) {
-        console.log('Touch pan 3', touch.pan(3));
+    tpt = touch.pan(3);
+    if(tpt) {
+        console.log('Touch pan 3', tpt);
     }
-
-    // Update peformance metrics
-    const now = performance.now();
-    const delta = now - t;
-    t = now;
-
-    fps.innerText =  Math.round(1000 / delta) + ' fps';
 }
+
+function render() {
+
+}
+
+//Call update loop
+loop();
