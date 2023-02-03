@@ -71,6 +71,14 @@ function update()
 
     }
 
+    if(touch.pan(2)) {
+        console.log('Touch pan 2', touch.pan(2));
+    }
+
+    if(touch.pan(3)) {
+        console.log('Touch pan 3', touch.pan(3));
+    }
+
     // Update peformance metrics
     const now = performance.now();
     const delta = now - t;
