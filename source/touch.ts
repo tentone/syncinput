@@ -245,21 +245,18 @@ export class Touch {
 	 * 
 	 * @returns The two finger pinch values.
 	 */
-	public pinchZoom(): {delta: number} {
+	public pinchZoom(): number {
 		const points: TouchPoint[] = [];
 
 		for (let i = 0; i < this.touch.length; i++) {
 			if (this.touch[i].pressed) {
 				points.push(this.touch[i]);
 				if (points.length === 2) {
-					break;
+					return points[0].delta.dist(points[1].delta);
 				}
 			}
 		}
-
-		// TODO ADD CODE HERE
-		// points[0].delta
-
+		
 		return null;
 	}
 
