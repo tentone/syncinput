@@ -49,6 +49,11 @@ class Example extends ExampleBase {
         if(tpt) {
             console.log('Touch pan 3', tpt);
         }
+
+        var pinch = this.touch.pinchZoom();
+        if(pinch) {
+            console.log('Pinch to zoom', pinch);
+        }
     }
 }
 

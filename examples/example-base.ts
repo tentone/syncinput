@@ -1,7 +1,7 @@
 import { Keyboard, Mouse, Gamepad, Keys, Touch, GamepadButton, MouseButton } from "../source/main";
 
 // Base for example implementation
-export class ExampleBase {
+export abstract class ExampleBase {
     public canvas: HTMLCanvasElement = null;
 
     public fps: HTMLElement = null;
@@ -13,11 +13,12 @@ export class ExampleBase {
     public touch = new Touch();
 
     // Frame rate control
-    public deviceRefreshRate: boolean = true;
-    public refreshRate: number = 60;
+    public deviceRefreshRate: boolean = false;
+    public refreshRate: number = 15;
 
     // Time
     public t: number = 0;
+    public running: boolean = false;
 
     public init(): void {
         // Create canvas element
@@ -34,6 +35,9 @@ export class ExampleBase {
         };
 
         this.t = performance.now();
+        
+        this.running = true;
+        this.loop();
     }
 
     //Logic update and render loop
@@ -58,18 +62,20 @@ export class ExampleBase {
         this.render();
 
         // Next frame
-        if (this.deviceRefreshRate) {
-            requestAnimationFrame(this.loop);
-        } else {
-            setTimeout(this.loop, 1000 / this.refreshRate);
+        if (this.running) {
+            if (this.deviceRefreshRate) {
+                requestAnimationFrame(() => {this.loop();});
+            } else {
+                setTimeout(() => {this.loop();}, 1000 / this.refreshRate);
+            }
         }
     }
 
-    public update(delta: number): void {
-
+    public dispose() {
+        this.running = false;
     }
 
-    public render(): void {
-        
-    }
+    public update(delta: number): void{}
+
+    public render(): void{}
 }

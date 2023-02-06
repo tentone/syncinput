@@ -86,6 +86,11 @@ export class Mouse {
 	 */
 	public events: EventManager = null;
 
+	/**
+	 * If true touch events are also considered in the mouse object.
+	 */
+	public touchHandlers: boolean = false;
+
 	private tempDoubleClicked: boolean = false;
 
 	private tempWheel: number = 0;
@@ -151,39 +156,41 @@ export class Mouse {
 		}
 
 		// Touchscreen input events
-		// @ts-ignore
-		if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) {
-			// Auxiliary variables to calculate touch delta
-			const lastTouch = new Vector2(0, 0);
+		if(this.touchHandlers) {
+			// @ts-ignore
+			if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) {
+				// Auxiliary variables to calculate touch delta
+				const lastTouch = new Vector2(0, 0);
 
-			// Touch start event
-			this.events.add(this.domElement, 'touchstart', function(event: TouchEvent) {
-				const touch = event.touches[0];
+				// Touch start event
+				this.events.add(this.domElement, 'touchstart', function(event: TouchEvent) {
+					const touch = event.touches[0];
 
-				self.updatePosition(touch.screenX, touch.screenY, 0, 0);
-				self.updateKey(MouseButton.LEFT, ButtonAction.DOWN);
+					self.updatePosition(touch.screenX, touch.screenY, 0, 0);
+					self.updateKey(MouseButton.LEFT, ButtonAction.DOWN);
 
-				lastTouch.set(touch.screenX, touch.screenY);
-			});
+					lastTouch.set(touch.screenX, touch.screenY);
+				});
 
-			// Touch end event
-			this.events.add(this.domElement, 'touchend', function(event: TouchEvent) {
-				self.updateKey(MouseButton.LEFT, ButtonAction.UP);
-			});
+				// Touch end event
+				this.events.add(this.domElement, 'touchend', function(event: TouchEvent) {
+					self.updateKey(MouseButton.LEFT, ButtonAction.UP);
+				});
 
-			// Touch cancel event
-			this.events.add(this.domElement, 'touchcancel', function(event: TouchEvent) {
-				self.updateKey(MouseButton.LEFT, ButtonAction.UP);
-			});
+				// Touch cancel event
+				this.events.add(this.domElement, 'touchcancel', function(event: TouchEvent) {
+					self.updateKey(MouseButton.LEFT, ButtonAction.UP);
+				});
 
-			// Touch move event
-			this.events.add(document.body, 'touchmove', function(event: TouchEvent) {
-				const touch = event.touches[0];
+				// Touch move event
+				this.events.add(document.body, 'touchmove', function(event: TouchEvent) {
+					const touch = event.touches[0];
 
-				self.updatePosition(touch.screenX, touch.screenY, touch.screenX - lastTouch.x, touch.screenY - lastTouch.y);
+					self.updatePosition(touch.screenX, touch.screenY, touch.screenX - lastTouch.x, touch.screenY - lastTouch.y);
 
-				lastTouch.set(touch.screenX, touch.screenY);
-			});
+					lastTouch.set(touch.screenX, touch.screenY);
+				});
+			}
 		}
 
 		// Move

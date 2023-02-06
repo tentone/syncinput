@@ -115,6 +115,11 @@ export class Touch {
 	 */
 	public events: EventManager = null;
 
+	/**
+	 * Distance delta between two points in adjacent frames. 
+	 */
+	public pinch: number = null;
+
 	public constructor(element?: HTMLElement) {
 		this.domElement = element !== undefined ? element : window;
 
@@ -192,12 +197,13 @@ export class Touch {
 	public update() {
 		for (let i = 0; i < this.temp.length; i++) {
 			// Update touch point
+			this.touch[i].update(this.temp[i].action);
 			this.touch[i].force = this.temp[i].force;
 			this.touch[i].rotation = this.temp[i].rotation;
 			this.touch[i].radius.copy(this.temp[i].radius);
 			this.touch[i].position.copy(this.temp[i].position);
 			this.touch[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
-			this.touch[i].update(this.temp[i].action);
+			
 
 			if (this.touch[i].justPressed) {
 				this.touch[i].first.copy(this.temp[i].first);
@@ -245,14 +251,17 @@ export class Touch {
 	 * 
 	 * @returns The two finger pinch values.
 	 */
-	public pinchZoom(): number {
+	public pinchZoom(): Vector2 {
 		const points: TouchPoint[] = [];
 
 		for (let i = 0; i < this.touch.length; i++) {
 			if (this.touch[i].pressed) {
 				points.push(this.touch[i]);
 				if (points.length === 2) {
-					return points[0].delta.dist(points[1].delta);
+					const a = points[0].delta;
+					const b = points[1].delta;
+
+					return new Vector2(a.x - b.x, a.y - b.y);
 				}
 			}
 		}
