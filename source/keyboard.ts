@@ -41,7 +41,7 @@ export class Keyboard {
 		// Events
 		this.events = new EventManager();
 
-		this.createEvents();
+		this.initialize();
 
 		// Initialize events
 		this.events.create();
@@ -50,7 +50,7 @@ export class Keyboard {
 	/**
 	 * Create the required key press events.
 	 */
-	public createEvents(): void {
+	public initialize(): void {
 		
 		// Actions pointer
 		const actions = this.actions;
