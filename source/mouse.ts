@@ -118,7 +118,7 @@ export class Mouse {
 			this.keys[i] = new Button();
 		}
 
-		this.createEvents();
+		this.initialize();
 		this.events.create();
 	}
 
@@ -127,7 +127,7 @@ export class Mouse {
 	 * 
 	 * Events created are managed by the event manager instance.
 	 */
-	public createEvents() {
+	public initialize() {
 		// Self pointer
 		const self = this;
 

@@ -127,7 +127,7 @@ export class Touch {
 		this.temp = new Array(10).fill(null).map(() => {return new TouchPointTempData();});
 		
 		this.events = new EventManager();
-		this.createEvents();
+		this.initialize();
 		this.events.create();
 	}
 
@@ -136,7 +136,7 @@ export class Touch {
 	 * 
 	 * Events created are managed by the event manager instance.
 	 */
-	public createEvents(): void {
+	public initialize(): void {
 		// Touch start event
 		this.events.add(this.domElement, 'touchstart', (event: TouchEvent) => {
 			for (let i = 0; i < event.changedTouches.length; i++) {
