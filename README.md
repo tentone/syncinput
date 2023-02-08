@@ -9,15 +9,11 @@
 - Currently supports input from: Mouse, Keyboard, Gamepad, Touchscreen
 - Detailed API docs available on the docs folder of the project.
 
-### Download
- - For direct usage in the browser get the [minified (9kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js) version or as a module [module (28kb)](https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.module.js).
+![alt tag](https://raw.githubusercontent.com/tentone/syncinput/master/readme/problem.png)
+
+### Getting Started
  - Get from NPM using ` npm install syncinput --save-prod`
-
-
-
-### Example
-
-- Here is a small code example showing the basic functionality of the library.
+ - Here is a small code example showing the basic functionality of the library.
 
 ```javascript
 //Initialization
@@ -53,13 +49,12 @@ if(keyboard.keyJustReleased(keyboard.W))
 }
 ```
 
-### Mouse
+#### Mouse
 
 - `position {x, y}` -Actual mouse position
 - `delta {x, y}` - Mouse delta since last time update() was called
 - `wheel` - Mouse wheel value
 
-- `update()` - Update mouse status (should be called every time after app logic update)
 - `buttonPressed(button)` - Check if mouse button is pressed (touchscreen tap same as left click)
 - `buttonJustPressed(button)` - Check if mouse button was just pressed
 - `buttonJustReleased(button)` - Check if mouse button was just released
@@ -67,17 +62,23 @@ if(keyboard.keyJustReleased(keyboard.W))
 - `insideCanvas()` - Check if mouse is inside attached canvas
 - `setLock(value)` - Set mouse lock on/off.
 
-### Keyboard
+#### Keyboard
 
-- `update()` - Update keyboard status (should be called every time after app logic update)
 - `keyPressed(button)` - Check if key is currently pressed
 - `keyJustPressed(button)` - Check if key was just pressed
 - `keyJustReleased(button)` - Check if key was just released
 - `reset()` - Reset all keys
 
-### Gamepad
+#### Gamepad
 
-- `update()` - Update gamepad status
 - `buttonPressed(button)` - Check if gamepad button is pressed
 - `buttonJustPressed(button)` - Check if gamepad button was just pressed
 - `buttonJustReleased(button)` - Check if gamepad button was just released
+
+
+### Touch
+- `points[]` - List of touch points and their respective status.
+- `pan(points)` - Multi-touch pan
+- `touchPressed(point)` - Check if touch point is pressed
+- `touchJustPressed(point)` - Check if touch point was just pressed
+- `touchJustReleased(point)` - Check if touch point was just released

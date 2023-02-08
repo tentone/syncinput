@@ -98,7 +98,7 @@ export class Touch {
 	/**
 	 * Touch points, these are created as required by the touch handler.
 	 */
-	public touch: TouchPoint[] = [];
+	public points: TouchPoint[] = [];
 
 	/**
 	 * Touch point temporary information stored between frames.
@@ -123,7 +123,7 @@ export class Touch {
 	public constructor(element?: HTMLElement) {
 		this.domElement = element !== undefined ? element : window;
 
-		this.touch = new Array(10).fill(null).map(() => {return new TouchPoint();});
+		this.points = new Array(10).fill(null).map(() => {return new TouchPoint();});
 		this.temp = new Array(10).fill(null).map(() => {return new TouchPointTempData();});
 		
 		this.events = new EventManager();
@@ -197,16 +197,16 @@ export class Touch {
 	public update() {
 		for (let i = 0; i < this.temp.length; i++) {
 			// Update touch point
-			this.touch[i].update(this.temp[i].action);
-			this.touch[i].force = this.temp[i].force;
-			this.touch[i].rotation = this.temp[i].rotation;
-			this.touch[i].radius.copy(this.temp[i].radius);
-			this.touch[i].position.copy(this.temp[i].position);
-			this.touch[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
+			this.points[i].update(this.temp[i].action);
+			this.points[i].force = this.temp[i].force;
+			this.points[i].rotation = this.temp[i].rotation;
+			this.points[i].radius.copy(this.temp[i].radius);
+			this.points[i].position.copy(this.temp[i].position);
+			this.points[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
 			
 
-			if (this.touch[i].justPressed) {
-				this.touch[i].first.copy(this.temp[i].first);
+			if (this.points[i].justPressed) {
+				this.points[i].first.copy(this.temp[i].first);
 			}
 
 			// Update temp
@@ -229,10 +229,10 @@ export class Touch {
 		// How many touch points found
 		let found = 0;
 
-		for (let i = 0; i < this.touch.length; i++) {
-			if (this.touch[i].pressed) {
-				position.add(this.touch[i].position);
-				delta.add(this.touch[i].delta);
+		for (let i = 0; i < this.points.length; i++) {
+			if (this.points[i].pressed) {
+				position.add(this.points[i].position);
+				delta.add(this.points[i].delta);
 				found++;
 			}
 
@@ -254,9 +254,9 @@ export class Touch {
 	public pinchZoom(): Vector2 {
 		const points: TouchPoint[] = [];
 
-		for (let i = 0; i < this.touch.length; i++) {
-			if (this.touch[i].pressed) {
-				points.push(this.touch[i]);
+		for (let i = 0; i < this.points.length; i++) {
+			if (this.points[i].pressed) {
+				points.push(this.points[i]);
 				if (points.length === 2) {
 					const a = points[0].delta;
 					const b = points[1].delta;
@@ -276,7 +276,7 @@ export class Touch {
 	 * @returns True if the point is currently pressed. 
 	 */
 	public touchPressed(idx: number): boolean {
-		return this.touch[idx].pressed;
+		return this.points[idx].pressed;
 	}
 
 	/**
@@ -286,7 +286,7 @@ export class Touch {
 	 * @returns True if the point has just been pressed. 
 	 */
 	public touchJustPressed(idx: number): boolean {
-		return this.touch[idx].justPressed;
+		return this.points[idx].justPressed;
 	}
 
 	/**
@@ -296,7 +296,7 @@ export class Touch {
 	 * @returns True if the point has just released. 
 	 */
 	public touchJustReleased(idx: number): boolean {
-		return this.touch[idx].justReleased;
+		return this.points[idx].justReleased;
 	}
 
 	/**
