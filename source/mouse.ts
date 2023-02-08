@@ -1,12 +1,13 @@
 import {Vector2} from './vector2';
 import {EventManager} from './event-manager';
 import {Button, ButtonAction} from './button';
-import { InputHandler } from './input-handler';
+import {InputHandler} from './input-handler';
 
 /**
  * Contains the list of mouse buttons available.
  */
-export class MouseButton {
+export class MouseButton 
+{
 	/**
 	 * Left mouse button.
 	 */
@@ -36,7 +37,8 @@ export class MouseButton {
 /**
  * Mouse instance for input in sync with the running application.
  */
-export class Mouse extends InputHandler {
+export class Mouse extends InputHandler 
+{
 	/**
 	 * Indicates if the mouse position changed mid-frames.
 	 */
@@ -107,7 +109,8 @@ export class Mouse extends InputHandler {
 	 * 
 	 * @param element - Optional HTML element to attach the mouse tracking events. By default the "window" object is used.
 	 */
-	public constructor(element?: HTMLElement) {
+	public constructor(element?: HTMLElement) 
+	{
 		super();
 		
 		this.domElement = element ? element : window;
@@ -115,7 +118,8 @@ export class Mouse extends InputHandler {
 		this.events = new EventManager();
 
 		// Initialize key instances
-		for (let i = 0; i < 5; i++) {
+		for (let i = 0; i < 5; i++) 
+		{
 			this.tempKeys[i] = new Button();
 			this.keys[i] = new Button();
 		}
@@ -129,28 +133,37 @@ export class Mouse extends InputHandler {
 	 * 
 	 * Events created are managed by the event manager instance.
 	 */
-	public initialize() {
+	public initialize(): void
+	{
 		// Self pointer
 		const self = this;
 
 		// Scroll wheel
 		// @ts-ignore
-		if (window.onmousewheel !== undefined) {
+		if (window.onmousewheel !== undefined) 
+		{
 			// Chrome, edge
-			this.events.add(this.domElement, 'mousewheel', function(event: WheelEvent) {
+			this.events.add(this.domElement, 'mousewheel', function(event: WheelEvent) 
+			{
 				self.tempWheel = event.deltaY;
 				self.wheelUpdated = true;
 				event.preventDefault();
 			});
-		} else if (window.addEventListener !== undefined) {
+		}
+		else if (window.addEventListener !== undefined) 
+		{
 			// Firefox
-			this.events.add(this.domElement, 'DOMMouseScroll', function(event: MouseEvent) {
+			this.events.add(this.domElement, 'DOMMouseScroll', function(event: MouseEvent) 
+			{
 				self.tempWheel = event.detail * 30;
 				self.wheelUpdated = true;
 				event.preventDefault();
 			});
-		} else {
-			this.events.add(this.domElement, 'wheel', function(event: WheelEvent) {
+		}
+		else 
+		{
+			this.events.add(this.domElement, 'wheel', function(event: WheelEvent) 
+			{
 				self.tempWheel = event.deltaY;
 				self.wheelUpdated = true;
 				event.preventDefault();
@@ -158,14 +171,17 @@ export class Mouse extends InputHandler {
 		}
 
 		// Touchscreen input events
-		if(this.touchHandlers) {
+		if (this.touchHandlers) 
+		{
 			// @ts-ignore
-			if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) {
+			if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) 
+			{
 				// Auxiliary variables to calculate touch delta
 				const lastTouch = new Vector2(0, 0);
 
 				// Touch start event
-				this.events.add(this.domElement, 'touchstart', function(event: TouchEvent) {
+				this.events.add(this.domElement, 'touchstart', function(event: TouchEvent) 
+				{
 					const touch = event.touches[0];
 
 					self.updatePosition(touch.screenX, touch.screenY, 0, 0);
@@ -175,17 +191,20 @@ export class Mouse extends InputHandler {
 				});
 
 				// Touch end event
-				this.events.add(this.domElement, 'touchend', function(event: TouchEvent) {
+				this.events.add(this.domElement, 'touchend', function(event: TouchEvent) 
+				{
 					self.updateKey(MouseButton.LEFT, ButtonAction.UP);
 				});
 
 				// Touch cancel event
-				this.events.add(this.domElement, 'touchcancel', function(event: TouchEvent) {
+				this.events.add(this.domElement, 'touchcancel', function(event: TouchEvent) 
+				{
 					self.updateKey(MouseButton.LEFT, ButtonAction.UP);
 				});
 
 				// Touch move event
-				this.events.add(document.body, 'touchmove', function(event: TouchEvent) {
+				this.events.add(document.body, 'touchmove', function(event: TouchEvent) 
+				{
 					const touch = event.touches[0];
 
 					self.updatePosition(touch.screenX, touch.screenY, touch.screenX - lastTouch.x, touch.screenY - lastTouch.y);
@@ -196,31 +215,37 @@ export class Mouse extends InputHandler {
 		}
 
 		// Move
-		this.events.add(this.domElement, 'mousemove', function(event: MouseEvent) {
+		this.events.add(this.domElement, 'mousemove', function(event: MouseEvent) 
+		{
 			self.updatePosition(event.offsetX, event.offsetY, event.movementX, event.movementY);
 		});
 
 		// Button pressed
-		this.events.add(this.domElement, 'mousedown', function(event: MouseEvent) {
+		this.events.add(this.domElement, 'mousedown', function(event: MouseEvent) 
+		{
 			self.updateKey(event.which - 1, ButtonAction.DOWN);
 		});
 
 		// Button released
-		this.events.add(this.domElement, 'mouseup', function(event: MouseEvent) {
+		this.events.add(this.domElement, 'mouseup', function(event: MouseEvent) 
+		{
 			self.updateKey(event.which - 1, ButtonAction.UP);
 		});
 
-		this.events.add(this.domElement, 'mouseleave', function(event: MouseEvent) {
+		this.events.add(this.domElement, 'mouseleave', function(event: MouseEvent) 
+		{
 			self.updateKey(event.which - 1, ButtonAction.UP);
 		});
 
 		// Drag start
-		this.events.add(this.domElement, 'dragstart', function(event: MouseEvent) {
+		this.events.add(this.domElement, 'dragstart', function(event: MouseEvent) 
+		{
 			self.updateKey(event.which - 1, ButtonAction.UP);
 		});
 
 		// Mouse double click
-		this.events.add(this.domElement, 'dblclick', function(event: Event) {
+		this.events.add(this.domElement, 'dblclick', function(event: Event) 
+		{
 			self.tempDoubleClicked = true;
 		});
 
@@ -231,18 +256,21 @@ export class Mouse extends InputHandler {
 	/**
 	 * Canvas to be used for coordinates calculation relative to that canvas.
 	 */
-	public setCanvas(canvas: HTMLCanvasElement): void {
+	public setCanvas(canvas: HTMLCanvasElement): void 
+	{
 		this.canvas = canvas;
 
 		// @ts-ignore
 		canvas.mouseInside = false;
 
-		canvas.addEventListener('mouseenter', function(event: MouseEvent) {
+		canvas.addEventListener('mouseenter', function(event: MouseEvent) 
+		{
 			// @ts-ignore
 			this.mouseInside = true;
 		});
 
-		canvas.addEventListener('mouseleave', function(event: MouseEvent) {
+		canvas.addEventListener('mouseleave', function(event: MouseEvent) 
+		{
 			// @ts-ignore
 			this.mouseInside = false;
 		});
@@ -251,8 +279,10 @@ export class Mouse extends InputHandler {
 	/**
 	 * Check if mouse is inside attached canvas (updated async).
 	 */
-	public insideCanvas(): boolean {
-		if (this.canvas === null) {
+	public insideCanvas(): boolean 
+	{
+		if (this.canvas === null) 
+		{
 			return false;
 		}
 		
@@ -269,29 +299,44 @@ export class Mouse extends InputHandler {
 	 * 
 	 * @param value - Define if the lock should be active or disable.
 	 */
-	public setLock(value: boolean): void {
-		if (this.canvas !== null) {
-			if (value) {
-				if (this.canvas.requestPointerLock) {
+	public setLock(value: boolean): void 
+	{
+		if (this.canvas !== null) 
+		{
+			if (value) 
+			{
+				if (this.canvas.requestPointerLock) 
+				{
 					this.canvas.requestPointerLock();
 					// @ts-ignore
-				} else if (this.canvas.mozRequestPointerLock) {
+				}
+				else if (this.canvas.mozRequestPointerLock) 
+				{
 					// @ts-ignore
 					this.canvas.mozRequestPointerLock();
 					// @ts-ignore
-				} else if (this.canvas.webkitRequestPointerLock) {
+				}
+				else if (this.canvas.webkitRequestPointerLock) 
+				{
 					// @ts-ignore
 					this.canvas.webkitRequestPointerLock();
 				}
-			} else {
-				if (document.exitPointerLock) {
+			}
+			else 
+			{
+				if (document.exitPointerLock) 
+				{
 					document.exitPointerLock();
 					// @ts-ignore
-				} else if (document.mozExitPointerLock) {
+				}
+				else if (document.mozExitPointerLock) 
+				{
 					// @ts-ignore
 					document.mozExitPointerLock();
 					// @ts-ignore
-				} else if (document.webkitExitPointerLock) {
+				}
+				else if (document.webkitExitPointerLock) 
+				{
 					// @ts-ignore
 					document.webkitExitPointerLock();
 				}
@@ -302,14 +347,16 @@ export class Mouse extends InputHandler {
 	/**
 	 * Check if mouse button is currently pressed.
 	 */
-	public buttonPressed(button: number): boolean {
+	public buttonPressed(button: number): boolean 
+	{
 		return this.keys[button].pressed;
 	}
 
 	/**
 	 * Check if Mouse button was double-clicked.
 	 */
-	public buttonDoubleClicked(): boolean {
+	public buttonDoubleClicked(): boolean 
+	{
 		return this.doubleClicked;
 	}
 
@@ -318,7 +365,8 @@ export class Mouse extends InputHandler {
 	 * 
 	 * @param button - Button to check the state of.
 	 */
-	public buttonJustPressed(button: number): boolean {
+	public buttonJustPressed(button: number): boolean 
+	{
 		return this.keys[button].justPressed;
 	}
 
@@ -327,14 +375,16 @@ export class Mouse extends InputHandler {
 	 * 
 	 * @param button - Button to check the state of.
 	 */
-	public buttonJustReleased(button: number): boolean {
+	public buttonJustReleased(button: number): boolean 
+	{
 		return this.keys[button].justReleased;
 	}
 
 	/**
 	 * Update mouse position.
 	 */
-	public updatePosition(x: number, y: number, xDiff: number, yDiff: number): void {
+	public updatePosition(x: number, y: number, xDiff: number, yDiff: number): void 
+	{
 		this.tempPosition.set(x, y);
 		this.tempDelta.x += xDiff;
 		this.tempDelta.y += yDiff;
@@ -344,8 +394,10 @@ export class Mouse extends InputHandler {
 	/**
 	 * Update a mouse button.
 	 */
-	public updateKey(button: number, action: number): void {
-		if (button > -1) {
+	public updateKey(button: number, action: number): void 
+	{
+		if (button > -1) 
+		{
 			this.tempKeys[button].update(action);
 		}
 	}
@@ -355,42 +407,55 @@ export class Mouse extends InputHandler {
 	 * 
 	 * Should be called every frame before reading values from the mouse.
 	 */
-	public update(): void {
+	public update(): void 
+	{
 		// Update mouse keys state
-		for (let i = 0; i < this.tempKeys.length; i++) {
-			if (this.tempKeys[i].justPressed && this.keys[i].justPressed) {
+		for (let i = 0; i < this.tempKeys.length; i++) 
+		{
+			if (this.tempKeys[i].justPressed && this.keys[i].justPressed) 
+			{
 				this.tempKeys[i].justPressed = false;
 			}
-			if (this.tempKeys[i].justReleased && this.keys[i].justReleased) {
+			if (this.tempKeys[i].justReleased && this.keys[i].justReleased) 
+			{
 				this.tempKeys[i].justReleased = false;
 			}
 			this.keys[i].set(this.tempKeys[i].justPressed, this.tempKeys[i].pressed, this.tempKeys[i].justReleased);
 		}
 
 		// Update mouse wheel
-		if (this.wheelUpdated) {
+		if (this.wheelUpdated) 
+		{
 			this.wheel = this.tempWheel;
 			this.wheelUpdated = false;
-		} else {
+		}
+		else 
+		{
 			this.wheel = 0;
 		}
 
 		// Update mouse double click
-		if (this.tempDoubleClicked) {
+		if (this.tempDoubleClicked) 
+		{
 			this.doubleClicked = true;
 			this.tempDoubleClicked = false;
-		} else {
+		}
+		else 
+		{
 			this.doubleClicked = false;
 		}
 
 		// Update mouse Position if needed
-		if (this.positionUpdated) {
+		if (this.positionUpdated) 
+		{
 			this.delta.copy(this.tempDelta);
 			this.position.copy(this.tempPosition);
 
 			this.tempDelta.set(0, 0);
 			this.positionUpdated = false;
-		} else {
+		}
+		else 
+		{
 			this.delta.x = 0;
 			this.delta.y = 0;
 		}
@@ -399,7 +464,8 @@ export class Mouse extends InputHandler {
 	/**
 	 * Dispose mouse events.
 	 */
-	public dispose(): void {
+	public dispose(): void 
+	{
 		this.events.destroy();
 	}
 }

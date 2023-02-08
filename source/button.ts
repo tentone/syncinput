@@ -2,7 +2,8 @@
 /**
  * Stored possible actions for buttons.
  */
-export class ButtonAction {
+export class ButtonAction 
+{
 	/**
 	 * Down
 	 */
@@ -22,7 +23,8 @@ export class ButtonAction {
 /**
  * Key is used by Keyboard and Mouse, to represent a key state.
  */
-export class Button {
+export class Button 
+{
 	/**
 	 * Indicates if this key is currently pressed.
 	 */
@@ -43,21 +45,29 @@ export class Button {
 	 * 
 	 * @param action - Button action to apply.
 	 */
-	public update(action: number): void {
+	public update(action: number): void 
+	{
 		this.justPressed = false;
 		this.justReleased = false;
 
-		if (action === ButtonAction.DOWN) {
-			if (!this.pressed) {
+		if (action === ButtonAction.DOWN) 
+		{
+			if (!this.pressed) 
+			{
 				this.justPressed = true;
 			}
 			this.pressed = true;
-		} else if (action === ButtonAction.UP) {
-			if (this.pressed) {
+		}
+		else if (action === ButtonAction.UP) 
+		{
+			if (this.pressed) 
+			{
 				this.justReleased = true;
 			}
 			this.pressed = false;
-		} else if (action === ButtonAction.RESET) {
+		}
+		else if (action === ButtonAction.RESET) 
+		{
 			this.justReleased = false;
 			this.justPressed = false;
 		}
@@ -70,7 +80,8 @@ export class Button {
 	 * @param pressed - Indicate if the button is pressed.
 	 * @param justReleased - Indicate if the button was just released.
 	 */
-	public set(justPressed: boolean, pressed: boolean, justReleased: boolean): void {
+	public set(justPressed: boolean, pressed: boolean, justReleased: boolean): void 
+	{
 		this.justPressed = justPressed;
 		this.pressed = pressed;
 		this.justReleased = justReleased;
@@ -79,7 +90,8 @@ export class Button {
 	/**
 	 * Reset key to default values.
 	 */
-	public reset(): void {
+	public reset(): void 
+	{
 		this.justPressed = false;
 		this.pressed = false;
 		this.justReleased = false;

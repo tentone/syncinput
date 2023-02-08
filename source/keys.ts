@@ -1,7 +1,8 @@
 /**
  * Stores the key code for keyboard keys.
  */
-export class Keys {
+export class Keys 
+{
 	/**
 	 * TAB key
 	 */

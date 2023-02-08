@@ -12,7 +12,9 @@
 		"build": "webpack --config webpack.config.js",
 		"start": "webpack-dev-server --config webpack.example.js --mode development --progress --port 5200",
 		"docs": "typedoc --out docs ./source/main.ts",
-		"pub": "npm run build && npm run docs && npm publish --access public ."
+		"pub": "npm run build && npm run docs && npm publish --access public .",
+		"lint": "eslint --ext .ts .",
+		"lint-fix": "eslint --ext .ts --fix ."
 	},
 	"author": "Tentone",
 	"license": "MIT",
@@ -26,7 +28,13 @@
 		"webpack-cli": "5.0.1",
 		"webpack-bundle-analyzer": "4.7.0",
 		"webpack-dev-server": "4.11.1",
-		"html-webpack-plugin": "5.5.0"
+		"html-webpack-plugin": "5.5.0",
+		"@typescript-eslint/eslint-plugin": "5.47.0",
+		"@typescript-eslint/parser": "5.47.0",
+		"eslint": "8.30.0",
+		"eslint-plugin-import": "2.26.0",
+		"eslint-plugin-tsdoc": "0.2.17",
+		"eslint-plugin-typescript": "0.14.0"
 	},
 	"bugs": {
 		"url": "https://github.com/tentone/syncinput/issues"

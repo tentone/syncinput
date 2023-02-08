@@ -21,8 +21,9 @@ export class Vector2
 	 * @param x - X coordinate.
 	 * @param y - Y coordinate.
 	 */
-	constructor(x: number = 0, y: number = 0) {
- 		this.x = x;
+	public constructor(x: number = 0, y: number = 0) 
+	{
+		this.x = x;
 		this.y = y;
 	}
 
@@ -75,7 +76,8 @@ export class Vector2
 	 * 
 	 * @param vec - Another vector to calculate distance. 
 	 */
-	public dist(vec: Vector2): number {
+	public dist(vec: Vector2): number 
+	{
 		return Math.sqrt(Math.pow(this.x - vec.x, 2) + Math.pow(this.y - vec.y, 2));
 	}
 }

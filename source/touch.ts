@@ -1,12 +1,13 @@
 import {Vector2} from './vector2';
 import {EventManager} from './event-manager';
 import {Button, ButtonAction} from './button';
-import { InputHandler } from './input-handler';
+import {InputHandler} from './input-handler';
 
 /**
  * Touch point represents a point in the screen.
  */
-export class TouchPoint extends Button {
+export class TouchPoint extends Button 
+{
 	/**
 	 * Position of the touch point.
 	 */
@@ -53,7 +54,8 @@ export class TouchPoint extends Button {
  * 
  * Temporary data is accumlated of calls between frames.
  */
-class TouchPointTempData {
+class TouchPointTempData 
+{
 	/**
 	 * Indicates if the touch point is currently pressed.
 	 */
@@ -95,7 +97,8 @@ class TouchPointTempData {
  *
  * Each touch point
  */
-export class Touch extends InputHandler {
+export class Touch extends InputHandler 
+{
 	/**
 	 * How many touch inputs to support in the handler.
 	 */
@@ -126,7 +129,8 @@ export class Touch extends InputHandler {
 	 */
 	public pinch: number = null;
 
-	public constructor(maxPoints: number = 3, element?: HTMLElement) {
+	public constructor(maxPoints: number = 3, element?: HTMLElement) 
+	{
 		super();
 
 		this.domElement = element !== undefined ? element : window;
@@ -145,12 +149,16 @@ export class Touch extends InputHandler {
 	 * 
 	 * Events created are managed by the event manager instance.
 	 */
-	public initialize(): void {
+	public initialize(): void 
+	{
 		// Touch start event
-		this.events.add(this.domElement, 'touchstart', (event: TouchEvent) => {
-			for (let i = 0; i < event.changedTouches.length; i++) {
+		this.events.add(this.domElement, 'touchstart', (event: TouchEvent) => 
+		{
+			for (let i = 0; i < event.changedTouches.length; i++) 
+			{
 				const touch = event.changedTouches[i];
-				if(touch.identifier >= this.maxPoints) {
+				if (touch.identifier >= this.maxPoints) 
+				{
 					continue;
 				}
 
@@ -162,10 +170,13 @@ export class Touch extends InputHandler {
 		});
 
 		// Touch end event
-		this.events.add(this.domElement, 'touchend', (event: TouchEvent) => {	
-			for (let i = 0; i < event.changedTouches.length; i++) {
+		this.events.add(this.domElement, 'touchend', (event: TouchEvent) => 
+		{	
+			for (let i = 0; i < event.changedTouches.length; i++) 
+			{
 				const touch = event.changedTouches[i];
-				if(touch.identifier >= this.maxPoints) {
+				if (touch.identifier >= this.maxPoints) 
+				{
 					continue;
 				}
 
@@ -174,10 +185,13 @@ export class Touch extends InputHandler {
 		});
 
 		// Touch cancel event
-		this.events.add(this.domElement, 'touchcancel', (event: TouchEvent) => {
-			for (let i = 0; i < event.changedTouches.length; i++) {
+		this.events.add(this.domElement, 'touchcancel', (event: TouchEvent) => 
+		{
+			for (let i = 0; i < event.changedTouches.length; i++) 
+			{
 				const touch = event.changedTouches[i];
-				if(touch.identifier >= this.maxPoints) {
+				if (touch.identifier >= this.maxPoints) 
+				{
 					continue;
 				}
 
@@ -186,10 +200,13 @@ export class Touch extends InputHandler {
 		});
 
 		// Touch move event
-		this.events.add(document.body, 'touchmove', (event: TouchEvent) => {
-			for (let i = 0; i < event.changedTouches.length; i++) {
+		this.events.add(document.body, 'touchmove', (event: TouchEvent) => 
+		{
+			for (let i = 0; i < event.changedTouches.length; i++) 
+			{
 				const touch = event.changedTouches[i];
-				if(touch.identifier >= this.maxPoints) {
+				if (touch.identifier >= this.maxPoints) 
+				{
 					continue;
 				}
 				
@@ -206,7 +223,8 @@ export class Touch extends InputHandler {
 	 * @param pressure - Touch pressure of the point.
 	 * @param rotation - Rotation of the point.
 	 */
-	public updatePoint(id: number, action: number, pressure: number, rotation: number, position: Vector2, radius: Vector2): void {
+	public updatePoint(id: number, action: number, pressure: number, rotation: number, position: Vector2, radius: Vector2): void 
+	{
 		this.temp[id].force = pressure;
 		this.temp[id].rotation = rotation;
 		this.temp[id].position.copy(position);
@@ -217,13 +235,16 @@ export class Touch extends InputHandler {
 	/**
 	 * Update the touch handler, should be called every frame before reading values.
 	 */
-	public update(): void {
+	public update(): void 
+	{
 		let pinchDistance = null;
-		if (this.points[0].pressed  && this.points[1].pressed) {
+		if (this.points[0].pressed && this.points[1].pressed) 
+		{
 			pinchDistance = this.points[0].position.dist(this.points[1].position);
 		}
 
-		for (let i = 0; i < this.temp.length; i++) {
+		for (let i = 0; i < this.temp.length; i++) 
+		{
 			// Update touch point
 			this.points[i].force = this.temp[i].force;
 			this.points[i].rotation = this.temp[i].rotation;
@@ -232,7 +253,8 @@ export class Touch extends InputHandler {
 			this.points[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
 			this.points[i].update(this.temp[i].action);
 
-			if (this.points[i].justPressed) {
+			if (this.points[i].justPressed) 
+			{
 				this.points[i].first.copy(this.temp[i].first);
 			}
 
@@ -241,9 +263,12 @@ export class Touch extends InputHandler {
 		}
 		
 		// Calculate pinch to zoom action
-		if (pinchDistance && this.points[0].pressed  && this.points[1].pressed) {
+		if (pinchDistance && this.points[0].pressed && this.points[1].pressed) 
+		{
 			this.pinch = this.points[0].position.dist(this.points[1].position) - pinchDistance;
-		} else {
+		}
+		else 
+		{
 			this.pinch = null;
 		}
 		
@@ -257,22 +282,26 @@ export class Touch extends InputHandler {
 	 * @param points - Number of points to check for pan.
 	 * @returns the position and delta of the pan group.
 	 */
-	public pan(fingers: number): {position: Vector2, delta: Vector2} {
+	public pan(fingers: number): {position: Vector2, delta: Vector2} 
+	{
 		let position = new Vector2();
 		let delta = new Vector2();
 
 		// How many touch points found
 		let found = 0;
 
-		for (let i = 0; i < this.points.length; i++) {
-			if (this.points[i].pressed) {
+		for (let i = 0; i < this.points.length; i++) 
+		{
+			if (this.points[i].pressed) 
+			{
 				position.add(this.points[i].position);
 				delta.add(this.points[i].delta);
 				found++;
 			}
 		}
 
-		if (found === fingers) {
+		if (found === fingers) 
+		{
 			position.divScalar(fingers);
 			delta.divScalar(fingers);
 			return {position: position, delta: delta};
@@ -286,7 +315,8 @@ export class Touch extends InputHandler {
 	 * 
 	 * @returns The two finger pinch values.
 	 */
-	public pinchZoom(): number {
+	public pinchZoom(): number 
+	{
 		return this.pinch;
 	}
 
@@ -296,7 +326,8 @@ export class Touch extends InputHandler {
 	 * @param idx - Index of the touch point.
 	 * @returns True if the point is currently pressed. 
 	 */
-	public touchPressed(idx: number): boolean {
+	public touchPressed(idx: number): boolean 
+	{
 		return this.points[idx].pressed;
 	}
 
@@ -306,7 +337,8 @@ export class Touch extends InputHandler {
 	 * @param idx - Index of the touch point.
 	 * @returns True if the point has just been pressed. 
 	 */
-	public touchJustPressed(idx: number): boolean {
+	public touchJustPressed(idx: number): boolean 
+	{
 		return this.points[idx].justPressed;
 	}
 
@@ -316,7 +348,8 @@ export class Touch extends InputHandler {
 	 * @param idx - Index of the touch point.
 	 * @returns True if the point has just released. 
 	 */
-	public touchJustReleased(idx: number): boolean {
+	public touchJustReleased(idx: number): boolean 
+	{
 		return this.points[idx].justReleased;
 	}
 
@@ -325,7 +358,8 @@ export class Touch extends InputHandler {
 	 *
 	 * Should be called after the touch handler is no longer required.
 	 */
-	public dispose(): void {
+	public dispose(): void 
+	{
 		this.events.destroy();
 	}
 }

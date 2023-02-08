@@ -1,215 +1,157 @@
-import {Button, ButtonAction} from "./button";
-import { InputHandler } from "./input-handler";
+import {Button, ButtonAction} from './button';
+import {InputHandler} from './input-handler';
 
 /**
  * Gamepad buttons contains a list of possible buttons.
  * 
  * Gamepads might contains more buttons that the ones declared in this list.
  */
-export class GamepadButton {
-
+export class GamepadButton 
+{
 	/**
 	 * Gamepad LEFT button.
-	 * @type {number}
-	 * @attribute LEFT
 	 */
-	public static LEFT = 14;
+	public static LEFT: number = 14;
 
 	/**
 	 * Gamepad RIGHT button.
-	 * @type {number}
-	 * @attribute RIGHT
 	 */
-	public static RIGHT = 15;
+	public static RIGHT: number = 15;
 
 	/**
 	 * Gamepad DOWN button.
-	 * @type {number}
-	 * @attribute DOWN
 	 */
-	public static DOWN = 13;
+	public static DOWN: number = 13;
 
 	/**
 	 * Gamepad UP button.
-	 * @type {number}
-	 * @attribute UP
 	 */
-	public static UP = 12;
+	public static UP: number = 12;
 
 	/**
 	 * Gamepad SELECT button.
-	 * @type {number}
-	 * @attribute SELECT
 	 */
-	public static SELECT = 8;
+	public static SELECT: number = 8;
 
 	/**
 	 * Gamepad START button.
-	 * @type {number}
-	 * @attribute START
 	 */
-	public static START = 9;
+	public static START: number = 9;
 
 	/**
 	 * Gamepad HOME button.
-	 * @type {number}
-	 * @attribute HOME
 	 */
-	public static HOME = 16;
+	public static HOME: number = 16;
 
 	/**
 	 * Gamepad LEFT_TRIGGER_A button.
-	 * @type {number}
-	 * @attribute LEFT_TRIGGER_A
 	 */
-	public static LEFT_TRIGGER_A = 4;
+	public static LEFT_TRIGGER_A: number = 4;
 
 	/**
 	 * Gamepad LEFT_TRIGGER_B button.
-	 * @type {number}
-	 * @attribute LEFT_TRIGGER_B
 	 */
-	public static LEFT_TRIGGER_B = 6;
+	public static LEFT_TRIGGER_B: number = 6;
 
 	/**
 	 * Gamepad RIGHT_TRIGGER_A button.
-	 * @type {number}
-	 * @attribute RIGHT_TRIGGER_A
 	 */
-	public static RIGHT_TRIGGER_A = 5;
+	public static RIGHT_TRIGGER_A: number = 5;
 
 	/**
 	 * Gamepad RIGHT_TRIGGER_B button.
-	 * @type {number}
-	 * @attribute RIGHT_TRIGGER_B
 	 */
-	public static RIGHT_TRIGGER_B = 7;
+	public static RIGHT_TRIGGER_B: number = 7;
 
 	/**
 	 * Gamepad L1 button.
-	 * @type {number}
-	 * @attribute L1
 	 */
-	public static L1 = 4;
+	public static L1: number = 4;
 
 	/**
 	 * Gamepad L2 button.
-	 * @type {number}
-	 * @attribute L2
 	 */
-	public static L2 = 6;
+	public static L2: number = 6;
 
 	/**
 	 * Gamepad L3 button.
-	 * @type {number}
-	 * @attribute L3
 	 */
-	public static L3 = 6;
+	public static L3: number = 6;
 
 	/**
 	 * Gamepad R1 button.
-	 * @type {number}
-	 * @attribute R1
 	 */
-	public static R1 = 5;
+	public static R1: number = 5;
 
 	/**
 	 * Gamepad R2 button.
-	 * @type {number}
-	 * @attribute R2
 	 */
-	public static R2 = 7;
+	public static R2: number = 7;
 
 	/**
 	 * Gamepad R3 button.
-	 * @type {number}
-	 * @attribute R3
 	 */
-	public static R3 = 11;
+	public static R3: number = 11;
 
 	/**
 	 * Gamepad A button.
-	 * @type {number}
-	 * @attribute A
 	 */
-	public static A = 0;
+	public static A: number = 0;
 
 	/**
 	 * Gamepad B button.
-	 * @type {number}
-	 * @attribute B
 	 */
-	public static B = 1;
+	public static B: number = 1;
 
 	/**
 	 * Gamepad C button.
-	 * @type {number}
-	 * @attribute C
 	 */
-	public static C = 2;
+	public static C: number = 2;
 
 	/**
 	 * Gamepad D button.
-	 * @type {number}
-	 * @attribute D
 	 */
-	public static D = 3;
+	public static D: number = 3;
 
 	/**
 	 * Gamepad X button.
-	 * @type {number}
-	 * @attribute X
 	 */
-	public static X = 2;
+	public static X: number = 2;
 
 	/**
 	 * Gamepad Y button.
-	 * @type {number}
-	 * @attribute Y
 	 */
-	public static Y = 3;
+	public static Y: number = 3;
 
 	/**
 	 * Gamepad LEFT_ANALOGUE_BUT axis.
-	 * @type {number}
-	 * @attribute LEFT_ANALOGUE_BUT
 	 */
-	public static LEFT_ANALOGUE_BUT = 10;
+	public static LEFT_ANALOGUE_BUT: number = 10;
 
 	/**
 	 * Gamepad LEFT_ANALOGUE_HOR axis.
-	 * @type {number}
-	 * @attribute LEFT_ANALOGUE_HOR
 	 */
-	public static LEFT_ANALOGUE_HOR = 0;
+	public static LEFT_ANALOGUE_HOR: number = 0;
 
 	/**
 	 * Gamepad LEFT_ANALOGUE_VERT axis.
-	 * @type {number}
-	 * @attribute LEFT_ANALOGUE_VERT
 	 */
-	public static LEFT_ANALOGUE_VERT = 1;
+	public static LEFT_ANALOGUE_VERT: number = 1;
 
 	/**
 	 * Gamepad RIGHT_ANALOGUE_BUT axis.
-	 * @type {number}
-	 * @attribute RIGHT_ANALOGUE_BUT
 	 */
-	public static RIGHT_ANALOGUE_BUT = 11;
+	public static RIGHT_ANALOGUE_BUT: number = 11;
 
 	/**
 	 * Gamepad RIGHT_ANALOGUE_HOR axis.
-	 * @type {number}
-	 * @attribute RIGHT_ANALOGUE_HOR
 	 */
-	public static RIGHT_ANALOGUE_HOR = 2;
+	public static RIGHT_ANALOGUE_HOR: number = 2;
 
 	/**
 	 * Gamepad RIGHT_ANALOGUE_VERT axis.
-	 * @type {number}
-	 * @attribute RIGHT_ANALOGUE_VERT
 	 */
-	public static RIGHT_ANALOGUE_VERT = 3;
+	public static RIGHT_ANALOGUE_VERT: number = 3;
 }
 
 /**
@@ -262,20 +204,21 @@ export class Gamepad extends InputHandler
 		this.initialize();
 	}
 
-	public initialize() {
+	public initialize(): void
+	{
 		var gamepads = navigator.getGamepads();
-		for(var i = 0; i < gamepads.length; i++)
+		for (var i = 0; i < gamepads.length; i++)
 		{
-			if(gamepads[i] !== null)
+			if (gamepads[i] !== null)
 			{
 				this.setGamepad(gamepads[i]);
 				break;
 			}
 		}
 		
-		if(this.gamepad === null)
+		if (this.gamepad === null)
 		{
-			console.error("SyncInput: No gamepad found");
+			console.error('SyncInput: No gamepad found');
 		}
 	}
 
@@ -288,7 +231,7 @@ export class Gamepad extends InputHandler
 	 */
 	public setGamepad(gamepad: any): any
 	{	
-		if(gamepad)
+		if (gamepad)
 		{
 			// Store gamepad and its index
 			this.index = gamepad.index;
@@ -296,7 +239,7 @@ export class Gamepad extends InputHandler
 
 			// Create and initialize buttons
 			this.buttons = [];
-			for(var i = 0; i < gamepad.buttons.length; i++)
+			for (var i: number = 0; i < gamepad.buttons.length; i++)
 			{
 				this.buttons.push(new Button());
 			}
@@ -307,10 +250,10 @@ export class Gamepad extends InputHandler
 		}
 		else
 		{
-			console.warn("nunuStudio: No gamepad found");
+			console.warn('nunuStudio: No gamepad found');
 			this.dispose();
 		}
-	};
+	}
 
 	/**
 	 * Disconnect this gamepad object.
@@ -323,12 +266,11 @@ export class Gamepad extends InputHandler
 
 		this.gamepad = null;
 		this.buttons = [];
-	};
+	}
 
 	/**
 	 * Get vendor id and product id for the connected gamepad.
 	 *
-	 * @method setProductVendor
 	 * @param gamepad - Gamepad object.
 	 */
 	public setProductVendor(gamepad: any): void
@@ -336,27 +278,27 @@ export class Gamepad extends InputHandler
 		// Chrome
 		try
 		{
-			var temp = gamepad.id.split(":");
+			var temp = gamepad.id.split(':');
 
-			this.vendor = temp[1].split(" ")[1];
-			this.product = temp[2].replace(" ", "").replace(")", "");
+			this.vendor = temp[1].split(' ')[1];
+			this.product = temp[2].replace(' ', '').replace(')', '');
 
 			return;
 		}
-		catch(e){}
+		catch (e) {}
 
 		// Firefox
 		try
 		{
-			var temp = gamepad.id.split("-");
+			var temp = gamepad.id.split('-');
 
 			this.vendor = temp[0];
 			this.product = temp[1];
 
 			return;
 		}
-		catch(e){}
-	};
+		catch (e) {}
+	}
 
 	/**
 	 * Update the gamepad state.
@@ -367,14 +309,14 @@ export class Gamepad extends InputHandler
 	{
 		this.gamepad = navigator.getGamepads()[this.index];
 
-		if(this.gamepad !== undefined)
+		if (this.gamepad !== undefined)
 		{
-			for(var i = 0; i < this.buttons.length; i++)
+			for (var i: number = 0; i < this.buttons.length; i++)
 			{
 				this.buttons[i].update(this.gamepad.buttons[i].pressed ? ButtonAction.DOWN : ButtonAction.UP);
 			}
 		}
-	};
+	}
 
 	/**
 	 * Get analog button value between 0 and 1.
@@ -382,68 +324,65 @@ export class Gamepad extends InputHandler
 	 * If the button is not analog enabled it will return 0 if button is not pressed or 1 if the button is pressed.
 	 *
 	 * @param button - Button to get analogue value from.
-	 * @return Value between 0 and 1 depending how hard the button is pressed.
+	 * @returns Value between 0 and 1 depending how hard the button is pressed.
 	 */
 	public getAnalogueButton(button: number): number
 	{
-		return (button > this.buttons.length || button < 0) ? 0 : this.gamepad.buttons[button].value;
-	};
+		return button > this.buttons.length || button < 0 ? 0 : this.gamepad.buttons[button].value;
+	}
 
 	/**
 	 * Get axis value between -1 and 1 depending on the direction.
 	 *
 	 * @param axis - Axis to get value from.
-	 * @return Value between -1 and 1 depending on the axis direction
+	 * @returns Value between -1 and 1 depending on the axis direction
 	 */
 	public getAxis(axis: number): number
 	{
-		return (axis > this.gamepad.axes.length || axis < 0) ? 0 : this.gamepad.axes[axis];
-	};
+		return axis > this.gamepad.axes.length || axis < 0 ? 0 : this.gamepad.axes[axis];
+	}
 
 	/**
 	 * Check if a button exists in the connected public static 
 	 *
 	 * @param button - Button to check status of
-	 * @return True if button exists in the connected gamepad.
+	 * @returns True if button exists in the connected gamepad.
 	 */
 	public buttonExists(button: number): boolean
 	{
 		return button >= 0 && button < this.buttons.length;
-	};
+	}
 
 	/**
 	 * Check if gamepad button is currently pressed.
 	 * 
-	 * @method buttonPressed
 	 * @param button - Button to check status of
-	 * @return True if button is currently pressed
+	 * @returns True if button is currently pressed
 	 */
 	public buttonPressed(button: number): boolean
 	{
 		return this.buttons[button] ? this.buttons[button].pressed : false;
-	};
+	}
 
 	/**
 	 * Check if a gamepad button was just pressed.
 	 * 
-	 * @method buttonJustPressed
 	 * @param button - Button to check status of
-	 * @return True if button was just pressed
+	 * @returns True if button was just pressed
 	 */
 	public buttonJustPressed(button: number): boolean
 	{
 		return this.buttons[button] ? this.buttons[button].justPressed : false;
-	};
+	}
 
 	/**
 	 * Check if a gamepad button was just released.
 	 * 
-	 * @method buttonJustReleased
 	 * @param button - Button to check status of
-	 * @return True if button was just released
+	 * @returns True if button was just released
 	 */
 	public buttonJustReleased(button: number): boolean
 	{
 		return this.buttons[button] ? this.buttons[button].justReleased : false;
-	};
+	}
 }
