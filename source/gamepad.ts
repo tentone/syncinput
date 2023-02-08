@@ -1,4 +1,5 @@
 import {Button, ButtonAction} from "./button";
+import { InputHandler } from "./input-handler";
 
 /**
  * Gamepad buttons contains a list of possible buttons.
@@ -220,7 +221,7 @@ export class GamepadButton {
  *
  * For more information about the Gamepad API state take look at the W3C Gamepad API page https://www.w3.org/TR/gamepad/.
  */
-export class Gamepad
+export class Gamepad extends InputHandler
 {
 	/**
 	 * Vendor code of the gamepad device.
@@ -256,6 +257,12 @@ export class Gamepad
 
 	public constructor()
 	{
+		super();
+		
+		this.initialize();
+	}
+
+	public initialize() {
 		var gamepads = navigator.getGamepads();
 		for(var i = 0; i < gamepads.length; i++)
 		{
@@ -301,14 +308,14 @@ export class Gamepad
 		else
 		{
 			console.warn("nunuStudio: No gamepad found");
-			this.disconnect();
+			this.dispose();
 		}
 	};
 
 	/**
 	 * Disconnect this gamepad object.
 	 */
-	public disconnect(): void
+	public dispose(): void
 	{
 		this.vendor = -1;
 		this.product = -1;

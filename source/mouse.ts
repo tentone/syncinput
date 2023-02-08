@@ -1,6 +1,7 @@
 import {Vector2} from './vector2';
 import {EventManager} from './event-manager';
 import {Button, ButtonAction} from './button';
+import { InputHandler } from './input-handler';
 
 /**
  * Contains the list of mouse buttons available.
@@ -35,7 +36,7 @@ export class MouseButton {
 /**
  * Mouse instance for input in sync with the running application.
  */
-export class Mouse {
+export class Mouse extends InputHandler {
 	/**
 	 * Indicates if the mouse position changed mid-frames.
 	 */
@@ -107,7 +108,8 @@ export class Mouse {
 	 * @param element - Optional HTML element to attach the mouse tracking events. By default the "window" object is used.
 	 */
 	public constructor(element?: HTMLElement) {
-
+		super();
+		
 		this.domElement = element ? element : window;
 
 		this.events = new EventManager();

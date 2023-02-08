@@ -1,10 +1,11 @@
 import {EventManager} from './event-manager';
 import {Button, ButtonAction} from './button';
+import { InputHandler } from './input-handler';
 
 /**
  * Keyboard instance for input in sync with the running application.
  */
-export class Keyboard {
+export class Keyboard extends InputHandler {
 	/**
 	 * Keys pressed.
 	 */
@@ -28,6 +29,8 @@ export class Keyboard {
 	public events: EventManager = null;
 
 	public constructor(element?: HTMLElement) {
+		super();
+
 		this.keys = new Array(256);
 		this.actions = [];
 

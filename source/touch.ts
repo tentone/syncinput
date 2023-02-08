@@ -1,6 +1,7 @@
 import {Vector2} from './vector2';
 import {EventManager} from './event-manager';
 import {Button, ButtonAction} from './button';
+import { InputHandler } from './input-handler';
 
 /**
  * Touch point represents a point in the screen.
@@ -94,7 +95,7 @@ class TouchPointTempData {
  *
  * Each touch point
  */
-export class Touch {
+export class Touch extends InputHandler {
 	/**
 	 * Touch points, these are created as required by the touch handler.
 	 */
@@ -121,6 +122,8 @@ export class Touch {
 	public pinch: number = null;
 
 	public constructor(element?: HTMLElement) {
+		super();
+		
 		this.domElement = element !== undefined ? element : window;
 
 		this.points = new Array(10).fill(null).map(() => {return new TouchPoint();});
@@ -194,7 +197,7 @@ export class Touch {
 	/**
 	 * Update the touch handler, should be called every frame before reading values.
 	 */
-	public update() {
+	public update(): void {
 		for (let i = 0; i < this.temp.length; i++) {
 			// Update touch point
 			this.points[i].update(this.temp[i].action);
@@ -203,7 +206,6 @@ export class Touch {
 			this.points[i].radius.copy(this.temp[i].radius);
 			this.points[i].position.copy(this.temp[i].position);
 			this.points[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
-			
 
 			if (this.points[i].justPressed) {
 				this.points[i].first.copy(this.temp[i].first);
