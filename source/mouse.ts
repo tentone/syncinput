@@ -308,14 +308,14 @@ export class Mouse extends InputHandler
 				if (this.canvas.requestPointerLock) 
 				{
 					this.canvas.requestPointerLock();
-					// @ts-ignore
 				}
+				// @ts-ignore
 				else if (this.canvas.mozRequestPointerLock) 
 				{
 					// @ts-ignore
 					this.canvas.mozRequestPointerLock();
-					// @ts-ignore
 				}
+				// @ts-ignore
 				else if (this.canvas.webkitRequestPointerLock) 
 				{
 					// @ts-ignore
@@ -327,14 +327,14 @@ export class Mouse extends InputHandler
 				if (document.exitPointerLock) 
 				{
 					document.exitPointerLock();
-					// @ts-ignore
 				}
+				// @ts-ignore
 				else if (document.mozExitPointerLock) 
 				{
 					// @ts-ignore
 					document.mozExitPointerLock();
-					// @ts-ignore
 				}
+				// @ts-ignore
 				else if (document.webkitExitPointerLock) 
 				{
 					// @ts-ignore

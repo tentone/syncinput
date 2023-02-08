@@ -17,7 +17,7 @@ export abstract class ExampleBase
 	public touch = new Touch();
 
 	// Frame rate control
-	public deviceRefreshRate: boolean = false;
+	public deviceRefreshRate: boolean = true;
 
 	public refreshRate: number = 15;
 
@@ -40,10 +40,17 @@ export abstract class ExampleBase
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight;
 		};
+	}
+
+	/**
+	 * Start the running loop.
+	 */
+	public start(): void {
+		this.init();
 
 		this.t = performance.now();
-        
 		this.running = true;
+
 		this.loop();
 	}
 

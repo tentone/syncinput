@@ -165,6 +165,8 @@ export class Touch extends InputHandler
 				const point = new Vector2(touch.screenX, touch.screenY);
 
 				this.temp[touch.identifier].first.copy(point);
+				this.temp[touch.identifier].last.copy(point);
+
 				this.updatePoint(touch.identifier, ButtonAction.DOWN, touch.force, touch.rotationAngle, point, new Vector2(touch.radiusX, touch.radiusY));
 			}
 		});

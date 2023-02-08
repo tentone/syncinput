@@ -19,6 +19,8 @@
 	"author": "Tentone",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/three": "0.149.0",
+		"three": "0.149.0",
 		"esbuild": "0.17.4",
 		"esbuild-loader": "2.21.0",
 		"ts-loader": "9.4.2",
