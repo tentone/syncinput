@@ -6,7 +6,7 @@ export default {
 	entry: './main.ts',
 	output: {
 		filename: 'example.bundle.js',
-		path: path.resolve('build'),
+		path: path.resolve('demo'),
 	},
 	devtool: 'source-map',
 	devServer: {
