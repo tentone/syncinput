@@ -123,7 +123,7 @@ export class Touch extends InputHandler {
 
 	public constructor(element?: HTMLElement) {
 		super();
-		
+
 		this.domElement = element !== undefined ? element : window;
 
 		this.points = new Array(10).fill(null).map(() => {return new TouchPoint();});
@@ -198,14 +198,19 @@ export class Touch extends InputHandler {
 	 * Update the touch handler, should be called every frame before reading values.
 	 */
 	public update(): void {
+		let pinchDistance = null;
+		if (this.points[0].pressed  && this.points[1].pressed) {
+			pinchDistance = this.points[0].position.dist(this.points[1].position);
+		}
+
 		for (let i = 0; i < this.temp.length; i++) {
 			// Update touch point
-			this.points[i].update(this.temp[i].action);
 			this.points[i].force = this.temp[i].force;
 			this.points[i].rotation = this.temp[i].rotation;
 			this.points[i].radius.copy(this.temp[i].radius);
 			this.points[i].position.copy(this.temp[i].position);
 			this.points[i].delta.set(this.temp[i].position.x - this.temp[i].last.x, this.temp[i].position.y - this.temp[i].last.y);
+			this.points[i].update(this.temp[i].action);
 
 			if (this.points[i].justPressed) {
 				this.points[i].first.copy(this.temp[i].first);
@@ -214,6 +219,11 @@ export class Touch extends InputHandler {
 			// Update temp
 			this.temp[i].last.copy(this.temp[i].position);
 		}
+		
+		if (pinchDistance && this.points[0].pressed  && this.points[1].pressed) {
+			this.pinch = pinchDistance - this.points[0].position.dist(this.points[1].position);
+		}
+		
 	}
 
 	/**
@@ -253,22 +263,8 @@ export class Touch extends InputHandler {
 	 * 
 	 * @returns The two finger pinch values.
 	 */
-	public pinchZoom(): Vector2 {
-		const points: TouchPoint[] = [];
-
-		for (let i = 0; i < this.points.length; i++) {
-			if (this.points[i].pressed) {
-				points.push(this.points[i]);
-				if (points.length === 2) {
-					const a = points[0].delta;
-					const b = points[1].delta;
-
-					return new Vector2(a.x - b.x, a.y - b.y);
-				}
-			}
-		}
-		
-		return null;
+	public pinchZoom(): number {
+		return this.pinch;
 	}
 
 	/**
