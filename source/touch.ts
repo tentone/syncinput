@@ -220,8 +220,11 @@ export class Touch extends InputHandler {
 			this.temp[i].last.copy(this.temp[i].position);
 		}
 		
+		// Calculate pinch to zoom action
 		if (pinchDistance && this.points[0].pressed  && this.points[1].pressed) {
-			this.pinch = pinchDistance - this.points[0].position.dist(this.points[1].position);
+			this.pinch = this.points[0].position.dist(this.points[1].position) - pinchDistance;
+		} else {
+			this.pinch = null;
 		}
 		
 	}
@@ -247,12 +250,12 @@ export class Touch extends InputHandler {
 				delta.add(this.points[i].delta);
 				found++;
 			}
+		}
 
-			if (found === fingers) {
-				position.divScalar(fingers);
-				delta.divScalar(fingers);
-				return {position: position, delta: delta};
-			}
+		if (found === fingers) {
+			position.divScalar(fingers);
+			delta.divScalar(fingers);
+			return {position: position, delta: delta};
 		}
 
 		return null;
