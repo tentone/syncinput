@@ -6,6 +6,8 @@
 - Multi-browser support, compatible with mobile devices and and touchscreen events.
 - Currently supports input from: Mouse, Keyboard, Gamepad, Touchscreen
 - Detailed API docs available on the docs folder of the project.
+- [Demo of the library](https://tentone.github.io/syncinput/demo/) running from the examples directory.
+- [TSDoc](https://tentone.github.io/syncinput/docs/) documentation available.
 
 ### Sync Events
 
