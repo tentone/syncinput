@@ -20,39 +20,22 @@
 <li>Skip the need to process out of sync browser callbacks.</li>
 <li>Multi-browser support, compatible with mobile devices and and touchscreen events.</li>
 <li>Currently supports input from: Mouse, Keyboard, Gamepad, Touchscreen</li>
-</ul>
-
-<a href="#download" id="download" style="color: inherit; text-decoration: none;">
-  <h3>Download</h3>
-</a>
-<ul>
-<li>For direct usage in the browser get the <a href="https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.min.js">minified (9kb)</a> version or as a module <a href="https://raw.githubusercontent.com/tentone/syncinput/master/build/syncinput.module.js">module (28kb)</a>.</li>
-<li>Get from NPM using <code> npm install syncinput --save-prod</code></li>
-</ul>
-
-<a href="#example" id="example" style="color: inherit; text-decoration: none;">
-  <h3>Example</h3>
-</a>
-<ul>
-<li>Example of simple app with three.js<ul>
-<li><a href="https://tentone.github.io/syncinput/example/">https://tentone.github.io/syncinput/example/</a></li>
-<li>Keyboard arrows or d-pad to move the cube, mouse to rotate the cube, double click to change color</li>
-</ul>
-</li>
-<li>Here is a small code example showing the basic functionality of the library.</li>
-</ul>
-<pre><code class="language-javascript"><span class="hl-0">//Initialization</span><br/><span class="hl-1">mouse</span><span class="hl-2"> = </span><span class="hl-3">new</span><span class="hl-2"> </span><span class="hl-1">SyncInput</span><span class="hl-2">.</span><span class="hl-4">Mouse</span><span class="hl-2">();</span><br/><span class="hl-1">keyboard</span><span class="hl-2"> = </span><span class="hl-3">new</span><span class="hl-2"> </span><span class="hl-1">SyncInput</span><span class="hl-2">.</span><span class="hl-4">Keyboard</span><span class="hl-2">();</span><br/><br/><span class="hl-2">[...]</span><br/><br/><span class="hl-0">//Inside of the logic/rendering loop</span><br/><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-4">update</span><span class="hl-2">();</span><br/><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-4">update</span><span class="hl-2">();</span><br/><br/><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;Position X:&quot;</span><span class="hl-2"> </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">position</span><span class="hl-2">.</span><span class="hl-1">x</span><span class="hl-2"> + </span><span class="hl-5">&quot; Y:&quot;</span><span class="hl-2"> + </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">position</span><span class="hl-2">.</span><span class="hl-1">y</span><span class="hl-2">);</span><br/><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;Delta X:&quot;</span><span class="hl-2"> </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">delta</span><span class="hl-2">.</span><span class="hl-1">x</span><span class="hl-2"> + </span><span class="hl-5">&quot; Y:&quot;</span><span class="hl-2"> + </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">delta</span><span class="hl-2">.</span><span class="hl-1">y</span><span class="hl-2">);</span><br/><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;Scroll wheel:&quot;</span><span class="hl-2"> </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">wheel</span><span class="hl-2">);</span><br/><br/><span class="hl-6">if</span><span class="hl-2">(</span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-4">buttonPressed</span><span class="hl-2">(</span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-7">LEFT</span><span class="hl-2">))</span><br/><span class="hl-2">{</span><br/><span class="hl-2">    </span><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;Mouse left is pressed&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">}</span><br/><br/><span class="hl-6">if</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-4">keyPressed</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-7">W</span><span class="hl-2">))</span><br/><span class="hl-2">{</span><br/><span class="hl-2">    </span><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;W is pressed&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">}</span><br/><span class="hl-6">if</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-4">keyJustPressed</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-7">W</span><span class="hl-2">))</span><br/><span class="hl-2">{</span><br/><span class="hl-2">    </span><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;W was just pressed&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">}</span><br/><span class="hl-6">if</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-4">keyJustReleased</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-7">W</span><span class="hl-2">))</span><br/><span class="hl-2">{</span><br/><span class="hl-2">    </span><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;W was just released&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">}</span>
-</code></pre>
-
-<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-  <h2>Documentation</h2>
-</a>
-<ul>
 <li>Detailed API docs available on the docs folder of the project.</li>
 </ul>
+<p><img src="https://raw.githubusercontent.com/tentone/syncinput/master/readme/problem.png" alt="alt tag"></p>
+
+<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+  <h3>Getting Started</h3>
+</a>
+<ul>
+<li>Get from NPM using <code> npm install syncinput --save-prod</code></li>
+<li>Here is a small code example showing the basic functionality of the library.</li>
+</ul>
+<pre><code class="language-javascript"><span class="hl-0">//Initialization</span><br/><span class="hl-1">mouse</span><span class="hl-2"> = </span><span class="hl-3">new</span><span class="hl-2"> </span><span class="hl-4">Mouse</span><span class="hl-2">();</span><br/><span class="hl-1">keyboard</span><span class="hl-2"> = </span><span class="hl-3">new</span><span class="hl-2"> </span><span class="hl-4">Keyboard</span><span class="hl-2">();</span><br/><br/><span class="hl-2">[...]</span><br/><br/><span class="hl-0">//Inside of the logic/rendering loop</span><br/><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-4">update</span><span class="hl-2">();</span><br/><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-4">update</span><span class="hl-2">();</span><br/><br/><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;Position X:&quot;</span><span class="hl-2"> </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">position</span><span class="hl-2">.</span><span class="hl-1">x</span><span class="hl-2"> + </span><span class="hl-5">&quot; Y:&quot;</span><span class="hl-2"> + </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">position</span><span class="hl-2">.</span><span class="hl-1">y</span><span class="hl-2">);</span><br/><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;Delta X:&quot;</span><span class="hl-2"> </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">delta</span><span class="hl-2">.</span><span class="hl-1">x</span><span class="hl-2"> + </span><span class="hl-5">&quot; Y:&quot;</span><span class="hl-2"> + </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">delta</span><span class="hl-2">.</span><span class="hl-1">y</span><span class="hl-2">);</span><br/><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;Scroll wheel:&quot;</span><span class="hl-2"> </span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-1">wheel</span><span class="hl-2">);</span><br/><br/><span class="hl-6">if</span><span class="hl-2">(</span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-4">buttonPressed</span><span class="hl-2">(</span><span class="hl-1">mouse</span><span class="hl-2">.</span><span class="hl-7">LEFT</span><span class="hl-2">))</span><br/><span class="hl-2">{</span><br/><span class="hl-2">    </span><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;Mouse left is pressed&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">}</span><br/><br/><span class="hl-6">if</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-4">keyPressed</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-7">W</span><span class="hl-2">))</span><br/><span class="hl-2">{</span><br/><span class="hl-2">    </span><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;W is pressed&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">}</span><br/><span class="hl-6">if</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-4">keyJustPressed</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-7">W</span><span class="hl-2">))</span><br/><span class="hl-2">{</span><br/><span class="hl-2">    </span><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;W was just pressed&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">}</span><br/><span class="hl-6">if</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-4">keyJustReleased</span><span class="hl-2">(</span><span class="hl-1">keyboard</span><span class="hl-2">.</span><span class="hl-7">W</span><span class="hl-2">))</span><br/><span class="hl-2">{</span><br/><span class="hl-2">    </span><span class="hl-1">console</span><span class="hl-2">.</span><span class="hl-4">log</span><span class="hl-2">(</span><span class="hl-5">&quot;W was just released&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">}</span>
+</code></pre>
 
 <a href="#mouse" id="mouse" style="color: inherit; text-decoration: none;">
-  <h3>Mouse</h3>
+  <h4>Mouse</h4>
 </a>
 <ul>
 <li><p><code>position {x, y}</code> -Actual mouse position</p>
@@ -60,8 +43,6 @@
 <li><p><code>delta {x, y}</code> - Mouse delta since last time update() was called</p>
 </li>
 <li><p><code>wheel</code> - Mouse wheel value</p>
-</li>
-<li><p><code>update()</code> - Update mouse status (should be called every time after app logic update)</p>
 </li>
 <li><p><code>buttonPressed(button)</code> - Check if mouse button is pressed (touchscreen tap same as left click)</p>
 </li>
@@ -78,10 +59,9 @@
 </ul>
 
 <a href="#keyboard" id="keyboard" style="color: inherit; text-decoration: none;">
-  <h3>Keyboard</h3>
+  <h4>Keyboard</h4>
 </a>
 <ul>
-<li><code>update()</code> - Update keyboard status (should be called every time after app logic update)</li>
 <li><code>keyPressed(button)</code> - Check if key is currently pressed</li>
 <li><code>keyJustPressed(button)</code> - Check if key was just pressed</li>
 <li><code>keyJustReleased(button)</code> - Check if key was just released</li>
@@ -89,13 +69,23 @@
 </ul>
 
 <a href="#gamepad" id="gamepad" style="color: inherit; text-decoration: none;">
-  <h3>Gamepad</h3>
+  <h4>Gamepad</h4>
 </a>
 <ul>
-<li><code>update()</code> - Update gamepad status</li>
 <li><code>buttonPressed(button)</code> - Check if gamepad button is pressed</li>
 <li><code>buttonJustPressed(button)</code> - Check if gamepad button was just pressed</li>
 <li><code>buttonJustReleased(button)</code> - Check if gamepad button was just released</li>
+</ul>
+
+<a href="#touch" id="touch" style="color: inherit; text-decoration: none;">
+  <h3>Touch</h3>
+</a>
+<ul>
+<li><code>points[]</code> - List of touch points and their respective status.</li>
+<li><code>pan(points)</code> - Multi-touch pan</li>
+<li><code>touchPressed(point)</code> - Check if touch point is pressed</li>
+<li><code>touchJustPressed(point)</code> - Check if touch point was just pressed</li>
+<li><code>touchJustReleased(point)</code> - Check if touch point was just released</li>
 </ul>
 </div></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">

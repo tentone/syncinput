@@ -97,6 +97,11 @@ class TouchPointTempData {
  */
 export class Touch extends InputHandler {
 	/**
+	 * How many touch inputs to support in the handler.
+	 */
+	public maxPoints: number = 3;
+
+	/**
 	 * Touch points, these are created as required by the touch handler.
 	 */
 	public points: TouchPoint[] = [];
@@ -121,13 +126,14 @@ export class Touch extends InputHandler {
 	 */
 	public pinch: number = null;
 
-	public constructor(element?: HTMLElement) {
+	public constructor(maxPoints: number = 3, element?: HTMLElement) {
 		super();
 
 		this.domElement = element !== undefined ? element : window;
+		this.maxPoints = maxPoints;
 
-		this.points = new Array(10).fill(null).map(() => {return new TouchPoint();});
-		this.temp = new Array(10).fill(null).map(() => {return new TouchPointTempData();});
+		this.points = new Array(this.maxPoints).fill(null).map(() => {return new TouchPoint();});
+		this.temp = new Array(this.maxPoints).fill(null).map(() => {return new TouchPointTempData();});
 		
 		this.events = new EventManager();
 		this.initialize();
@@ -144,6 +150,10 @@ export class Touch extends InputHandler {
 		this.events.add(this.domElement, 'touchstart', (event: TouchEvent) => {
 			for (let i = 0; i < event.changedTouches.length; i++) {
 				const touch = event.changedTouches[i];
+				if(touch.identifier >= this.maxPoints) {
+					continue;
+				}
+
 				const point = new Vector2(touch.screenX, touch.screenY);
 
 				this.temp[touch.identifier].first.copy(point);
@@ -155,6 +165,9 @@ export class Touch extends InputHandler {
 		this.events.add(this.domElement, 'touchend', (event: TouchEvent) => {	
 			for (let i = 0; i < event.changedTouches.length; i++) {
 				const touch = event.changedTouches[i];
+				if(touch.identifier >= this.maxPoints) {
+					continue;
+				}
 
 				this.updatePoint(touch.identifier, ButtonAction.UP, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(touch.radiusX, touch.radiusY));
 			}
@@ -164,7 +177,10 @@ export class Touch extends InputHandler {
 		this.events.add(this.domElement, 'touchcancel', (event: TouchEvent) => {
 			for (let i = 0; i < event.changedTouches.length; i++) {
 				const touch = event.changedTouches[i];
-				
+				if(touch.identifier >= this.maxPoints) {
+					continue;
+				}
+
 				this.updatePoint(touch.identifier, ButtonAction.UP, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(0, 0));
 			}
 		});
@@ -173,6 +189,10 @@ export class Touch extends InputHandler {
 		this.events.add(document.body, 'touchmove', (event: TouchEvent) => {
 			for (let i = 0; i < event.changedTouches.length; i++) {
 				const touch = event.changedTouches[i];
+				if(touch.identifier >= this.maxPoints) {
+					continue;
+				}
+				
 				this.updatePoint(touch.identifier, ButtonAction.DOWN, touch.force, touch.rotationAngle, new Vector2(touch.screenX, touch.screenY), new Vector2(touch.radiusX, touch.radiusY));
 			}
 		});
