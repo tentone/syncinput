@@ -3,13 +3,17 @@
 [![GitHub version](https://badge.fury.io/gh/tentone%2Fsyncinput.svg)](https://badge.fury.io/gh/tentone%2Fsyncinput)[![npm version](https://badge.fury.io/js/syncinput.svg)](https://badge.fury.io/js/syncinput)
 
 - Synchronous keyboard, mouse and gamepad input for fixed step applications.
-- Browser events fire at a different rate than your application logic/render code.- This library allow to access input state for variable frame rate scenarios.
-- Skip the need to process out of sync browser callbacks.
 - Multi-browser support, compatible with mobile devices and and touchscreen events.
 - Currently supports input from: Mouse, Keyboard, Gamepad, Touchscreen
 - Detailed API docs available on the docs folder of the project.
 
-![alt tag](https://raw.githubusercontent.com/tentone/syncinput/master/readme/problem.png)
+### Sync Events
+
+- Browser events fire at a different rate than your application logic/render code.
+- This library allow to access input state for variable frame rate scenarios.
+- Skip the need to process out of sync browser callbacks.
+
+![alt tag](https://raw.githubusercontent.com/tentone/syncinput/master/readme/timing.png)
 
 ### Getting Started
  - Get from NPM using ` npm install syncinput --save-prod`
