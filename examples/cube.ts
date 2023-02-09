@@ -115,6 +115,13 @@ class CubeExample extends ExampleBase
 		{
 			this.cube.position.x += tpt.delta.x / 1e2;
 		}
+
+		    
+		tpt = this.touch.pan(3);
+		if (tpt) 
+		{
+			this.camera.position.y += tpt.delta.y / 1e2;
+		}
     
 		var pinch = this.touch.pinchZoom();
 		if (pinch) 
