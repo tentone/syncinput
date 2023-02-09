@@ -3,7 +3,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
 	context: path.resolve('./examples'),
-	entry: './main.ts',
+	entry: './cube.ts',
+	mode: 'production',
 	output: {
 		filename: 'example.bundle.js',
 		path: path.resolve('demo'),

@@ -1,8 +1,8 @@
 import {Keys, GamepadButton, MouseButton} from '../source/main';
-import {ExampleBase} from './example-base';
+import {ExampleBase} from './base';
 import {Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMaterial, Object3D, Color, Float32BufferAttribute} from 'three';
 
-class Example extends ExampleBase 
+class CubeExample extends ExampleBase 
 {
 	public scene: Scene = new Scene();
 	public camera: PerspectiveCamera = new PerspectiveCamera(60, 1, 0.1, 1000);
@@ -128,4 +128,4 @@ class Example extends ExampleBase
 	}
 }
 
-new Example().start();
+new CubeExample().start();
