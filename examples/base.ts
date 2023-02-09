@@ -38,14 +38,12 @@ export abstract class ExampleBase
 		const vsync = document.getElementById('vsync') as HTMLInputElement;
 		vsync.defaultChecked = this.deviceRefreshRate;
 		vsync.onchange = (event) => {
-			console.log(event, vsync);
 			this.deviceRefreshRate = vsync.checked;
 		};
 
 		const rate = document.getElementById('rate') as HTMLInputElement;
 		rate.value = String(this.refreshRate);
 		rate.onchange = (event) => {
-			console.log(event, rate);
 			this.refreshRate = Number.parseInt(rate.value);
 		};
 
