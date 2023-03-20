@@ -1,10 +1,14 @@
 {
     "compilerOptions": {
-      "declaration": false,
+      "module": "ES2020",
+      "target": "es5",
+      "lib": [ "es2015", "dom" ],
+      "outDir": "dist",
+      "sourceMap": true,
+      "declaration": true,
       "noImplicitAny": true,
       "removeComments": true,
       "preserveConstEnums": true,
-      "sourceMap": true,
       "strict": true,
       "strictNullChecks": false
     }

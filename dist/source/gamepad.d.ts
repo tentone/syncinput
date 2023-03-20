@@ -1,0 +1,53 @@
+import { Button } from './button';
+import { InputHandler } from './input-handler';
+export declare class GamepadButton {
+    static LEFT: number;
+    static RIGHT: number;
+    static DOWN: number;
+    static UP: number;
+    static SELECT: number;
+    static START: number;
+    static HOME: number;
+    static LEFT_TRIGGER_A: number;
+    static LEFT_TRIGGER_B: number;
+    static RIGHT_TRIGGER_A: number;
+    static RIGHT_TRIGGER_B: number;
+    static L1: number;
+    static L2: number;
+    static L3: number;
+    static R1: number;
+    static R2: number;
+    static R3: number;
+    static A: number;
+    static B: number;
+    static C: number;
+    static D: number;
+    static X: number;
+    static Y: number;
+    static LEFT_ANALOGUE_BUT: number;
+    static LEFT_ANALOGUE_HOR: number;
+    static LEFT_ANALOGUE_VERT: number;
+    static RIGHT_ANALOGUE_BUT: number;
+    static RIGHT_ANALOGUE_HOR: number;
+    static RIGHT_ANALOGUE_VERT: number;
+}
+export declare class Gamepad extends InputHandler {
+    vendor: number;
+    product: number;
+    connected: boolean;
+    index: number;
+    buttons: Button[];
+    gamepad: any;
+    constructor();
+    initialize(): void;
+    setGamepad(gamepad: any): any;
+    dispose(): void;
+    setProductVendor(gamepad: any): void;
+    update(): void;
+    getAnalogueButton(button: number): number;
+    getAxis(axis: number): number;
+    buttonExists(button: number): boolean;
+    buttonPressed(button: number): boolean;
+    buttonJustPressed(button: number): boolean;
+    buttonJustReleased(button: number): boolean;
+}
