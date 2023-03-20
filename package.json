@@ -1,9 +1,12 @@
 {
 	"name": "syncinput",
-	"version": "1.3.5",
+	"version": "1.3.7",
 	"description": "",
-	"main": "build/syncinput.js",
+	"files": [
+		"dist"
+	],
 	"type": "module",
+	"main": "dist/index.js",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/tentone/syncinput.git"

@@ -3,11 +3,15 @@ import path from 'path';
 export default {
 	entry: './source/main.ts',
 	mode: 'production',
+	experiments: {
+		outputModule: true,
+	},
 	output: {
-		filename: 'syncinput.js',
-		path: path.resolve('./build'),
-		library: 'syncinput',
-    	libraryTarget: 'umd'
+		path: path.resolve('dist'),
+		filename: 'index.js',
+		library: {
+			type: 'module',
+		},
 	},
 	module: {
 		rules: [{
