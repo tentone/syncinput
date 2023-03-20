@@ -6,6 +6,10 @@ export default {
 	output: {
 		filename: 'syncinput.js',
 		path: path.resolve('./build'),
+		library: {
+			name: 'syncinput',
+			type: 'umd',
+		},
 	},
 	module: {
 		rules: [{
