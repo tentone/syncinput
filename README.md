@@ -22,6 +22,8 @@
  - Here is a small code example showing the basic functionality of the library.
 
 ```javascript
+import { Mouse, MouseButton, Keyboard, Keys } from 'syncinput';
+
 //Initialization
 mouse = new Mouse();
 keyboard = new Keyboard();
@@ -36,20 +38,20 @@ console.log("Position X:" mouse.position.x + " Y:" + mouse.position.y);
 console.log("Delta X:" mouse.delta.x + " Y:" + mouse.delta.y);
 console.log("Scroll wheel:" mouse.wheel);
 
-if(mouse.buttonPressed(mouse.LEFT))
+if(mouse.buttonPressed(MouseButton.LEFT))
 {
 	console.log("Mouse left is pressed");
 }
 
-if(keyboard.keyPressed(keyboard.W))
+if(keyboard.keyPressed(Keys.W))
 {
 	console.log("W is pressed");
 }
-if(keyboard.keyJustPressed(keyboard.W))
+if(keyboard.keyJustPressed(Keys.W))
 {
 	console.log("W was just pressed");
 }
-if(keyboard.keyJustReleased(keyboard.W))
+if(keyboard.keyJustReleased(Keys.W))
 {
 	console.log("W was just released");
 }
