@@ -6,10 +6,8 @@ export default {
 	output: {
 		filename: 'syncinput.js',
 		path: path.resolve('./build'),
-		library: {
-			name: 'syncinput',
-			type: 'umd',
-		},
+		library: 'syncinput',
+    	libraryTarget: 'umd'
 	},
 	module: {
 		rules: [{
@@ -18,6 +16,9 @@ export default {
 			exclude: /node_modules/,
 		}],
 	},
+	optimization: {
+        minimize: true
+    },
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],
 	}
