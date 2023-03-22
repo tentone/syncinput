@@ -22,11 +22,13 @@
  - Here is a small code example showing the basic functionality of the library.
 
 ```javascript
-import { Mouse, MouseButton, Keyboard, Keys } from 'syncinput';
+import {Keyboard, Keys, Mouse, MouseButton, Touch, Gamepad, GamepadButton} from 'syncinput';
 
 //Initialization
 mouse = new Mouse();
 keyboard = new Keyboard();
+touch = new Touch();
+gamepad = new Gamepad();
 
 [...]
 
@@ -38,15 +40,31 @@ console.log("Position X:" mouse.position.x + " Y:" + mouse.position.y);
 console.log("Delta X:" mouse.delta.x + " Y:" + mouse.delta.y);
 console.log("Scroll wheel:" mouse.wheel);
 
+
+if (touch.touchJustPressed(0)) 
+{
+	console.log("First touch point just pressed.");
+}
+if (touch.touchJustReleased(1)) 
+{
+	console.log("Second touch point just released.");
+}
+
 if(mouse.buttonPressed(MouseButton.LEFT))
 {
 	console.log("Mouse left is pressed");
 }
 
-if(keyboard.keyPressed(Keys.W))
+if(mouse.buttonPressed(MouseButton.LEFT))
 {
-	console.log("W is pressed");
+	console.log("Mouse left is pressed");
 }
+
+if(keyboard.keyPressed(Keys.W) || gamepad.buttonPressed(GamepadButton.UP))
+{
+	console.log("W is pressed or Gamepad UP is pressed");
+}
+
 if(keyboard.keyJustPressed(Keys.W))
 {
 	console.log("W was just pressed");
