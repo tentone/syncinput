@@ -2,13 +2,13 @@ import { Vector2 } from './vector2';
 import { EventManager } from './event-manager';
 import { Button } from './button';
 import { InputHandler } from './input-handler';
-export declare class MouseButton {
-    static LEFT: number;
-    static MIDDLE: number;
-    static RIGHT: number;
-    static BACK: number;
-    static FORWARD: number;
-}
+export declare const MouseButton: {
+    LEFT: number;
+    MIDDLE: number;
+    RIGHT: number;
+    BACK: number;
+    FORWARD: number;
+};
 export declare class Mouse extends InputHandler {
     positionUpdated: boolean;
     wheelUpdated: boolean;

@@ -52,7 +52,7 @@ export class TouchPoint extends Button
 /**
  * Stores temporary data of the touch point.
  * 
- * Temporary data is accumlated of calls between frames.
+ * Temporary data is accumulated of calls between frames.
  */
 class TouchPointTempData 
 {
