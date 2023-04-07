@@ -32,7 +32,7 @@ export const MouseButton =
 	 * Forward mouse navigation button.
 	 */
 	FORWARD: 4
-}
+};
 
 /**
  * Mouse instance for input in sync with the running application.

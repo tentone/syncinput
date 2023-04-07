@@ -37,13 +37,15 @@ export abstract class ExampleBase
 
 		const vsync = document.getElementById('vsync') as HTMLInputElement;
 		vsync.defaultChecked = this.deviceRefreshRate;
-		vsync.onchange = (event) => {
+		vsync.onchange = (event) => 
+		{
 			this.deviceRefreshRate = vsync.checked;
 		};
 
 		const rate = document.getElementById('rate') as HTMLInputElement;
 		rate.value = String(this.refreshRate);
-		rate.onchange = (event) => {
+		rate.onchange = (event) => 
+		{
 			this.refreshRate = Number.parseInt(rate.value);
 		};
 
@@ -57,7 +59,8 @@ export abstract class ExampleBase
 	/**
 	 * Start the running loop.
 	 */
-	public start(): void {
+	public start(): void 
+	{
 		this.init();
 
 		this.t = performance.now();

@@ -5,17 +5,21 @@ import {Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMat
 class CubeExample extends ExampleBase 
 {
 	public scene: Scene = new Scene();
+
 	public camera: PerspectiveCamera = new PerspectiveCamera(60, 1, 0.1, 1000);
+
 	public renderer: WebGLRenderer;
 
 	public cube: Mesh;
 
-	public cubeColor(): void {
+	public cubeColor(): void 
+	{
 		// Generate random colors for each vertex
-		const color = new Color()
+		const color = new Color();
 		const colors = [];
 		const positionAttribute = this.cube.geometry.getAttribute('position');
-		for (let i = 0; i < positionAttribute.count; i += 6) {
+		for (let i = 0; i < positionAttribute.count; i += 6) 
+		{
 			color.setHex(0xffffff * Math.random());
 
 			colors.push(color.r, color.g, color.b);
@@ -30,18 +34,16 @@ class CubeExample extends ExampleBase
 		this.cube.geometry.setAttribute('color', new Float32BufferAttribute(colors, 3));
 	}
 
-	public init(): void {
+	public init(): void 
+	{
 		super.init();
 
-		this.renderer = new WebGLRenderer({
-			canvas: this.canvas
-		});
+		this.renderer = new WebGLRenderer({canvas: this.canvas});
 		
 		this.scene.background = new Color(0xFFFFFF);
 
 		this.cube = new Mesh(new BoxGeometry(), new MeshBasicMaterial({vertexColors: true}));
 		this.cubeColor();
-
   
 
 		this.scene.add(this.cube);
@@ -84,7 +86,7 @@ class CubeExample extends ExampleBase
 		{
 			this.cube.position.y -= delta;
 		}
-    
+	
 		if (this.mouse.buttonPressed(MouseButton.LEFT))
 		{
 			this.cube.rotation.y += this.mouse.delta.x / 1e2;
@@ -109,20 +111,20 @@ class CubeExample extends ExampleBase
 		{
 			this.cubeColor();
 		}
-    
+	
 		let tpt = this.touch.pan(2);
 		if (tpt) 
 		{
 			this.cube.position.x += tpt.delta.x / 1e2;
 		}
 
-		    
+			
 		tpt = this.touch.pan(3);
 		if (tpt) 
 		{
 			this.camera.position.y += tpt.delta.y / 1e2;
 		}
-    
+	
 		var pinch = this.touch.pinchZoom();
 		if (pinch) 
 		{
@@ -130,7 +132,8 @@ class CubeExample extends ExampleBase
 		}
 	}
 
-	public render(): void {
+	public render(): void 
+	{
 		this.renderer.render(this.scene, this.camera);
 	}
 }

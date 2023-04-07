@@ -257,5 +257,5 @@ export const TizenKeys = {
 	/**
 	 * Tizen specific 3D key.
 	 */
-	MEDIA_3D: 10199,
+	MEDIA_3D: 10199
 };
