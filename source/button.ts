@@ -2,22 +2,22 @@
 /**
  * Stored possible actions for buttons.
  */
-export class ButtonAction 
+export enum ButtonAction 
 {
 	/**
 	 * Down
 	 */
-	public static DOWN = -1;
+	DOWN = -1,
 
 	/**
 	 * Up
 	 */
-	public static UP = 1;
+	UP = 1,
 
 	/**
 	 * Reset
 	 */
-	public static RESET = 0;
+	RESET = 0
 }
 
 /**
@@ -45,7 +45,7 @@ export class Button
 	 * 
 	 * @param action - Button action to apply.
 	 */
-	public update(action: number): void 
+	public update(action: ButtonAction): void 
 	{
 		this.justPressed = false;
 		this.justReleased = false;

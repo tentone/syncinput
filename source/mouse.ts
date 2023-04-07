@@ -6,32 +6,32 @@ import {InputHandler} from './input-handler';
 /**
  * Contains the list of mouse buttons available.
  */
-export class MouseButton 
+export const MouseButton =  
 {
 	/**
 	 * Left mouse button.
 	 */
-	public static LEFT = 0;
+	LEFT: 0,
 
 	/**
 	 * Middle mouse button.
 	 */
-	public static MIDDLE = 1;
+	MIDDLE: 1,
 
 	/**
 	 * Right mouse button.
 	 */
-	public static RIGHT = 2;
+	RIGHT: 2,
 
 	/**
 	 * Back mouse navigation button.
 	 */
-	public static BACK = 3;
+	BACK: 3,
 
 	/**
 	 * Forward mouse navigation button.
 	 */
-	public static FORWARD = 4;
+	FORWARD: 4
 }
 
 /**

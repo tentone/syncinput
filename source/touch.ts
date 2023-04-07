@@ -365,4 +365,3 @@ export class Touch extends InputHandler
 		this.events.destroy();
 	}
 }
-
