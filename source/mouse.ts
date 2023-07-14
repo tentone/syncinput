@@ -108,13 +108,14 @@ export class Mouse extends InputHandler
 	 * Constructor for the mouse handler.
 	 * 
 	 * @param element - Optional HTML element to attach the mouse tracking events. By default the "window" object is used.
+	 * @param touchHandlers - Flag to indicate if touch events should be created for the mouse instance. (To allow interation on touch based devices).
 	 */
-	public constructor(element?: HTMLElement) 
+	public constructor(element?: HTMLElement, touchHandlers: boolean = false) 
 	{
 		super();
 		
 		this.domElement = element ? element : window;
-
+		this.touchHandlers = touchHandlers;
 		this.events = new EventManager();
 
 		// Initialize key instances

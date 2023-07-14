@@ -25,7 +25,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">Mouse</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L40">mouse.ts:40</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L40">mouse.ts:40</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -74,7 +74,7 @@
 <section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class"><a id="constructor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="constructor.new_Mouse">new <wbr/>Mouse<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Mouse.html" class="tsd-signature-type" data-tsd-kind="Class">Mouse</a><a href="#constructor.new_Mouse" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_Mouse">new <wbr/>Mouse<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">HTMLElement</span>, touchHandlers<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Mouse.html" class="tsd-signature-type" data-tsd-kind="Class">Mouse</a><a href="#constructor.new_Mouse" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Constructor for the mouse handler.</p>
 </div>
@@ -84,11 +84,15 @@
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> element: <span class="tsd-signature-type">HTMLElement</span></h5>
 <div class="tsd-comment tsd-typography"><p>Optional HTML element to attach the mouse tracking events. By default the &quot;window&quot; object is used.</p>
+</div></li>
+<li>
+<h5>touchHandlers: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+<div class="tsd-comment tsd-typography"><p>Flag to indicate if touch events should be created for the mouse instance. (To allow interation on touch based devices).</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="Mouse.html" class="tsd-signature-type" data-tsd-kind="Class">Mouse</a></h4><aside class="tsd-sources">
 <p>Overrides <a href="InputHandler.html">InputHandler</a>.<a href="InputHandler.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L112">mouse.ts:112</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L113">mouse.ts:113</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="canvas" class="tsd-anchor"></a>
@@ -97,102 +101,102 @@
 <div class="tsd-comment tsd-typography"><p>Canvas attached to this mouse instance used to calculate position and delta in canvas space coordinates.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L85">mouse.ts:85</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L85">mouse.ts:85</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="delta" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>delta</span><a href="#delta" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">delta<span class="tsd-signature-symbol">:</span> <a href="Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a><span class="tsd-signature-symbol"> = ...</span></div>
 <div class="tsd-comment tsd-typography"><p>Mouse movement (coordinates in window space).</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L70">mouse.ts:70</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L70">mouse.ts:70</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="domElement" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>dom<wbr/>Element</span><a href="#domElement" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">dom<wbr/>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Window</span><span class="tsd-signature-symbol"> = null</span></div>
 <div class="tsd-comment tsd-typography"><p>DOM element where to attach the mouse events.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L80">mouse.ts:80</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L80">mouse.ts:80</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="doubleClicked" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>double<wbr/>Clicked</span><a href="#doubleClicked" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">double<wbr/>Clicked<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 <div class="tsd-comment tsd-typography"><p>Indicates if some button of the mouse was just double-clicked.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L75">mouse.ts:75</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L75">mouse.ts:75</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="events" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>events</span><a href="#events" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">events<span class="tsd-signature-symbol">:</span> <a href="EventManager.html" class="tsd-signature-type" data-tsd-kind="Class">EventManager</a><span class="tsd-signature-symbol"> = null</span></div>
 <div class="tsd-comment tsd-typography"><p>Event manager used to manage the mouse events.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L90">mouse.ts:90</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L90">mouse.ts:90</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="keys" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>keys</span><a href="#keys" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">keys<span class="tsd-signature-symbol">:</span> <a href="Button.html" class="tsd-signature-type" data-tsd-kind="Class">Button</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
 <div class="tsd-comment tsd-typography"><p>Array with mouse buttons status.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L55">mouse.ts:55</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L55">mouse.ts:55</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="position" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>position</span><a href="#position" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">position<span class="tsd-signature-symbol">:</span> <a href="Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a><span class="tsd-signature-symbol"> = ...</span></div>
 <div class="tsd-comment tsd-typography"><p>Mouse position inside the window (coordinates in window space).</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L60">mouse.ts:60</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L60">mouse.ts:60</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="positionUpdated" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>position<wbr/>Updated</span><a href="#positionUpdated" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">position<wbr/>Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 <div class="tsd-comment tsd-typography"><p>Indicates if the mouse position changed mid-frames.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L45">mouse.ts:45</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L45">mouse.ts:45</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="tempDelta" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>temp<wbr/>Delta</span><a href="#tempDelta" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">temp<wbr/>Delta<span class="tsd-signature-symbol">:</span> <a href="Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L101">mouse.ts:101</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L101">mouse.ts:101</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="tempDoubleClicked" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>temp<wbr/>Double<wbr/>Clicked</span><a href="#tempDoubleClicked" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">temp<wbr/>Double<wbr/>Clicked<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L97">mouse.ts:97</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L97">mouse.ts:97</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="tempKeys" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>temp<wbr/>Keys</span><a href="#tempKeys" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">temp<wbr/>Keys<span class="tsd-signature-symbol">:</span> <a href="Button.html" class="tsd-signature-type" data-tsd-kind="Class">Button</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L103">mouse.ts:103</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L103">mouse.ts:103</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="tempPosition" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>temp<wbr/>Position</span><a href="#tempPosition" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">temp<wbr/>Position<span class="tsd-signature-symbol">:</span> <a href="Vector2.html" class="tsd-signature-type" data-tsd-kind="Class">Vector2</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L105">mouse.ts:105</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L105">mouse.ts:105</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="tempWheel" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>temp<wbr/>Wheel</span><a href="#tempWheel" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">temp<wbr/>Wheel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L99">mouse.ts:99</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L99">mouse.ts:99</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="touchHandlers" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>touch<wbr/>Handlers</span><a href="#touchHandlers" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">touch<wbr/>Handlers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 <div class="tsd-comment tsd-typography"><p>If true touch events are also considered in the mouse object.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L95">mouse.ts:95</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L95">mouse.ts:95</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="wheel" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>wheel</span><a href="#wheel" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">wheel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 <div class="tsd-comment tsd-typography"><p>Mouse scroll wheel movement.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L65">mouse.ts:65</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L65">mouse.ts:65</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="wheelUpdated" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>wheel<wbr/>Updated</span><a href="#wheelUpdated" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">wheel<wbr/>Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 <div class="tsd-comment tsd-typography"><p>Indicates if the wheel position changed mid-frames.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L50">mouse.ts:50</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L50">mouse.ts:50</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="buttonDoubleClicked" class="tsd-anchor"></a>
@@ -204,7 +208,7 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L358">mouse.ts:358</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L359">mouse.ts:359</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="buttonJustPressed" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>button<wbr/>Just<wbr/>Pressed</span><a href="#buttonJustPressed" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -221,7 +225,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L368">mouse.ts:368</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L369">mouse.ts:369</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="buttonJustReleased" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>button<wbr/>Just<wbr/>Released</span><a href="#buttonJustReleased" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -238,7 +242,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L378">mouse.ts:378</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L379">mouse.ts:379</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="buttonPressed" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>button<wbr/>Pressed</span><a href="#buttonPressed" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -253,7 +257,7 @@
 <h5>button: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L350">mouse.ts:350</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L351">mouse.ts:351</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="dispose" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>dispose</span><a href="#dispose" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -264,7 +268,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="InputHandler.html">InputHandler</a>.<a href="InputHandler.html#dispose">dispose</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L467">mouse.ts:467</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L468">mouse.ts:468</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="initialize" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>initialize</span><a href="#initialize" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -276,7 +280,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="InputHandler.html">InputHandler</a>.<a href="InputHandler.html#initialize">initialize</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L136">mouse.ts:136</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L137">mouse.ts:137</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="insideCanvas" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>inside<wbr/>Canvas</span><a href="#insideCanvas" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -286,7 +290,7 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L282">mouse.ts:282</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L283">mouse.ts:283</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="setCanvas" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Canvas</span><a href="#setCanvas" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -301,7 +305,7 @@
 <h5>canvas: <span class="tsd-signature-type">HTMLCanvasElement</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L259">mouse.ts:259</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L260">mouse.ts:260</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="setLock" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Lock</span><a href="#setLock" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -320,7 +324,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L302">mouse.ts:302</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L303">mouse.ts:303</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="update" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>update</span><a href="#update" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -331,7 +335,7 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L410">mouse.ts:410</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L411">mouse.ts:411</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="updateKey" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>update<wbr/>Key</span><a href="#updateKey" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -348,7 +352,7 @@
 <h5>action: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L397">mouse.ts:397</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L398">mouse.ts:398</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="updatePosition" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>update<wbr/>Position</span><a href="#updatePosition" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -369,7 +373,7 @@
 <h5>yDiff: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/tentone/syncinput/blob/2724a12/source/mouse.ts#L386">mouse.ts:386</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/tentone/syncinput/blob/d48b3d9/source/mouse.ts#L387">mouse.ts:387</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">

@@ -26,7 +26,7 @@ export declare class Mouse extends InputHandler {
     private tempDelta;
     private tempKeys;
     private tempPosition;
-    constructor(element?: HTMLElement);
+    constructor(element?: HTMLElement, touchHandlers?: boolean);
     initialize(): void;
     setCanvas(canvas: HTMLCanvasElement): void;
     insideCanvas(): boolean;
