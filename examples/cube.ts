@@ -87,7 +87,6 @@ class CubeExample extends ExampleBase
 			this.cube.position.y -= delta;
 		}
 		
-		
 
 		if (this.mouse.buttonPressed(MouseButton.LEFT))
 		{

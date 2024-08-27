@@ -1,4 +1,4 @@
-![alt tag](https://raw.githubusercontent.com/tentone/syncinput/master/readme/logo.png)
+<img src="./readme/logo.png" width=250/>
 
 [![GitHub version](https://badge.fury.io/gh/tentone%2Fsyncinput.svg)](https://badge.fury.io/gh/tentone%2Fsyncinput)[![npm version](https://badge.fury.io/js/syncinput.svg)](https://badge.fury.io/js/syncinput)
 
@@ -15,7 +15,7 @@
 - This library allow to access input state for variable frame rate scenarios.
 - Skip the need to process out of sync browser callbacks.
 
-![alt tag](https://raw.githubusercontent.com/tentone/syncinput/master/readme/timing.png)
+<img src="./readme/timing.png" width=700/>
 
 ### Getting Started
  - Get from NPM using ` npm install syncinput --save-prod`
@@ -97,7 +97,8 @@ if(keyboard.keyJustReleased(Keys.W))
 
 ### Touch
 - `points[]` - List of touch points and their respective status.
-- `pan(points)` - Multi-touch pan
+- `pan(points)` - Multi-touch pan, retuns the average position and movement delta.
+- `pinchZoom()` - Pinch to zoom (of the first two touch points) delta.
 - `touchPressed(point)` - Check if touch point is pressed
 - `touchJustPressed(point)` - Check if touch point was just pressed
 - `touchJustReleased(point)` - Check if touch point was just released
@@ -114,3 +115,4 @@ if(keyboard.keyJustReleased(Keys.W))
 - `getGamepads()` - Get list of available gamepads.
 - `setGamepad(gamepad)` - Set wich gamepad to use.
 
+<img src="./readme/standard.png" width=400/>

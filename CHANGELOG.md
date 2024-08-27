@@ -1,5 +1,11 @@
 # Changelog
 
+## V1.4
+ - Update usage of the gamepad API
+ - Handle connection and disconnection events per gamepad
+ - Support for deadzone filtering
+ - Haptic feedback for gamepads
+
 ## V1.3
  - Rewrite using typescript.
  - Support for touch input events.

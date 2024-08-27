@@ -1,7 +1,7 @@
 import {Button, ButtonAction} from './button';
 import {InputHandler} from './input-handler';
 import {GamepadHapticEffectType} from './gamepad-happtic-effect';
-import { EventManager } from './event-manager';
+import {EventManager} from './event-manager';
 
 export type GamepadEffectParameters = {
 	/**
@@ -69,6 +69,13 @@ export class Gamepad extends InputHandler
 	public index: number = -1;
 
 	/**
+	 * Deadzone for the gamepad analog sticks.
+	 * 
+	 * Values (in absolute) below this threshold are considered 0.
+	 */
+	public deadzone: number = 0.01;
+
+	/**
 	 * Vibration actuator used to provide haptic feedback.
 	 * 
 	 * https://www.w3.org/TR/gamepad/#dom-gamepadhapticactuator
@@ -102,11 +109,26 @@ export class Gamepad extends InputHandler
 	public initialize(): void
 	{
 		this.event = new EventManager();
-		this.event.add(window, 'gamepadconnected', (event: any) => {
+		this.event.add(window, 'gamepadconnected', (event: any) => 
+		{
 			console.log('SyncInput: Gamepad connected', event);
+
+			// If no gamepad is set use the connected one
+			if (this.index === -1 || this.index === event.gamepad.index)
+			{
+				this.setGamepad(event.gamepad);
+			}
 		});
-		this.event.add(window, 'gamepaddisconnected', (event: any) => {
+		this.event.add(window, 'gamepaddisconnected', (event: any) => 
+		{
 			console.log('SyncInput: Gamepad disconnected', event);
+			
+			if (this.index === event.gamepad.index)
+			{
+				console.log('SyncInput: Lost connection to gamepad', event);
+				this.connected = false;
+				this.gamepad = null;
+			}
 		});
 		this.event.create();
 
@@ -117,13 +139,12 @@ export class Gamepad extends InputHandler
 			this.setGamepad(gamepads[i]);
 			return;
 		}
-		
 
 
 		// If no gamepad is found set the
 		if (this.gamepad === null)
 		{
-			console.error('SyncInput: No gamepad found');
+			console.error('SyncInput: No gamepad found, waiting for connection.');
 		}
 	}
 
@@ -263,7 +284,18 @@ export class Gamepad extends InputHandler
 	 */
 	public getAnalogueButton(buttonIndex: number): number
 	{
-		return buttonIndex > this.buttons.length || buttonIndex < 0 ? 0 : this.gamepad.buttons[buttonIndex].value;
+		return buttonIndex > this.buttons.length || buttonIndex < 0 ? 0 : this.applyDeadzone(this.gamepad.buttons[buttonIndex].value);
+	}
+
+	/**
+	 * Apply deadzone to the value.
+	 * 
+	 * @param value - Value to apply the deadzone to.
+	 * @returns Value with the deadzone applied.
+	 */
+	public applyDeadzone(value: number): number
+	{
+		return Math.abs(value) < this.deadzone ? 0 : value;
 	}
 
 	/**
@@ -274,7 +306,7 @@ export class Gamepad extends InputHandler
 	 */
 	public getAxis(axisIndex: number): number
 	{
-		return axisIndex > this.gamepad.axes.length || axisIndex < 0 ? 0 : this.gamepad.axes[axisIndex];
+		return axisIndex > this.gamepad.axes.length || axisIndex < 0 ? 0 : this.applyDeadzone(this.gamepad.axes[axisIndex]);
 	}
 
 	/**
