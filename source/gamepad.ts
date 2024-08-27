@@ -1,6 +1,6 @@
 import {Button, ButtonAction} from './button';
 import {InputHandler} from './input-handler';
-import {GamepadHapticEffectType} from './gamepad-happtic-effect';
+import {GamepadHapticEffectType} from './gamepad-haptic-effect';
 import {EventManager} from './event-manager';
 
 export type GamepadEffectParameters = {
@@ -88,6 +88,11 @@ export class Gamepad extends InputHandler
 	 * Should be different for every gamepad.
 	 */
 	public buttons: Button[] = [];
+
+	/**
+	 * Axes values for the gamepad.
+	 */
+	public axes: number[] = [];
 
 	/**
 	 * Gamepad API object used to acess the gamepad input.
@@ -263,6 +268,11 @@ export class Gamepad extends InputHandler
 	 */
 	public update(): void
 	{
+		if (!this.connected)
+		{
+			return;
+		}
+
 		this.gamepad = navigator.getGamepads()[this.index];
 	
 		if (this.gamepad)
@@ -271,6 +281,8 @@ export class Gamepad extends InputHandler
 			{
 				this.buttons[i].update(this.gamepad.buttons[i].pressed ? ButtonAction.DOWN : ButtonAction.UP);
 			}
+
+			
 		}
 	}
 
