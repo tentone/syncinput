@@ -1,5 +1,38 @@
 import {Button, ButtonAction} from './button';
 import {InputHandler} from './input-handler';
+import {GamepadHapticEffectType} from './gamepad-happtic-effect';
+
+export type GamepadEffectParameters = {
+	/**
+	 * Duration of the effect in milliseconds.
+	 */
+	duration?: number,
+
+	/**
+	 * duration of the delay after playEffect() is called until vibration is started.
+	 */
+	startDelay?: number,
+
+	/**
+	 * The vibration magnitude for the low frequency rumble motor.
+	 */
+	strongMagnitude?: number,
+
+	/**
+	 * The vibration magnitude for the high frequency rumble motor.
+	 */
+	weakMagnitude?: number,
+
+	/**
+	 * Intensity of the effect for the left trigger.
+	 */
+	leftTrigger?: number,
+
+	/**
+	 * Intensity of the effect for the right trigger.
+	 */
+	rightTrigger?: number
+};
 
 /**
  * Gamepad provides basic support for gamepads.
@@ -13,17 +46,19 @@ import {InputHandler} from './input-handler';
 export class Gamepad extends InputHandler
 {
 	/**
-	 * Vendor code of the gamepad device.
+	 * Identifier of the gamepad device.
 	 */
-	public vendor: number = -1;
+	public id: string = null;
 
 	/**
-	 * Product code of the gamepad device.
+	 * Mapping of the gamepad.
+	 * 
+	 * https://www.w3.org/TR/gamepad/#dom-gamepad-mapping
 	 */
-	public product: number = -1;
+	public mapping: GamepadMappingType = null;
 
 	/**
-	 * Connected state of the gamepad.
+	 * Indicates if the gamepad is connected to the system.
 	 */
 	public connected: boolean = false;
 	
@@ -31,6 +66,13 @@ export class Gamepad extends InputHandler
 	 * Index of the gamepad instance.
 	 */
 	public index: number = -1;
+
+	/**
+	 * Vibration actuator used to provide haptic feedback.
+	 * 
+	 * https://www.w3.org/TR/gamepad/#dom-gamepadhapticactuator
+	 */
+	public vibrationActuator: GamepadHapticActuator = null;
 
 	/**
 	 * Gamepad buttons with their associated state.
@@ -53,20 +95,64 @@ export class Gamepad extends InputHandler
 
 	public initialize(): void
 	{
-		var gamepads = navigator.getGamepads();
+		// Get the first gamepad connected to the system
+		var gamepads = this.getGamepads();
 		for (var i = 0; i < gamepads.length; i++)
 		{
-			if (gamepads[i] !== null)
-			{
-				this.setGamepad(gamepads[i]);
-				break;
-			}
+			this.setGamepad(gamepads[i]);
+			break;
 		}
 		
+		// If no gamepad is found set the
 		if (this.gamepad === null)
 		{
 			console.error('SyncInput: No gamepad found');
 		}
+	}
+
+	/**
+	 * Reset the haptic actuator of the gamepad. Stops all effects.
+	 */
+	public resetHaptic(): void
+	{	
+		// @ts-ignore
+		if (this.vibrationActuator?.reset)
+		{
+			// @ts-ignore
+			this.vibrationActuator.reset();
+		}
+		
+	}
+
+	/**
+	 * Start a haptic effect on the gamepad.
+	 * 
+	 * @param type - Type of the effect to start.
+	 * @param params - Parameters for the effect.
+	 */
+	public startHapticEffect(type: GamepadHapticEffectType, params: GamepadEffectParameters): void
+	{
+		// @ts-ignore
+		if (this.vibrationActuator?.playEffect)
+		{
+			// @ts-ignore
+			this.vibrationActuator.playEffect(type, params);
+		}
+	}
+
+	/**
+	 * Get gamepads connected to the system.
+	 * 
+	 * @returns Array with all gamepads connected to the system.
+	 */
+	public getGamepads(): any[]
+	{
+		const gamepads = navigator.getGamepads();
+
+		return gamepads.filter(function(gamepad) 
+		{	
+			return gamepad !== null;
+		});
 	}
 
 	/**
@@ -107,8 +193,10 @@ export class Gamepad extends InputHandler
 	 */
 	public dispose(): void
 	{
-		this.vendor = -1;
-		this.product = -1;
+		this.mapping = null;
+		this.vibrationActuator = null;
+		this.id = null;
+
 		this.connected = false;
 
 		this.gamepad = null;
@@ -122,29 +210,9 @@ export class Gamepad extends InputHandler
 	 */
 	public setProductVendor(gamepad: any): void
 	{
-		// Chrome
-		try
-		{
-			var temp = gamepad.id.split(':');
-
-			this.vendor = temp[1].split(' ')[1];
-			this.product = temp[2].replace(' ', '').replace(')', '');
-
-			return;
-		}
-		catch (e) {}
-
-		// Firefox
-		try
-		{
-			var temp = gamepad.id.split('-');
-
-			this.vendor = temp[0];
-			this.product = temp[1];
-
-			return;
-		}
-		catch (e) {}
+		this.id = gamepad.id;
+		this.mapping = gamepad.mapping;
+		this.vibrationActuator = gamepad.vibrationActuator;
 	}
 
 	/**
@@ -155,8 +223,8 @@ export class Gamepad extends InputHandler
 	public update(): void
 	{
 		this.gamepad = navigator.getGamepads()[this.index];
-
-		if (this.gamepad !== undefined)
+	
+		if (this.gamepad)
 		{
 			for (var i: number = 0; i < this.buttons.length; i++)
 			{
@@ -170,23 +238,23 @@ export class Gamepad extends InputHandler
 	 *
 	 * If the button is not analog enabled it will return 0 if button is not pressed or 1 if the button is pressed.
 	 *
-	 * @param button - Button to get analogue value from.
+	 * @param buttonIndex - Button to get analogue value from.
 	 * @returns Value between 0 and 1 depending how hard the button is pressed.
 	 */
-	public getAnalogueButton(button: number): number
+	public getAnalogueButton(buttonIndex: number): number
 	{
-		return button > this.buttons.length || button < 0 ? 0 : this.gamepad.buttons[button].value;
+		return buttonIndex > this.buttons.length || buttonIndex < 0 ? 0 : this.gamepad.buttons[buttonIndex].value;
 	}
 
 	/**
 	 * Get axis value between -1 and 1 depending on the direction.
 	 *
-	 * @param axis - Axis to get value from.
+	 * @param axisIndex - Index of the axis to get value from.
 	 * @returns Value between -1 and 1 depending on the axis direction
 	 */
-	public getAxis(axis: number): number
+	public getAxis(axisIndex: number): number
 	{
-		return axis > this.gamepad.axes.length || axis < 0 ? 0 : this.gamepad.axes[axis];
+		return axisIndex > this.gamepad.axes.length || axisIndex < 0 ? 0 : this.gamepad.axes[axisIndex];
 	}
 
 	/**

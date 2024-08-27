@@ -75,7 +75,7 @@ if(keyboard.keyJustReleased(Keys.W))
 }
 ```
 
-#### Mouse
+### Mouse
 
 - `position {x, y}` -Actual mouse position
 - `delta {x, y}` - Mouse delta since last time update() was called
@@ -88,19 +88,12 @@ if(keyboard.keyJustReleased(Keys.W))
 - `insideCanvas()` - Check if mouse is inside attached canvas
 - `setLock(value)` - Set mouse lock on/off.
 
-#### Keyboard
+### Keyboard
 
 - `keyPressed(button)` - Check if key is currently pressed
 - `keyJustPressed(button)` - Check if key was just pressed
 - `keyJustReleased(button)` - Check if key was just released
 - `reset()` - Reset all keys
-
-#### Gamepad
-
-- `buttonPressed(button)` - Check if gamepad button is pressed
-- `buttonJustPressed(button)` - Check if gamepad button was just pressed
-- `buttonJustReleased(button)` - Check if gamepad button was just released
-
 
 ### Touch
 - `points[]` - List of touch points and their respective status.
@@ -108,3 +101,16 @@ if(keyboard.keyJustReleased(Keys.W))
 - `touchPressed(point)` - Check if touch point is pressed
 - `touchJustPressed(point)` - Check if touch point was just pressed
 - `touchJustReleased(point)` - Check if touch point was just released
+
+
+### Gamepad
+[Gamepad input](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API) is only available in secure context using HTTPS. 
+
+- `buttonPressed(button)` - Check if gamepad button is pressed
+- `buttonJustPressed(button)` - Check if gamepad button was just pressed
+- `buttonJustReleased(button)` - Check if gamepad button was just released
+- `getAxis(index)` - Get axial input value from its index from -1 to 1.
+- `getAnalogueButton(index)` - Get analog button from 0 to 1.
+- `getGamepads()` - Get list of available gamepads.
+- `setGamepad(gamepad)` - Set wich gamepad to use.
+
