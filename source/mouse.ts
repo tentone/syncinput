@@ -1,4 +1,4 @@
-import {Vector2} from './ceasd';
+import {Vector2} from './vector2';
 import {EventManager} from './event-manager';
 import {Button, ButtonAction} from './button';
 import {InputHandler} from './input-handler';
