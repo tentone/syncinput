@@ -1,6 +1,7 @@
 import {Button, ButtonAction} from './button';
 import {InputHandler} from './input-handler';
 import {GamepadHapticEffectType} from './gamepad-happtic-effect';
+import { EventManager } from './event-manager';
 
 export type GamepadEffectParameters = {
 	/**
@@ -86,6 +87,11 @@ export class Gamepad extends InputHandler
 	 */
 	public gamepad: any = null;
 
+	/**
+	 * Event manager for gamepad connection.
+	 */
+	private event: EventManager = null;
+
 	public constructor()
 	{
 		super();
@@ -95,14 +101,25 @@ export class Gamepad extends InputHandler
 
 	public initialize(): void
 	{
+		this.event = new EventManager();
+		this.event.add(window, 'gamepadconnected', (event: any) => {
+			console.log('SyncInput: Gamepad connected', event);
+		});
+		this.event.add(window, 'gamepaddisconnected', (event: any) => {
+			console.log('SyncInput: Gamepad disconnected', event);
+		});
+		this.event.create();
+
 		// Get the first gamepad connected to the system
 		var gamepads = this.getGamepads();
 		for (var i = 0; i < gamepads.length; i++)
 		{
 			this.setGamepad(gamepads[i]);
-			break;
+			return;
 		}
 		
+
+
 		// If no gamepad is found set the
 		if (this.gamepad === null)
 		{
@@ -201,6 +218,9 @@ export class Gamepad extends InputHandler
 
 		this.gamepad = null;
 		this.buttons = [];
+
+		this.event.destroy();
+		this.event = null;
 	}
 
 	/**
