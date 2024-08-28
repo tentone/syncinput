@@ -73,7 +73,7 @@ export class Gamepad extends InputHandler
 	 * 
 	 * Values (in absolute) below this threshold are considered 0.
 	 */
-	public deadzone: number = 0.01;
+	public deadzone: number = 0.05;
 
 	/**
 	 * Vibration actuator used to provide haptic feedback.
@@ -290,22 +290,7 @@ export class Gamepad extends InputHandler
 			{
 				this.buttons[i].update(this.gamepad.buttons[i].pressed ? ButtonAction.DOWN : ButtonAction.UP);
 			}
-
-			// TODO <AXES>
 		}
-	}
-
-	/**
-	 * Get analog button value between 0 and 1.
-	 *
-	 * If the button is not analog enabled it will return 0 if button is not pressed or 1 if the button is pressed.
-	 *
-	 * @param buttonIndex - Button to get analogue value from.
-	 * @returns Value between 0 and 1 depending how hard the button is pressed.
-	 */
-	public getAnalogueButton(buttonIndex: number): number
-	{
-		return buttonIndex > this.buttons.length || buttonIndex < 0 ? 0 : this.applyDeadzone(this.gamepad.buttons[buttonIndex].value);
 	}
 
 	/**
@@ -320,6 +305,24 @@ export class Gamepad extends InputHandler
 	}
 
 	/**
+	 * Get analog button value between 0 and 1.
+	 *
+	 * If the button is not analog enabled it will return 0 if button is not pressed or 1 if the button is pressed.
+	 *
+	 * @param buttonIndex - Button to get analogue value from.
+	 * @returns Value between 0 and 1 depending how hard the button is pressed.
+	 */
+	public getAnalogueButton(buttonIndex: number): number
+	{
+		if (!this.gamepad || buttonIndex < 0 || buttonIndex > this.buttons.length)
+		{
+			return 0;
+		}
+		
+		return this.applyDeadzone(this.gamepad.buttons[buttonIndex].value);
+	}
+
+	/**
 	 * Get axis value between -1 and 1 depending on the direction.
 	 *
 	 * @param axisIndex - Index of the axis to get value from.
@@ -327,7 +330,12 @@ export class Gamepad extends InputHandler
 	 */
 	public getAxis(axisIndex: number): number
 	{
-		return axisIndex > this.gamepad.axes.length || axisIndex < 0 ? 0 : this.applyDeadzone(this.gamepad.axes[axisIndex]);
+		if (!this.gamepad || axisIndex < 0 || axisIndex > this.gamepad.axes.length )
+		{
+			return 0;
+		}
+		
+		return this.applyDeadzone(this.gamepad.axes[axisIndex]);
 	}
 
 	/**

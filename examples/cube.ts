@@ -1,3 +1,5 @@
+import { GamepadAxis } from '../source/gamepad-button';
+import { GamepadHapticEffectType } from '../source/gamepad-haptic-effect';
 import {Keys, GamepadButton, MouseButton} from '../source/main';
 import {ExampleBase} from './base';
 import {Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMaterial, Object3D, Color, Float32BufferAttribute} from 'three';
@@ -111,9 +113,21 @@ class CubeExample extends ExampleBase
 
 		this.camera.position.z -= this.mouse.wheel / 1e2;
 
-		this.camera.position.z += this.gamepad.getAxis() / 1e2;
+		this.camera.position.z += this.gamepad.getAxis(GamepadAxis.RIGHT_VERT) / 50;
+		this.camera.position.x += this.gamepad.getAxis(GamepadAxis.RIGHT_HOR) / 50;
 
-		if (this.mouse.doubleClicked)
+		this.cube.rotation.y += this.gamepad.getAxis(GamepadAxis.LEFT_HOR) / 50;
+
+		if (this.gamepad.buttonJustPressed(GamepadButton.B))
+		{
+			this.gamepad.startHapticEffect(GamepadHapticEffectType.dualRumble, {
+				duration: 1000,
+				strongMagnitude: 1,
+				weakMagnitude: 1
+			});
+		}
+
+		if (this.mouse.doubleClicked || this.gamepad.buttonJustPressed(GamepadButton.A))
 		{
 			this.cubeColor();
 		}
