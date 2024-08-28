@@ -23,9 +23,11 @@ export declare const GamepadButton: {
     X: number;
     Y: number;
     LEFT_ANALOGUE_BUT: number;
-    LEFT_ANALOGUE_HOR: number;
-    LEFT_ANALOGUE_VERT: number;
     RIGHT_ANALOGUE_BUT: number;
-    RIGHT_ANALOGUE_HOR: number;
-    RIGHT_ANALOGUE_VERT: number;
+};
+export declare const GamepadAxis: {
+    LEFT_HOR: number;
+    LEFT_VERT: number;
+    RIGHT_HOR: number;
+    RIGHT_VERT: number;
 };
