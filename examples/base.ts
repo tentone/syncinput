@@ -3,27 +3,56 @@ import {Keyboard, Mouse, Gamepad, Touch} from '../source/main';
 // Base for example implementation
 export abstract class ExampleBase 
 {
+	/**
+	 * Canvas element for rendering.
+	 */
 	public canvas: HTMLCanvasElement = null;
 
+	/**
+	 * Display element for the current frames per second.
+	 */
 	public fps: HTMLElement = null;
 
-	// Create keyboard and mouse input objects
+	/**
+	 * Keyboard input object.
+	 */
 	public keyboard = new Keyboard();
 
+	/**
+	 * Mouse input object.
+	 */
 	public mouse = new Mouse();
 
+	/**
+	 * Gamepad input object.
+	 */
 	public gamepad = new Gamepad();
 
+	/**
+	 * Touch input object.
+	 */
 	public touch = new Touch();
 
-	// Frame rate control
+	/** 
+	 * Frame rate control flag.
+	 * 
+	 * If set to true the frame rate is controlled by the device refresh rate.
+	 */
 	public deviceRefreshRate: boolean = true;
 
+	/**
+	 * Frame rate of the game loop.
+	 */
 	public refreshRate: number = 15;
 
-	// Time
+	/**
+	 * Time of the last frame.
+	 */
 	public t: number = 0;
 
+	/**
+	 * Running flag.
+	 */
 	public running: boolean = false;
 
 	public init(): void 

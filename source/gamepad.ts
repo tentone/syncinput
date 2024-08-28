@@ -131,8 +131,7 @@ export class Gamepad extends InputHandler
 			if (this.index === event.gamepad.index)
 			{
 				console.log('SyncInput: Lost connection to gamepad', event);
-				this.connected = false;
-				this.gamepad = null;
+				this.disconnect();
 			}
 		});
 		this.event.create();
@@ -227,8 +226,20 @@ export class Gamepad extends InputHandler
 		else
 		{
 			console.warn('nunuStudio: No gamepad found');
-			this.dispose();
+			this.disconnect();
 		}
+	}
+
+	/**
+	 * Disconnect the gamepad, reset connection flags.
+	 * 
+	 * When a gamepad is temporarly disconnected this method should be called to reset the connection flags.
+	 */
+	public disconnect(): void
+	{
+		this.buttons = [];
+		this.connected = false;
+		this.gamepad = null;
 	}
 
 	/**
@@ -236,14 +247,12 @@ export class Gamepad extends InputHandler
 	 */
 	public dispose(): void
 	{
+		this.disconnect();
+
 		this.mapping = null;
 		this.vibrationActuator = null;
 		this.id = null;
-
-		this.connected = false;
-
-		this.gamepad = null;
-		this.buttons = [];
+		this.index = -1;
 
 		this.event.destroy();
 		this.event = null;
@@ -282,7 +291,7 @@ export class Gamepad extends InputHandler
 				this.buttons[i].update(this.gamepad.buttons[i].pressed ? ButtonAction.DOWN : ButtonAction.UP);
 			}
 
-			
+			// TODO <AXES>
 		}
 	}
 

@@ -121,32 +121,40 @@ export const GamepadButton =
 	Y: 3,
 
 	/**
-	 * Gamepad LEFT_ANALOGUE_BUT axis.
+	 * Gamepad LEFT_ANALOGUE button.
 	 */
 	LEFT_ANALOGUE_BUT: 10,
 
 	/**
+	 * Gamepad RIGHT_ANALOGUE button.
+	 */
+	RIGHT_ANALOGUE_BUT: 11
+};
+
+/**
+ * Gamepad axes contains a list of possible axes.
+ * 
+ * Gamepads might contains more axes that the ones declared in this list.
+ */
+export const GamepadAxis = {
+
+	/**
 	 * Gamepad LEFT_ANALOGUE_HOR axis.
 	 */
-	LEFT_ANALOGUE_HOR: 0,
+	LEFT_HOR: 0,
 
 	/**
 	 * Gamepad LEFT_ANALOGUE_VERT axis.
 	 */
-	LEFT_ANALOGUE_VERT: 1,
-
-	/**
-	 * Gamepad RIGHT_ANALOGUE_BUT axis.
-	 */
-	RIGHT_ANALOGUE_BUT: 11,
+	LEFT_VERT: 1,
 
 	/**
 	 * Gamepad RIGHT_ANALOGUE_HOR axis.
 	 */
-	RIGHT_ANALOGUE_HOR: 2,
+	RIGHT_HOR: 2,
 
 	/**
 	 * Gamepad RIGHT_ANALOGUE_VERT axis.
 	 */
-	RIGHT_ANALOGUE_VERT: 3
+	RIGHT_VERT: 3
 };

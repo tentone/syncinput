@@ -51,7 +51,7 @@ export class Mouse extends InputHandler
 
 	/**
 	 * Array with mouse buttons status.
-	 */
+	 */	
 	public keys: Button[] = new Array(5);
 
 	/**
@@ -148,7 +148,7 @@ export class Mouse extends InputHandler
 			{
 				self.tempWheel = event.deltaY;
 				self.wheelUpdated = true;
-				event.preventDefault();
+				event.stopPropagation();
 			});
 		}
 		else if (window.addEventListener !== undefined) 
@@ -158,7 +158,7 @@ export class Mouse extends InputHandler
 			{
 				self.tempWheel = event.detail * 30;
 				self.wheelUpdated = true;
-				event.preventDefault();
+				event.stopPropagation();
 			});
 		}
 		else 
@@ -167,7 +167,7 @@ export class Mouse extends InputHandler
 			{
 				self.tempWheel = event.deltaY;
 				self.wheelUpdated = true;
-				event.preventDefault();
+				event.stopPropagation();
 			});
 		}
 

@@ -4,14 +4,29 @@ import {Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMat
 
 class CubeExample extends ExampleBase 
 {
+	/**
+	 * Scene object.
+	 */
 	public scene: Scene = new Scene();
 
+	/**
+	 * Camera object.
+	 */
 	public camera: PerspectiveCamera = new PerspectiveCamera(60, 1, 0.1, 1000);
 
+	/**
+	 * WebGL renderer.
+	 */
 	public renderer: WebGLRenderer;
 
+	/**
+	 * Cube object.
+	 */
 	public cube: Mesh;
 
+	/**
+	 * Generate random colors for each vertex of the cube.
+	 */
 	public cubeColor(): void 
 	{
 		// Generate random colors for each vertex
@@ -93,6 +108,10 @@ class CubeExample extends ExampleBase
 			this.cube.rotation.y += this.mouse.delta.x / 1e2;
 		}
 
+
+		this.camera.position.z -= this.mouse.wheel / 1e2;
+
+		this.camera.position.z += this.gamepad.getAxis() / 1e2;
 
 		if (this.mouse.doubleClicked)
 		{
