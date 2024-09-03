@@ -104,12 +104,10 @@ class CubeExample extends ExampleBase
 			this.cube.position.y -= delta;
 		}
 		
-
 		if (this.mouse.buttonPressed(MouseButton.LEFT))
 		{
 			this.cube.rotation.y += this.mouse.delta.x / 1e2;
 		}
-
 
 		this.camera.position.z -= this.gamepad.getAnalogueButton(GamepadButton.RIGHT_TRIGGER_B) / 20;
 		this.camera.position.z += this.gamepad.getAnalogueButton(GamepadButton.LEFT_TRIGGER_B) / 20;

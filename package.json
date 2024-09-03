@@ -16,7 +16,7 @@
 		"build-example": "webpack --config webpack.example.js",
 		"start": "webpack-dev-server --https --config webpack.example.js --mode development --progress --port 5200",
 		"docs": "typedoc --out docs ./source/main.ts",
-		"pub": "npm run build && npm run docs && npm publish --access public .",
+		"pub": "npm run build && npm run build-example && npm run docs && npm publish --access public .",
 		"lint": "eslint --ext .ts .",
 		"lint-fix": "eslint --ext .ts --fix ."
 	},
