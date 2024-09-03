@@ -1,6 +1,8 @@
 
 export {Gamepad} from './gamepad';
-export {GamepadButton} from './gamepad-button';
+export {GamepadButton, GamepadAxis} from './gamepad-button';
+export {GamepadHapticEffectType} from './gamepad-haptic-effect';
+export {GamepadMappingType} from './gamepad-mapping';
 export {Keys} from './keys';
 export {Keyboard} from './keyboard';
 export {Mouse, MouseButton} from './mouse';
